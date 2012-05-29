@@ -1,0 +1,23 @@
+/*Crew Popup Style*/
+
+.olFramedCloudPopupContent {
+	font-family:Verdana;
+}
+
+.olFramedCloudPopupContent h1 {
+	background-color:#ff8800; 
+	font-family:Impact,sans-serif; 
+	color:#ffffff; 
+	padding:5px;
+	margin:0 10px 0 0;
+}
+
+.olFramedCloudPopupContent h2 {
+	background-color:#000000; 
+	font-family:Impact,sans-serif; 
+	color:#ffffff; 
+	float:right; 
+	display:inline-block;
+	padding:3px;
+	margin:0;
+}

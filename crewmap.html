@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <title>Simple Crewmap</title>
+<link href="css/crews.css" media="screen" type="text/css" rel="stylesheet">
+<link href="css/map.css" media="screen" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/berlincrew.js"></script>
+<script type="text/javascript" src="js/piratepoint.js"></script>
+<script type="text/javascript" src="js/piratePointsCollection.js"></script>
+<script type="text/javascript" src="js/berlinCrewsCollection.js"></script>
+<script type="text/javascript" src="js/OpenLayers/OpenLayers.js"></script>
+
+<script type="text/javascript">
+var baseSourceURL = "http://wiki.piratenpartei.de";
+var map;
+var markers;
+var icon;
+$(document).ready(function() {
+	var options = {theme:"js/OpenLayers/theme/default/style.css"};
+	map = new OpenLayers.Map("map_canvas", options);
+	var osm = new OpenLayers.Layer.OSM();
+	map.addLayer(osm);
+
+	geolocate({address:"Berlin"},centerMap);
+
+	markers = new OpenLayers.Layer.Markers( "Markers" );
+	map.addLayer(markers);
+
+	var size = new OpenLayers.Size(21,25);
+	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+	icon = new OpenLayers.Icon('img/marker.png', size, offset);
+
+	//var source = new PiratePointsCollection(baseSourceURL+'/Vorlage:Berlin_Navigationsleiste_Crews','a[title^="BE:Crews/"]',crewLoaded);
+	var source = new BerlinCrewsCollection(baseSourceURL+'/BE:Crews/Crewmap','.crewBerlin',crewLoaded);
+	
+});
+
+var crewLoaded = function(crew) {
+	var marker = new OpenLayers.Marker(crew.position,icon.clone());
+	marker.events.on({"click":function() {showPopup(crew)}});
+	markers.addMarker(marker);
+}
+
+var markAddress = function(obj, locationData) {
+	var position = getPosition(locationData);
+	var marker = new OpenLayers.Marker(position,icon.clone());
+	marker.events.on({"click":function() {showPopup(obj, marker.icon)}});
+	markers.addMarker(marker);
+}
+
+function showPopup(crew,anchor) {
+	//TODO handle more than one crew per position
+	var popup = new OpenLayers.Popup.FramedCloud(null,
+                       crew.position,
+                       new OpenLayers.Size(200,200), 
+                       "<div><h1>"+crew.name+"</h1><h2>Crew</h2><div style='clear:both;'></div><ul><li>"+crew.address+"</li><li><a href='"+crew.wikiURL+"' target='blank'>im Wiki</a></li></ul></div>",anchor,
+                       true);
+    	map.addPopup(popup);
+}
+
+var centerMap = function(locationData){
+	var position = getPosition(locationData);	
+	map.setCenter(position,11);
+}
+
+function getPosition(data) {
+	var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+	var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+	var position       = new OpenLayers.LonLat(data[0].lon, data[0].lat).transform(fromProjection,toProjection);
+	return position;
+}
+
+function geolocate(obj, callback) {
+	$.ajax({
+	  url: 'http://nominatim.openstreetmap.org/search?q='+obj.address+'&format=json&polygon=1&addressdetails=1',
+	  dataType:'json',
+	  processData:false,
+	}).success(function(data) {
+		callback(data);	
+	});
+}
+ 
+    </script>
+  </head>
+  <body>
+  <div>
+   <h1>Gibt es schon eine Crew in deiner N&auml;he?</h1>
+  </div>
+    <div id="map_canvas"></div>
+  </body>
+</html>
