@@ -8,7 +8,7 @@
 <script type="text/javascript" src="js/piratepoint.js"></script>
 <script type="text/javascript" src="js/piratePointsCollection.js"></script>
 <script type="text/javascript" src="js/berlinCrewsCollection.js"></script>
-<script type="text/javascript" src="js/OpenLayers/OpenLayers.js"></script>
+<script type="text/javascript" src="OpenLayers/OpenLayers.js"></script>
 
 <script type="text/javascript">
 var baseSourceURL = "http://wiki.piratenpartei.de";
@@ -16,7 +16,7 @@ var map;
 var markers;
 var icon;
 $(document).ready(function() {
-	var options = {theme:"js/OpenLayers/theme/default/style.css"};
+	var options = {theme:"OpenLayers/theme/default/style.css"};
 	map = new OpenLayers.Map("map_canvas", options);
 	var osm = new OpenLayers.Layer.OSM();
 	map.addLayer(osm);
