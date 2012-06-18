@@ -16,7 +16,7 @@ var map;
 var markers;
 var icon;
 $(document).ready(function() {
-	var options = {theme:"OpenLayers/theme/default/style.css"};
+    var options = {theme:"OpenLayers/theme/default/style.css"};
 	map = new OpenLayers.Map("map_canvas", options);
 	var osm = new OpenLayers.Layer.OSM();
 	map.addLayer(osm);
@@ -31,8 +31,17 @@ $(document).ready(function() {
 	icon = new OpenLayers.Icon('img/marker.png', size, offset);
 
 	//var source = new PiratePointsCollection(baseSourceURL+'/Vorlage:Berlin_Navigationsleiste_Crews','a[title^="BE:Crews/"]',crewLoaded);
-	var source = new BerlinCrewsCollection(baseSourceURL+'/BE:Crews/Crewmap','.crewBerlin',crewLoaded);
-	
+	//var source = new BerlinCrewsCollection(baseSourceURL+'/BE:Crews/Crewmap','.crewBerlin',crewLoaded);
+
+    $.getJSON('http://piratech.iriscouch.com/mapimap/_design/crews/_view/all?callback=?', function(data) {
+		for(var i =0;i<data.total_rows;i++) {
+            var crew = data.rows[i];
+            crew.position = getCoordinates(crew.lon, crew.lat);
+            crewLoaded(crew);
+		}
+    });
+    
+
 });
 
 var crewLoaded = function(crew) {
@@ -51,9 +60,11 @@ var markAddress = function(obj, locationData) {
 function showPopup(crew,anchor) {
 	//TODO handle more than one crew per position
 	var popup = new OpenLayers.Popup.FramedCloud(null,
-                       crew.position,
+                       getPosition(crew.coordinates.lon, crew.coordintes.lat),
                        new OpenLayers.Size(200,200), 
-                       "<div><h1>"+crew.name+"</h1><h2>Crew</h2><div style='clear:both;'></div><ul><li>"+crew.address+"</li><li><a href='"+crew.wikiURL+"' target='blank'>im Wiki</a></li></ul></div>",anchor,
+                       "<div><h1>"+crew.name+"</h1><h2>Crew</h2><div style='clear:both;'></div><ul><li>"+crew.address
+
++"</li><li><a href='"+crew.wikiURL+"' target='blank'>im Wiki</a></li></ul></div>",anchor,
                        true);
     	map.addPopup(popup);
 }
@@ -63,11 +74,11 @@ var centerMap = function(locationData){
 	map.setCenter(position,11);
 }
 
-function getPosition(data) {
-	var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
-	var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
-	var position       = new OpenLayers.LonLat(data[0].lon, data[0].lat).transform(fromProjection,toProjection);
-	return position;
+function getPosition(lon,lat) {
+    var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+    var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+	var position       = new OpenLayers.LonLat(lon,lat).transform(fromProjection,toProjection);
+    return position;
 }
 
 function geolocate(obj, callback) {
