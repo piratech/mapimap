@@ -1,0 +1,6 @@
+de.piratech.mapimap.UpdateMapData enthält die Main Methode
+	Paramter:
+		task [updateDB, deleteAll]
+		pathToProperties
+
+src/test/resources/UpdateMapData.launch ist ein "Eclipse Run Configuration"-Beispiel
