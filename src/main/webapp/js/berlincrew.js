@@ -2,7 +2,7 @@ function BerlinCrew(name, wikiURL, address, time, callback) {
 	
 	this.name = name;
 	this.wikiURL = wikiURL;
-    this.coordinates = {lat:0, lon:0};
+	this.position;
 	this.address = address;
 	this.time = time;
 	this.initialized = callback;
@@ -15,16 +15,15 @@ BerlinCrew.prototype._init = function() {
 }
 
 BerlinCrew.prototype._getAddressPosition= function() {
-	if (typeof this.position == "undefined" && this.address !== null && typeof this.address != "undefined") {
+	if (typeof this.position == "undefined" && this.address != null && typeof this.address != "undefined") {
 		var me = this;
-		$.ajax({
+		var result = $.ajax({
 		  url: 'http://nominatim.openstreetmap.org/search?q='+this.address+'&format=json&polygon=1&addressdetails=1',
 		  dataType:'json',
 		  processData:false,
 		}).success(function(data) {
 			if(data.length > 0) {
-                me.coordinates.lon = data[0].lon;
-                me.coordinates.lat = data[0].lat;
+				me.position = getPosition(data); //getPosition is in crewmap :(
 				me.initialized(me);
 			} else {
 				me._debug("no location found for address "+me.address);
