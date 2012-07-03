@@ -10,6 +10,7 @@ public class Crew {
   //@todo: deveth0@geirkairam:  see Address.java
   //@todo: deveth0@geirkairam: There should be a timestamp, when the crew has been updated for the last time
   //@todo: deveth0@geirkairam: propably a map-url would be useful for external apps
+  
   @JsonProperty("_id")
   private String id;
   @JsonProperty("_rev")
