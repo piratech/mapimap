@@ -8,5 +8,5 @@ package de.piratech.mapimap.data;
  *
  */
 public class Squad {
-
+  //@todo: deveth0@geirkairam: empty class?
 }

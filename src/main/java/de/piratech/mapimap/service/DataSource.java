@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.piratech.mapimap.service;
 
@@ -10,19 +10,19 @@ import de.piratech.mapimap.data.Squad;
 
 /**
  * @author maria
- * 
+ *
  */
 public interface DataSource {
 
-	public List<Crew> getCrews();
+  public List<Crew> getCrews();
 
-	public void addCrew(Crew newCrew);
+  public void addCrew(Crew newCrew);
 
-	public void delete(Crew crew);
+  public void delete(Crew crew);
 
-	public List<Squad> getSquads();
+  public List<Squad> getSquads();
 
-	public void addSquad(Crew newSquad);
+  public void addSquad(Crew newSquad);
 
-	public void delete(Squad squad);
+  public void delete(Squad squad);
 }

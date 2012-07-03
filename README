@@ -4,3 +4,9 @@ de.piratech.mapimap.UpdateMapData enthält die Main Methode
 		pathToProperties
 
 src/test/resources/UpdateMapData.launch ist ein "Eclipse Run Configuration"-Beispiel
+
+
+
+Starten des Projekts:
+mvn clean install
+java -jar target/mapimap-0.0.1-SNAPSHOT-jar-with-dependencies.jar YOURCONFIG.properties

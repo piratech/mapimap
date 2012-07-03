@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package de.piratech.mapimap.service;
 
@@ -13,30 +13,31 @@ import de.piratech.mapimap.data.Crew;
 
 /**
  * @author maria
- * 
+ *
  */
 public class CrewsRepository extends CouchDbRepositorySupport<Crew> {
 
-	protected CrewsRepository(Class<Crew> type, CouchDbConnector db) {
-		super(type, db);
-	}
+  protected CrewsRepository(Class<Crew> type, CouchDbConnector db) {
+    super(type, db);
+  }
 
-	public List<Crew> getCrews() {
-		return queryView("crews/all");
-	}
+  public List<Crew> getCrews() {
+    return queryView("crews/all");
+  }
 
-	public boolean crewExists(Crew newCrew) {
-		List<Crew> existingCrews = findByWikiUrl(newCrew.getWikiUrl());
-		if (existingCrews.size() > 0) {
-			newCrew.setId(existingCrews.get(0).getId());
-			newCrew.setRevision(existingCrews.get(0).getRevision());
-			return true;
-		}
-		return false;
-	}
+  public boolean crewExists(Crew newCrew) {
+    List<Crew> existingCrews = findByWikiUrl(newCrew.getWikiUrl());
+    //@todo: deveth0@geirkairam: us isEmpty()
+    if (existingCrews.size() > 0) {
+      newCrew.setId(existingCrews.get(0).getId());
+      newCrew.setRevision(existingCrews.get(0).getRevision());
+      return true;
+    }
+    return false;
+  }
 
-	@GenerateView
-	public List<Crew> findByWikiUrl(String url) {
-		return queryView("all", url);
-	}
+  @GenerateView
+  public List<Crew> findByWikiUrl(String url) {
+    return queryView("all", url);
+  }
 }
