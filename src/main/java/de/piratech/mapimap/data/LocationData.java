@@ -36,4 +36,11 @@ public class LocationData {
   public void setAddress(Address address) {
     this.address = address;
   }
+
+  @Override
+  public String toString() {
+    return "LocationData{" + "lat=" + lat + ", lon=" + lon + ", address=" + address + '}';
+  }
+  
+  
 }

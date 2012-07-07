@@ -55,16 +55,16 @@ public class UpdateMapData {
         LOG.error("task >{}< not supported", args[0]);
       }
     } catch (Exception e) {
-      LOG.error("message is {}", e.getMessage());
+      LOG.error("message is {}", e);
       //@todo: deveth0@geirkairam: useless as e has already been logged
       e.printStackTrace();
     }
     LOG.trace("main() leave");
   }
 
-  private static void deleteAll(String propertiesURI) throws FileNotFoundException, IOException {
+  private static void deleteAll(String _propertiesURI) throws FileNotFoundException, IOException {
     LOG.info("perform task delete...");
-    Properties properties = loadProperties(propertiesURI);
+    Properties properties = loadProperties(_propertiesURI);
     DataSource dataSource = createDataSource(properties);
     //@todo: deveth0@geirkairam: can be one-lined (for(Crew crew: dataSource...){
     List<Crew> crews = dataSource.getCrews();

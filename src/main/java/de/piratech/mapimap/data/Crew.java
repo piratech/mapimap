@@ -1,5 +1,7 @@
 package de.piratech.mapimap.data;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
@@ -10,7 +12,7 @@ public class Crew {
   //@todo: deveth0@geirkairam:  see Address.java
   //@todo: deveth0@geirkairam: There should be a timestamp, when the crew has been updated for the last time
   //@todo: deveth0@geirkairam: propably a map-url would be useful for external apps
-  
+
   @JsonProperty("_id")
   private String id;
   @JsonProperty("_rev")
@@ -19,6 +21,7 @@ public class Crew {
   private String wikiUrl;
   private LocationData locationData;
   private DataType type = DataType.crew;
+  private String checkSum;
 
   public String getId() {
     return id;
@@ -67,5 +70,16 @@ public class Crew {
 
   public void setType(DataType type) {
     this.type = type;
+  }
+
+  public String getCheckSum() {
+    if (StringUtils.isBlank(checkSum)) {
+      checkSum = DigestUtils.md5Hex(getName() + getWikiUrl() + getLocationData().toString() + getType().toString());
+    }
+    return checkSum;
+  }
+
+  public void setCheckSum(String checkSum) {
+    this.checkSum = checkSum;
   }
 }
