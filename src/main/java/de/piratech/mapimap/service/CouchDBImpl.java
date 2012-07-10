@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import de.piratech.mapimap.data.Crew;
 import de.piratech.mapimap.data.Squad;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author maria
@@ -58,7 +59,11 @@ public class CouchDBImpl implements DataSource {
 
   public void updateCrew(Crew crew) {
     LOG.info("updating crew  {}", crew.getName());
-    crewRepo.update(crew);
+    // Update crew only if something has changed
+    Crew crewInDB = crewRepo.findByWikiUrl(crew.getWikiUrl()).get(0);
+    if (StringUtils.equals(crewInDB.getCheckSum(), crew.getCheckSum())) {
+      crewRepo.update(crew);
+    }
   }
 
   @Override
