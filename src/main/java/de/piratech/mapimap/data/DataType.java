@@ -1,8 +1,11 @@
 package de.piratech.mapimap.data;
+
 /**
  * @author maria
- * 
+ *
  */
 public enum DataType {
-	crew, squad
+//@todo: deveth0@geirkairam:  enums uppercase (e.g. CREW)
+
+  crew, squad
 }

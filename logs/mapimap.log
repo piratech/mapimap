@@ -1,0 +1,375 @@
+ERROR 2012-07-03 17:59:20,361 [main][] de.piratech.mapimap.UpdateMapData - task >mapimap.properties< not supported
+ERROR 2012-07-03 17:59:29,761 [main][] de.piratech.mapimap.UpdateMapData - task >update< not supported
+ERROR 2012-07-03 18:02:12,719 [main][] de.piratech.mapimap.UpdateMapData - task >update< not supported
+ INFO 2012-07-03 18:02:32,189 [main][] de.piratech.mapimap.UpdateMapData - perform task update...
+ INFO 2012-07-03 18:02:49,329 [main][] de.piratech.mapimap.service.GeocoderImpl - found loation data for address Mierendorffstr. 25, 10589 Berlin
+ WARN 2012-07-03 18:02:49,339 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Bjarne Stroustrup (url: http://wiki.piratenpartei.de/BE:Crews/Bjarne Stroustrup) because address not found
+ WARN 2012-07-03 18:02:49,339 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Bunte Kuh (url: http://wiki.piratenpartei.de/BE:Crews/Bunte Kuh) because address not found
+ INFO 2012-07-03 18:02:50,749 [main][] de.piratech.mapimap.service.GeocoderImpl - found loation data for address Nürnberger Str. 17, 10789 Berlin
+ WARN 2012-07-03 18:02:50,749 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Defiant (url: http://wiki.piratenpartei.de/BE:Crews/Defiant) because address not found
+ WARN 2012-07-03 18:02:50,749 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Eiserner Gustav (url: http://wiki.piratenpartei.de/BE:Crews/Eiserner Gustav) because address not found
+ WARN 2012-07-03 18:02:50,749 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Enterprise (url: http://wiki.piratenpartei.de/BE:Crews/Enterprise) because address not found
+ WARN 2012-07-03 18:02:50,749 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Fliegende Luftbrücke (url: http://wiki.piratenpartei.de/BE:Crews/Fliegende Luftbrücke) because address not found
+ WARN 2012-07-03 18:02:50,749 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Fnordy-Fnord Roughnecks (url: http://wiki.piratenpartei.de/BE:Crews/Fnordy-Fnord Roughnecks) because address not found
+ WARN 2012-07-03 18:02:50,749 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Free.booter (url: http://wiki.piratenpartei.de/BE:Crews/Free.booter) because address not found
+ WARN 2012-07-03 18:02:50,982 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Grace O'Malley (url: http://wiki.piratenpartei.de/BE:Crews/Grace O'Malley) because location not found
+ WARN 2012-07-03 18:02:50,985 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Graf Luckner (url: http://wiki.piratenpartei.de/BE:Crews/Graf Luckner) because address not found
+ INFO 2012-07-03 18:02:52,019 [main][] de.piratech.mapimap.service.GeocoderImpl - found loation data for address Fritz-Erler-Allee 57, 12351 Berlin
+ WARN 2012-07-03 18:02:52,211 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Guybrush Threepwood (url: http://wiki.piratenpartei.de/BE:Crews/Guybrush Threepwood) because location not found
+ WARN 2012-07-03 18:02:52,212 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Hauptmann von Köpenick (url: http://wiki.piratenpartei.de/BE:Crews/Hauptmann von Köpenick) because address not found
+ WARN 2012-07-03 18:02:52,214 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Havelpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Havelpiraten) because address not found
+ WARN 2012-07-03 18:02:52,215 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew HedyLamarr (url: http://wiki.piratenpartei.de/BE:Crews/HedyLamarr) because address not found
+ INFO 2012-07-03 18:02:52,631 [main][] de.piratech.mapimap.service.GeocoderImpl - found loation data for address Samariterstr. 17, 10247 Berlin
+ WARN 2012-07-03 18:02:52,633 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Inselpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Inselpiraten) because address not found
+ INFO 2012-07-03 18:02:53,240 [main][] de.piratech.mapimap.service.GeocoderImpl - found loation data for address Frankenstr. 13, 10781 Berlin
+ INFO 2012-07-03 18:02:53,560 [main][] de.piratech.mapimap.service.GeocoderImpl - found loation data for address Eichborndamm 236, 13437 Berlin
+ INFO 2012-07-03 18:02:55,477 [main][] de.piratech.mapimap.service.GeocoderImpl - found loation data for address Glienicker Str. 5, 13467 Berlin
+ WARN 2012-07-03 18:02:55,477 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew JotWeeDee (url: http://wiki.piratenpartei.de/BE:Crews/JotWeeDee) because address not found
+ WARN 2012-07-03 18:02:55,477 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Konrad Zuse (url: http://wiki.piratenpartei.de/BE:Crews/Konrad Zuse) because address not found
+ WARN 2012-07-03 18:02:55,477 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Leuchtfeuer (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtfeuer) because address not found
+ WARN 2012-07-03 18:02:55,487 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Leuchtturmspitze (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtturmspitze) because address not found
+ WARN 2012-07-03 18:02:55,487 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Molecule Crew (url: http://wiki.piratenpartei.de/BE:Crews/Molecule Crew) because address not found
+ WARN 2012-07-03 18:02:55,487 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Negroponte (url: http://wiki.piratenpartei.de/BE:Crews/Negroponte) because address not found
+ WARN 2012-07-03 18:02:55,487 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Nimbus (url: http://wiki.piratenpartei.de/BE:Crews/Nimbus) because address not found
+ WARN 2012-07-03 18:02:55,487 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Nordnordost (url: http://wiki.piratenpartei.de/BE:Crews/Nordnordost) because address not found
+ WARN 2012-07-03 18:02:55,487 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Papillon (url: http://wiki.piratenpartei.de/BE:Crews/Papillon) because address not found
+ WARN 2012-07-03 18:02:55,487 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Pippi Langstrumpf (url: http://wiki.piratenpartei.de/BE:Crews/Pippi Langstrumpf) because address not found
+ WARN 2012-07-03 18:02:55,487 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Prometheus (url: http://wiki.piratenpartei.de/BE:Crews/Prometheus) because address not found
+ WARN 2012-07-03 18:02:55,497 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Q-damm-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Q-damm-Piraten) because address not found
+ WARN 2012-07-03 18:02:55,497 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Schrödingers Katze (url: http://wiki.piratenpartei.de/BE:Crews/Schrödingers Katze) because address not found
+ WARN 2012-07-03 18:02:55,997 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Seeteufel (url: http://wiki.piratenpartei.de/BE:Crews/Seeteufel) because location not found
+ WARN 2012-07-03 18:02:56,817 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Serenity (url: http://wiki.piratenpartei.de/BE:Crews/Serenity) because location not found
+ WARN 2012-07-03 18:02:57,017 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Spätrömische Dekadenz (url: http://wiki.piratenpartei.de/BE:Crews/Spätrömische Dekadenz) because location not found
+ WARN 2012-07-03 18:02:57,017 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Süd-Seh-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Süd-Seh-Piraten) because address not found
+ WARN 2012-07-03 18:02:57,017 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Taka-Tuka-Land (url: http://wiki.piratenpartei.de/BE:Crews/Taka-Tuka-Land) because address not found
+ WARN 2012-07-03 18:02:57,027 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Urbanauten (url: http://wiki.piratenpartei.de/BE:Crews/Urbanauten) because address not found
+ WARN 2012-07-03 18:02:57,027 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Weissensee (url: http://wiki.piratenpartei.de/BE:Crews/Weissensee) because address not found
+ WARN 2012-07-03 18:02:57,027 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Witwe Ching (url: http://wiki.piratenpartei.de/BE:Crews/Witwe Ching) because address not found
+ INFO 2012-07-03 18:02:57,535 [main][] de.piratech.mapimap.service.GeocoderImpl - found loation data for address Schmargendorfer Str. 35, 12159 Berlin
+ WARN 2012-07-03 18:02:57,536 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Zitadelle (url: http://wiki.piratenpartei.de/BE:Crews/Zitadelle) because address not found
+ WARN 2012-07-03 18:02:57,945 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew mitte-mitte (url: http://wiki.piratenpartei.de/BE:Crews/mitte-mitte) because location not found
+ WARN 2012-07-03 18:02:57,946 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew mostly.harmless (url: http://wiki.piratenpartei.de/BE:Crews/mostly.harmless) because address not found
+ WARN 2012-07-03 18:02:57,947 [main][] de.piratech.mapimap.service.BerlinCrewsImpl - skip crew Pankow/Flottentreffen (url: http://wiki.piratenpartei.de/BE:Crews/Pankow/Flottentreffen) because address not found
+ INFO 2012-07-03 18:02:57,949 [main][] de.piratech.mapimap.UpdateMapData - found 8 crews, try to add them to database...
+ERROR 2012-07-03 18:02:57,966 [main][] de.piratech.mapimap.UpdateMapData - message is null
+ INFO 2012-07-03 18:03:22,286 [main][] de.piratech.mapimap.UpdateMapData - perform task update...
+[INFO] 18:03:53 mapimap.UpdateMapData:77 perform task update...
+[INFO] 18:03:56 service.GeocoderImpl:51 found loation data for address Mierendorffstr. 25, 10589 Berlin
+[WARN] 18:03:56 service.BerlinCrewsImpl:73 skip crew Bjarne Stroustrup (url: http://wiki.piratenpartei.de/BE:Crews/Bjarne Stroustrup) because address not found
+[WARN] 18:03:56 service.BerlinCrewsImpl:73 skip crew Bunte Kuh (url: http://wiki.piratenpartei.de/BE:Crews/Bunte Kuh) because address not found
+[INFO] 18:03:57 service.GeocoderImpl:51 found loation data for address Nürnberger Str. 17, 10789 Berlin
+[WARN] 18:03:57 service.BerlinCrewsImpl:73 skip crew Defiant (url: http://wiki.piratenpartei.de/BE:Crews/Defiant) because address not found
+[WARN] 18:03:57 service.BerlinCrewsImpl:73 skip crew Eiserner Gustav (url: http://wiki.piratenpartei.de/BE:Crews/Eiserner Gustav) because address not found
+[WARN] 18:03:57 service.BerlinCrewsImpl:73 skip crew Enterprise (url: http://wiki.piratenpartei.de/BE:Crews/Enterprise) because address not found
+[WARN] 18:03:57 service.BerlinCrewsImpl:73 skip crew Fliegende Luftbrücke (url: http://wiki.piratenpartei.de/BE:Crews/Fliegende Luftbrücke) because address not found
+[WARN] 18:03:57 service.BerlinCrewsImpl:73 skip crew Fnordy-Fnord Roughnecks (url: http://wiki.piratenpartei.de/BE:Crews/Fnordy-Fnord Roughnecks) because address not found
+[WARN] 18:03:57 service.BerlinCrewsImpl:73 skip crew Free.booter (url: http://wiki.piratenpartei.de/BE:Crews/Free.booter) because address not found
+[WARN] 18:03:57 service.BerlinCrewsImpl:69 skip crew Grace O'Malley (url: http://wiki.piratenpartei.de/BE:Crews/Grace O'Malley) because location not found
+[WARN] 18:03:57 service.BerlinCrewsImpl:73 skip crew Graf Luckner (url: http://wiki.piratenpartei.de/BE:Crews/Graf Luckner) because address not found
+[INFO] 18:03:58 service.GeocoderImpl:51 found loation data for address Fritz-Erler-Allee 57, 12351 Berlin
+[WARN] 18:03:58 service.BerlinCrewsImpl:69 skip crew Guybrush Threepwood (url: http://wiki.piratenpartei.de/BE:Crews/Guybrush Threepwood) because location not found
+[WARN] 18:03:58 service.BerlinCrewsImpl:73 skip crew Hauptmann von Köpenick (url: http://wiki.piratenpartei.de/BE:Crews/Hauptmann von Köpenick) because address not found
+[WARN] 18:03:58 service.BerlinCrewsImpl:73 skip crew Havelpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Havelpiraten) because address not found
+[WARN] 18:03:58 service.BerlinCrewsImpl:73 skip crew HedyLamarr (url: http://wiki.piratenpartei.de/BE:Crews/HedyLamarr) because address not found
+[INFO] 18:03:58 service.GeocoderImpl:51 found loation data for address Samariterstr. 17, 10247 Berlin
+[WARN] 18:03:58 service.BerlinCrewsImpl:73 skip crew Inselpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Inselpiraten) because address not found
+[INFO] 18:03:59 service.GeocoderImpl:51 found loation data for address Frankenstr. 13, 10781 Berlin
+[INFO] 18:03:59 service.GeocoderImpl:51 found loation data for address Eichborndamm 236, 13437 Berlin
+[INFO] 18:04:00 service.GeocoderImpl:51 found loation data for address Glienicker Str. 5, 13467 Berlin
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew JotWeeDee (url: http://wiki.piratenpartei.de/BE:Crews/JotWeeDee) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Konrad Zuse (url: http://wiki.piratenpartei.de/BE:Crews/Konrad Zuse) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Leuchtfeuer (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtfeuer) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Leuchtturmspitze (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtturmspitze) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Molecule Crew (url: http://wiki.piratenpartei.de/BE:Crews/Molecule Crew) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Negroponte (url: http://wiki.piratenpartei.de/BE:Crews/Negroponte) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Nimbus (url: http://wiki.piratenpartei.de/BE:Crews/Nimbus) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Nordnordost (url: http://wiki.piratenpartei.de/BE:Crews/Nordnordost) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Papillon (url: http://wiki.piratenpartei.de/BE:Crews/Papillon) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Pippi Langstrumpf (url: http://wiki.piratenpartei.de/BE:Crews/Pippi Langstrumpf) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Prometheus (url: http://wiki.piratenpartei.de/BE:Crews/Prometheus) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Q-damm-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Q-damm-Piraten) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:73 skip crew Schrödingers Katze (url: http://wiki.piratenpartei.de/BE:Crews/Schrödingers Katze) because address not found
+[WARN] 18:04:00 service.BerlinCrewsImpl:69 skip crew Seeteufel (url: http://wiki.piratenpartei.de/BE:Crews/Seeteufel) because location not found
+[WARN] 18:04:01 service.BerlinCrewsImpl:69 skip crew Serenity (url: http://wiki.piratenpartei.de/BE:Crews/Serenity) because location not found
+[WARN] 18:04:01 service.BerlinCrewsImpl:69 skip crew Spätrömische Dekadenz (url: http://wiki.piratenpartei.de/BE:Crews/Spätrömische Dekadenz) because location not found
+[WARN] 18:04:01 service.BerlinCrewsImpl:73 skip crew Süd-Seh-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Süd-Seh-Piraten) because address not found
+[WARN] 18:04:01 service.BerlinCrewsImpl:73 skip crew Taka-Tuka-Land (url: http://wiki.piratenpartei.de/BE:Crews/Taka-Tuka-Land) because address not found
+[WARN] 18:04:01 service.BerlinCrewsImpl:73 skip crew Urbanauten (url: http://wiki.piratenpartei.de/BE:Crews/Urbanauten) because address not found
+[WARN] 18:04:01 service.BerlinCrewsImpl:73 skip crew Weissensee (url: http://wiki.piratenpartei.de/BE:Crews/Weissensee) because address not found
+[WARN] 18:04:01 service.BerlinCrewsImpl:73 skip crew Witwe Ching (url: http://wiki.piratenpartei.de/BE:Crews/Witwe Ching) because address not found
+[INFO] 18:04:01 service.GeocoderImpl:51 found loation data for address Schmargendorfer Str. 35, 12159 Berlin
+[WARN] 18:04:01 service.BerlinCrewsImpl:73 skip crew Zitadelle (url: http://wiki.piratenpartei.de/BE:Crews/Zitadelle) because address not found
+[WARN] 18:04:02 service.BerlinCrewsImpl:69 skip crew mitte-mitte (url: http://wiki.piratenpartei.de/BE:Crews/mitte-mitte) because location not found
+[WARN] 18:04:02 service.BerlinCrewsImpl:73 skip crew mostly.harmless (url: http://wiki.piratenpartei.de/BE:Crews/mostly.harmless) because address not found
+[WARN] 18:04:02 service.BerlinCrewsImpl:73 skip crew Pankow/Flottentreffen (url: http://wiki.piratenpartei.de/BE:Crews/Pankow/Flottentreffen) because address not found
+[INFO] 18:04:02 mapimap.UpdateMapData:84 found 8 crews, try to add them to database...
+[ERROR] 18:04:02 mapimap.UpdateMapData:57 message is null
+[INFO] 18:05:04 mapimap.UpdateMapData:77 perform task update...
+[INFO] 18:05:09 service.GeocoderImpl:51 found loation data for address Mierendorffstr. 25, 10589 Berlin
+[WARN] 18:05:09 service.BerlinCrewsImpl:73 skip crew Bjarne Stroustrup (url: http://wiki.piratenpartei.de/BE:Crews/Bjarne Stroustrup) because address not found
+[WARN] 18:05:09 service.BerlinCrewsImpl:73 skip crew Bunte Kuh (url: http://wiki.piratenpartei.de/BE:Crews/Bunte Kuh) because address not found
+[INFO] 18:05:10 service.GeocoderImpl:51 found loation data for address Nürnberger Str. 17, 10789 Berlin
+[WARN] 18:05:10 service.BerlinCrewsImpl:73 skip crew Defiant (url: http://wiki.piratenpartei.de/BE:Crews/Defiant) because address not found
+[WARN] 18:05:10 service.BerlinCrewsImpl:73 skip crew Eiserner Gustav (url: http://wiki.piratenpartei.de/BE:Crews/Eiserner Gustav) because address not found
+[WARN] 18:05:10 service.BerlinCrewsImpl:73 skip crew Enterprise (url: http://wiki.piratenpartei.de/BE:Crews/Enterprise) because address not found
+[WARN] 18:05:10 service.BerlinCrewsImpl:73 skip crew Fliegende Luftbrücke (url: http://wiki.piratenpartei.de/BE:Crews/Fliegende Luftbrücke) because address not found
+[WARN] 18:05:10 service.BerlinCrewsImpl:73 skip crew Fnordy-Fnord Roughnecks (url: http://wiki.piratenpartei.de/BE:Crews/Fnordy-Fnord Roughnecks) because address not found
+[WARN] 18:05:10 service.BerlinCrewsImpl:73 skip crew Free.booter (url: http://wiki.piratenpartei.de/BE:Crews/Free.booter) because address not found
+[WARN] 18:05:10 service.BerlinCrewsImpl:69 skip crew Grace O'Malley (url: http://wiki.piratenpartei.de/BE:Crews/Grace O'Malley) because location not found
+[WARN] 18:05:10 service.BerlinCrewsImpl:73 skip crew Graf Luckner (url: http://wiki.piratenpartei.de/BE:Crews/Graf Luckner) because address not found
+[INFO] 18:05:10 service.GeocoderImpl:51 found loation data for address Fritz-Erler-Allee 57, 12351 Berlin
+[WARN] 18:05:10 service.BerlinCrewsImpl:69 skip crew Guybrush Threepwood (url: http://wiki.piratenpartei.de/BE:Crews/Guybrush Threepwood) because location not found
+[WARN] 18:05:10 service.BerlinCrewsImpl:73 skip crew Hauptmann von Köpenick (url: http://wiki.piratenpartei.de/BE:Crews/Hauptmann von Köpenick) because address not found
+[WARN] 18:05:10 service.BerlinCrewsImpl:73 skip crew Havelpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Havelpiraten) because address not found
+[WARN] 18:05:10 service.BerlinCrewsImpl:73 skip crew HedyLamarr (url: http://wiki.piratenpartei.de/BE:Crews/HedyLamarr) because address not found
+[INFO] 18:05:11 service.GeocoderImpl:51 found loation data for address Samariterstr. 17, 10247 Berlin
+[WARN] 18:05:11 service.BerlinCrewsImpl:73 skip crew Inselpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Inselpiraten) because address not found
+[INFO] 18:05:11 service.GeocoderImpl:51 found loation data for address Frankenstr. 13, 10781 Berlin
+[INFO] 18:05:12 service.GeocoderImpl:51 found loation data for address Eichborndamm 236, 13437 Berlin
+[INFO] 18:05:12 service.GeocoderImpl:51 found loation data for address Glienicker Str. 5, 13467 Berlin
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew JotWeeDee (url: http://wiki.piratenpartei.de/BE:Crews/JotWeeDee) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Konrad Zuse (url: http://wiki.piratenpartei.de/BE:Crews/Konrad Zuse) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Leuchtfeuer (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtfeuer) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Leuchtturmspitze (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtturmspitze) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Molecule Crew (url: http://wiki.piratenpartei.de/BE:Crews/Molecule Crew) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Negroponte (url: http://wiki.piratenpartei.de/BE:Crews/Negroponte) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Nimbus (url: http://wiki.piratenpartei.de/BE:Crews/Nimbus) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Nordnordost (url: http://wiki.piratenpartei.de/BE:Crews/Nordnordost) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Papillon (url: http://wiki.piratenpartei.de/BE:Crews/Papillon) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Pippi Langstrumpf (url: http://wiki.piratenpartei.de/BE:Crews/Pippi Langstrumpf) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Prometheus (url: http://wiki.piratenpartei.de/BE:Crews/Prometheus) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Q-damm-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Q-damm-Piraten) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:73 skip crew Schrödingers Katze (url: http://wiki.piratenpartei.de/BE:Crews/Schrödingers Katze) because address not found
+[WARN] 18:05:12 service.BerlinCrewsImpl:69 skip crew Seeteufel (url: http://wiki.piratenpartei.de/BE:Crews/Seeteufel) because location not found
+[WARN] 18:05:13 service.BerlinCrewsImpl:69 skip crew Serenity (url: http://wiki.piratenpartei.de/BE:Crews/Serenity) because location not found
+[WARN] 18:05:13 service.BerlinCrewsImpl:69 skip crew Spätrömische Dekadenz (url: http://wiki.piratenpartei.de/BE:Crews/Spätrömische Dekadenz) because location not found
+[WARN] 18:05:13 service.BerlinCrewsImpl:73 skip crew Süd-Seh-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Süd-Seh-Piraten) because address not found
+[WARN] 18:05:13 service.BerlinCrewsImpl:73 skip crew Taka-Tuka-Land (url: http://wiki.piratenpartei.de/BE:Crews/Taka-Tuka-Land) because address not found
+[WARN] 18:05:13 service.BerlinCrewsImpl:73 skip crew Urbanauten (url: http://wiki.piratenpartei.de/BE:Crews/Urbanauten) because address not found
+[WARN] 18:05:13 service.BerlinCrewsImpl:73 skip crew Weissensee (url: http://wiki.piratenpartei.de/BE:Crews/Weissensee) because address not found
+[WARN] 18:05:13 service.BerlinCrewsImpl:73 skip crew Witwe Ching (url: http://wiki.piratenpartei.de/BE:Crews/Witwe Ching) because address not found
+[INFO] 18:05:13 service.GeocoderImpl:51 found loation data for address Schmargendorfer Str. 35, 12159 Berlin
+[WARN] 18:05:13 service.BerlinCrewsImpl:73 skip crew Zitadelle (url: http://wiki.piratenpartei.de/BE:Crews/Zitadelle) because address not found
+[WARN] 18:05:14 service.BerlinCrewsImpl:69 skip crew mitte-mitte (url: http://wiki.piratenpartei.de/BE:Crews/mitte-mitte) because location not found
+[WARN] 18:05:14 service.BerlinCrewsImpl:73 skip crew mostly.harmless (url: http://wiki.piratenpartei.de/BE:Crews/mostly.harmless) because address not found
+[WARN] 18:05:14 service.BerlinCrewsImpl:73 skip crew Pankow/Flottentreffen (url: http://wiki.piratenpartei.de/BE:Crews/Pankow/Flottentreffen) because address not found
+[INFO] 18:05:14 mapimap.UpdateMapData:84 found 8 crews, try to add them to database...
+[ERROR] 18:05:14 mapimap.UpdateMapData:57 message is null
+[INFO] 18:06:03 mapimap.UpdateMapData:77 perform task update...
+[INFO] 18:06:13 service.GeocoderImpl:51 found loation data for address Mierendorffstr. 25, 10589 Berlin
+[WARN] 18:06:13 service.BerlinCrewsImpl:73 skip crew Bjarne Stroustrup (url: http://wiki.piratenpartei.de/BE:Crews/Bjarne Stroustrup) because address not found
+[WARN] 18:06:13 service.BerlinCrewsImpl:73 skip crew Bunte Kuh (url: http://wiki.piratenpartei.de/BE:Crews/Bunte Kuh) because address not found
+[INFO] 18:06:13 service.GeocoderImpl:51 found loation data for address Nürnberger Str. 17, 10789 Berlin
+[WARN] 18:06:13 service.BerlinCrewsImpl:73 skip crew Defiant (url: http://wiki.piratenpartei.de/BE:Crews/Defiant) because address not found
+[WARN] 18:06:13 service.BerlinCrewsImpl:73 skip crew Eiserner Gustav (url: http://wiki.piratenpartei.de/BE:Crews/Eiserner Gustav) because address not found
+[WARN] 18:06:13 service.BerlinCrewsImpl:73 skip crew Enterprise (url: http://wiki.piratenpartei.de/BE:Crews/Enterprise) because address not found
+[WARN] 18:06:13 service.BerlinCrewsImpl:73 skip crew Fliegende Luftbrücke (url: http://wiki.piratenpartei.de/BE:Crews/Fliegende Luftbrücke) because address not found
+[WARN] 18:06:13 service.BerlinCrewsImpl:73 skip crew Fnordy-Fnord Roughnecks (url: http://wiki.piratenpartei.de/BE:Crews/Fnordy-Fnord Roughnecks) because address not found
+[WARN] 18:06:13 service.BerlinCrewsImpl:73 skip crew Free.booter (url: http://wiki.piratenpartei.de/BE:Crews/Free.booter) because address not found
+[WARN] 18:06:14 service.BerlinCrewsImpl:69 skip crew Grace O'Malley (url: http://wiki.piratenpartei.de/BE:Crews/Grace O'Malley) because location not found
+[WARN] 18:06:14 service.BerlinCrewsImpl:73 skip crew Graf Luckner (url: http://wiki.piratenpartei.de/BE:Crews/Graf Luckner) because address not found
+[INFO] 18:06:14 service.GeocoderImpl:51 found loation data for address Fritz-Erler-Allee 57, 12351 Berlin
+[WARN] 18:06:14 service.BerlinCrewsImpl:69 skip crew Guybrush Threepwood (url: http://wiki.piratenpartei.de/BE:Crews/Guybrush Threepwood) because location not found
+[WARN] 18:06:14 service.BerlinCrewsImpl:73 skip crew Hauptmann von Köpenick (url: http://wiki.piratenpartei.de/BE:Crews/Hauptmann von Köpenick) because address not found
+[WARN] 18:06:14 service.BerlinCrewsImpl:73 skip crew Havelpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Havelpiraten) because address not found
+[WARN] 18:06:14 service.BerlinCrewsImpl:73 skip crew HedyLamarr (url: http://wiki.piratenpartei.de/BE:Crews/HedyLamarr) because address not found
+[INFO] 18:06:15 service.GeocoderImpl:51 found loation data for address Samariterstr. 17, 10247 Berlin
+[WARN] 18:06:15 service.BerlinCrewsImpl:73 skip crew Inselpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Inselpiraten) because address not found
+[INFO] 18:06:16 service.GeocoderImpl:51 found loation data for address Frankenstr. 13, 10781 Berlin
+[INFO] 18:06:16 service.GeocoderImpl:51 found loation data for address Eichborndamm 236, 13437 Berlin
+[INFO] 18:06:17 service.GeocoderImpl:51 found loation data for address Glienicker Str. 5, 13467 Berlin
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew JotWeeDee (url: http://wiki.piratenpartei.de/BE:Crews/JotWeeDee) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Konrad Zuse (url: http://wiki.piratenpartei.de/BE:Crews/Konrad Zuse) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Leuchtfeuer (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtfeuer) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Leuchtturmspitze (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtturmspitze) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Molecule Crew (url: http://wiki.piratenpartei.de/BE:Crews/Molecule Crew) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Negroponte (url: http://wiki.piratenpartei.de/BE:Crews/Negroponte) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Nimbus (url: http://wiki.piratenpartei.de/BE:Crews/Nimbus) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Nordnordost (url: http://wiki.piratenpartei.de/BE:Crews/Nordnordost) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Papillon (url: http://wiki.piratenpartei.de/BE:Crews/Papillon) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Pippi Langstrumpf (url: http://wiki.piratenpartei.de/BE:Crews/Pippi Langstrumpf) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Prometheus (url: http://wiki.piratenpartei.de/BE:Crews/Prometheus) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Q-damm-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Q-damm-Piraten) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Schrödingers Katze (url: http://wiki.piratenpartei.de/BE:Crews/Schrödingers Katze) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:69 skip crew Seeteufel (url: http://wiki.piratenpartei.de/BE:Crews/Seeteufel) because location not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:69 skip crew Serenity (url: http://wiki.piratenpartei.de/BE:Crews/Serenity) because location not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:69 skip crew Spätrömische Dekadenz (url: http://wiki.piratenpartei.de/BE:Crews/Spätrömische Dekadenz) because location not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Süd-Seh-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Süd-Seh-Piraten) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Taka-Tuka-Land (url: http://wiki.piratenpartei.de/BE:Crews/Taka-Tuka-Land) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Urbanauten (url: http://wiki.piratenpartei.de/BE:Crews/Urbanauten) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Weissensee (url: http://wiki.piratenpartei.de/BE:Crews/Weissensee) because address not found
+[WARN] 18:06:17 service.BerlinCrewsImpl:73 skip crew Witwe Ching (url: http://wiki.piratenpartei.de/BE:Crews/Witwe Ching) because address not found
+[INFO] 18:06:18 service.GeocoderImpl:51 found loation data for address Schmargendorfer Str. 35, 12159 Berlin
+[WARN] 18:06:18 service.BerlinCrewsImpl:73 skip crew Zitadelle (url: http://wiki.piratenpartei.de/BE:Crews/Zitadelle) because address not found
+[WARN] 18:06:18 service.BerlinCrewsImpl:69 skip crew mitte-mitte (url: http://wiki.piratenpartei.de/BE:Crews/mitte-mitte) because location not found
+[WARN] 18:06:18 service.BerlinCrewsImpl:73 skip crew mostly.harmless (url: http://wiki.piratenpartei.de/BE:Crews/mostly.harmless) because address not found
+[WARN] 18:06:18 service.BerlinCrewsImpl:73 skip crew Pankow/Flottentreffen (url: http://wiki.piratenpartei.de/BE:Crews/Pankow/Flottentreffen) because address not found
+[INFO] 18:06:18 mapimap.UpdateMapData:84 found 8 crews, try to add them to database...
+[ERROR] 18:06:21 mapimap.UpdateMapData:57 message is org.apache.http.client.ClientProtocolException
+[INFO] 18:07:31 mapimap.UpdateMapData:77 perform task update...
+[INFO] 18:07:35 service.GeocoderImpl:51 found loation data for address Mierendorffstr. 25, 10589 Berlin
+[WARN] 18:07:35 service.BerlinCrewsImpl:73 skip crew Bjarne Stroustrup (url: http://wiki.piratenpartei.de/BE:Crews/Bjarne Stroustrup) because address not found
+[WARN] 18:07:35 service.BerlinCrewsImpl:73 skip crew Bunte Kuh (url: http://wiki.piratenpartei.de/BE:Crews/Bunte Kuh) because address not found
+[INFO] 18:07:36 service.GeocoderImpl:51 found loation data for address Nürnberger Str. 17, 10789 Berlin
+[WARN] 18:07:36 service.BerlinCrewsImpl:73 skip crew Defiant (url: http://wiki.piratenpartei.de/BE:Crews/Defiant) because address not found
+[WARN] 18:07:36 service.BerlinCrewsImpl:73 skip crew Eiserner Gustav (url: http://wiki.piratenpartei.de/BE:Crews/Eiserner Gustav) because address not found
+[WARN] 18:07:36 service.BerlinCrewsImpl:73 skip crew Enterprise (url: http://wiki.piratenpartei.de/BE:Crews/Enterprise) because address not found
+[WARN] 18:07:36 service.BerlinCrewsImpl:73 skip crew Fliegende Luftbrücke (url: http://wiki.piratenpartei.de/BE:Crews/Fliegende Luftbrücke) because address not found
+[WARN] 18:07:36 service.BerlinCrewsImpl:73 skip crew Fnordy-Fnord Roughnecks (url: http://wiki.piratenpartei.de/BE:Crews/Fnordy-Fnord Roughnecks) because address not found
+[WARN] 18:07:36 service.BerlinCrewsImpl:73 skip crew Free.booter (url: http://wiki.piratenpartei.de/BE:Crews/Free.booter) because address not found
+[WARN] 18:07:36 service.BerlinCrewsImpl:69 skip crew Grace O'Malley (url: http://wiki.piratenpartei.de/BE:Crews/Grace O'Malley) because location not found
+[WARN] 18:07:36 service.BerlinCrewsImpl:73 skip crew Graf Luckner (url: http://wiki.piratenpartei.de/BE:Crews/Graf Luckner) because address not found
+[INFO] 18:07:37 service.GeocoderImpl:51 found loation data for address Fritz-Erler-Allee 57, 12351 Berlin
+[WARN] 18:07:37 service.BerlinCrewsImpl:69 skip crew Guybrush Threepwood (url: http://wiki.piratenpartei.de/BE:Crews/Guybrush Threepwood) because location not found
+[WARN] 18:07:37 service.BerlinCrewsImpl:73 skip crew Hauptmann von Köpenick (url: http://wiki.piratenpartei.de/BE:Crews/Hauptmann von Köpenick) because address not found
+[WARN] 18:07:37 service.BerlinCrewsImpl:73 skip crew Havelpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Havelpiraten) because address not found
+[WARN] 18:07:37 service.BerlinCrewsImpl:73 skip crew HedyLamarr (url: http://wiki.piratenpartei.de/BE:Crews/HedyLamarr) because address not found
+[INFO] 18:07:37 service.GeocoderImpl:51 found loation data for address Samariterstr. 17, 10247 Berlin
+[WARN] 18:07:37 service.BerlinCrewsImpl:73 skip crew Inselpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Inselpiraten) because address not found
+[INFO] 18:07:38 service.GeocoderImpl:51 found loation data for address Frankenstr. 13, 10781 Berlin
+[INFO] 18:07:38 service.GeocoderImpl:51 found loation data for address Eichborndamm 236, 13437 Berlin
+[INFO] 18:07:38 service.GeocoderImpl:51 found loation data for address Glienicker Str. 5, 13467 Berlin
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew JotWeeDee (url: http://wiki.piratenpartei.de/BE:Crews/JotWeeDee) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Konrad Zuse (url: http://wiki.piratenpartei.de/BE:Crews/Konrad Zuse) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Leuchtfeuer (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtfeuer) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Leuchtturmspitze (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtturmspitze) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Molecule Crew (url: http://wiki.piratenpartei.de/BE:Crews/Molecule Crew) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Negroponte (url: http://wiki.piratenpartei.de/BE:Crews/Negroponte) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Nimbus (url: http://wiki.piratenpartei.de/BE:Crews/Nimbus) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Nordnordost (url: http://wiki.piratenpartei.de/BE:Crews/Nordnordost) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Papillon (url: http://wiki.piratenpartei.de/BE:Crews/Papillon) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Pippi Langstrumpf (url: http://wiki.piratenpartei.de/BE:Crews/Pippi Langstrumpf) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Prometheus (url: http://wiki.piratenpartei.de/BE:Crews/Prometheus) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Q-damm-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Q-damm-Piraten) because address not found
+[WARN] 18:07:38 service.BerlinCrewsImpl:73 skip crew Schrödingers Katze (url: http://wiki.piratenpartei.de/BE:Crews/Schrödingers Katze) because address not found
+[WARN] 18:07:39 service.BerlinCrewsImpl:69 skip crew Seeteufel (url: http://wiki.piratenpartei.de/BE:Crews/Seeteufel) because location not found
+[WARN] 18:07:39 service.BerlinCrewsImpl:69 skip crew Serenity (url: http://wiki.piratenpartei.de/BE:Crews/Serenity) because location not found
+[WARN] 18:07:39 service.BerlinCrewsImpl:69 skip crew Spätrömische Dekadenz (url: http://wiki.piratenpartei.de/BE:Crews/Spätrömische Dekadenz) because location not found
+[WARN] 18:07:39 service.BerlinCrewsImpl:73 skip crew Süd-Seh-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Süd-Seh-Piraten) because address not found
+[WARN] 18:07:39 service.BerlinCrewsImpl:73 skip crew Taka-Tuka-Land (url: http://wiki.piratenpartei.de/BE:Crews/Taka-Tuka-Land) because address not found
+[WARN] 18:07:39 service.BerlinCrewsImpl:73 skip crew Urbanauten (url: http://wiki.piratenpartei.de/BE:Crews/Urbanauten) because address not found
+[WARN] 18:07:39 service.BerlinCrewsImpl:73 skip crew Weissensee (url: http://wiki.piratenpartei.de/BE:Crews/Weissensee) because address not found
+[WARN] 18:07:39 service.BerlinCrewsImpl:73 skip crew Witwe Ching (url: http://wiki.piratenpartei.de/BE:Crews/Witwe Ching) because address not found
+[INFO] 18:07:40 service.GeocoderImpl:51 found loation data for address Schmargendorfer Str. 35, 12159 Berlin
+[WARN] 18:07:40 service.BerlinCrewsImpl:73 skip crew Zitadelle (url: http://wiki.piratenpartei.de/BE:Crews/Zitadelle) because address not found
+[WARN] 18:07:40 service.BerlinCrewsImpl:69 skip crew mitte-mitte (url: http://wiki.piratenpartei.de/BE:Crews/mitte-mitte) because location not found
+[WARN] 18:07:40 service.BerlinCrewsImpl:73 skip crew mostly.harmless (url: http://wiki.piratenpartei.de/BE:Crews/mostly.harmless) because address not found
+[WARN] 18:07:40 service.BerlinCrewsImpl:73 skip crew Pankow/Flottentreffen (url: http://wiki.piratenpartei.de/BE:Crews/Pankow/Flottentreffen) because address not found
+[INFO] 18:07:40 mapimap.UpdateMapData:84 found 8 crews, try to add them to database...
+[ERROR] 18:07:51 mapimap.UpdateMapData:57 message is java.net.SocketTimeoutException: Read timed out
+[INFO] 18:11:41 mapimap.UpdateMapData:78 perform task update...
+[INFO] 18:11:54 service.GeocoderImpl:51 found loation data for address Mierendorffstr. 25, 10589 Berlin
+[WARN] 18:11:54 service.BerlinCrewsImpl:73 skip crew Bjarne Stroustrup (url: http://wiki.piratenpartei.de/BE:Crews/Bjarne Stroustrup) because address not found
+[WARN] 18:11:54 service.BerlinCrewsImpl:73 skip crew Bunte Kuh (url: http://wiki.piratenpartei.de/BE:Crews/Bunte Kuh) because address not found
+[INFO] 18:11:54 service.GeocoderImpl:51 found loation data for address Nürnberger Str. 17, 10789 Berlin
+[WARN] 18:11:54 service.BerlinCrewsImpl:73 skip crew Defiant (url: http://wiki.piratenpartei.de/BE:Crews/Defiant) because address not found
+[WARN] 18:11:54 service.BerlinCrewsImpl:73 skip crew Eiserner Gustav (url: http://wiki.piratenpartei.de/BE:Crews/Eiserner Gustav) because address not found
+[WARN] 18:11:54 service.BerlinCrewsImpl:73 skip crew Enterprise (url: http://wiki.piratenpartei.de/BE:Crews/Enterprise) because address not found
+[WARN] 18:11:54 service.BerlinCrewsImpl:73 skip crew Fliegende Luftbrücke (url: http://wiki.piratenpartei.de/BE:Crews/Fliegende Luftbrücke) because address not found
+[WARN] 18:11:54 service.BerlinCrewsImpl:73 skip crew Fnordy-Fnord Roughnecks (url: http://wiki.piratenpartei.de/BE:Crews/Fnordy-Fnord Roughnecks) because address not found
+[WARN] 18:11:54 service.BerlinCrewsImpl:73 skip crew Free.booter (url: http://wiki.piratenpartei.de/BE:Crews/Free.booter) because address not found
+[WARN] 18:11:54 service.BerlinCrewsImpl:69 skip crew Grace O'Malley (url: http://wiki.piratenpartei.de/BE:Crews/Grace O'Malley) because location not found
+[WARN] 18:11:54 service.BerlinCrewsImpl:73 skip crew Graf Luckner (url: http://wiki.piratenpartei.de/BE:Crews/Graf Luckner) because address not found
+[INFO] 18:11:55 service.GeocoderImpl:51 found loation data for address Fritz-Erler-Allee 57, 12351 Berlin
+[WARN] 18:11:55 service.BerlinCrewsImpl:69 skip crew Guybrush Threepwood (url: http://wiki.piratenpartei.de/BE:Crews/Guybrush Threepwood) because location not found
+[WARN] 18:11:55 service.BerlinCrewsImpl:73 skip crew Hauptmann von Köpenick (url: http://wiki.piratenpartei.de/BE:Crews/Hauptmann von Köpenick) because address not found
+[WARN] 18:11:55 service.BerlinCrewsImpl:73 skip crew Havelpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Havelpiraten) because address not found
+[WARN] 18:11:55 service.BerlinCrewsImpl:73 skip crew HedyLamarr (url: http://wiki.piratenpartei.de/BE:Crews/HedyLamarr) because address not found
+[INFO] 18:11:55 service.GeocoderImpl:51 found loation data for address Samariterstr. 17, 10247 Berlin
+[WARN] 18:11:55 service.BerlinCrewsImpl:73 skip crew Inselpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Inselpiraten) because address not found
+[INFO] 18:11:56 service.GeocoderImpl:51 found loation data for address Frankenstr. 13, 10781 Berlin
+[INFO] 18:11:56 service.GeocoderImpl:51 found loation data for address Eichborndamm 236, 13437 Berlin
+[INFO] 18:11:57 service.GeocoderImpl:51 found loation data for address Glienicker Str. 5, 13467 Berlin
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew JotWeeDee (url: http://wiki.piratenpartei.de/BE:Crews/JotWeeDee) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Konrad Zuse (url: http://wiki.piratenpartei.de/BE:Crews/Konrad Zuse) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Leuchtfeuer (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtfeuer) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Leuchtturmspitze (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtturmspitze) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Molecule Crew (url: http://wiki.piratenpartei.de/BE:Crews/Molecule Crew) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Negroponte (url: http://wiki.piratenpartei.de/BE:Crews/Negroponte) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Nimbus (url: http://wiki.piratenpartei.de/BE:Crews/Nimbus) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Nordnordost (url: http://wiki.piratenpartei.de/BE:Crews/Nordnordost) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Papillon (url: http://wiki.piratenpartei.de/BE:Crews/Papillon) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Pippi Langstrumpf (url: http://wiki.piratenpartei.de/BE:Crews/Pippi Langstrumpf) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Prometheus (url: http://wiki.piratenpartei.de/BE:Crews/Prometheus) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Q-damm-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Q-damm-Piraten) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Schrödingers Katze (url: http://wiki.piratenpartei.de/BE:Crews/Schrödingers Katze) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:69 skip crew Seeteufel (url: http://wiki.piratenpartei.de/BE:Crews/Seeteufel) because location not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:69 skip crew Serenity (url: http://wiki.piratenpartei.de/BE:Crews/Serenity) because location not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:69 skip crew Spätrömische Dekadenz (url: http://wiki.piratenpartei.de/BE:Crews/Spätrömische Dekadenz) because location not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Süd-Seh-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Süd-Seh-Piraten) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Taka-Tuka-Land (url: http://wiki.piratenpartei.de/BE:Crews/Taka-Tuka-Land) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Urbanauten (url: http://wiki.piratenpartei.de/BE:Crews/Urbanauten) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Weissensee (url: http://wiki.piratenpartei.de/BE:Crews/Weissensee) because address not found
+[WARN] 18:11:57 service.BerlinCrewsImpl:73 skip crew Witwe Ching (url: http://wiki.piratenpartei.de/BE:Crews/Witwe Ching) because address not found
+[INFO] 18:11:58 service.GeocoderImpl:51 found loation data for address Schmargendorfer Str. 35, 12159 Berlin
+[WARN] 18:11:58 service.BerlinCrewsImpl:73 skip crew Zitadelle (url: http://wiki.piratenpartei.de/BE:Crews/Zitadelle) because address not found
+[WARN] 18:11:58 service.BerlinCrewsImpl:69 skip crew mitte-mitte (url: http://wiki.piratenpartei.de/BE:Crews/mitte-mitte) because location not found
+[WARN] 18:11:58 service.BerlinCrewsImpl:73 skip crew mostly.harmless (url: http://wiki.piratenpartei.de/BE:Crews/mostly.harmless) because address not found
+[WARN] 18:11:58 service.BerlinCrewsImpl:73 skip crew Pankow/Flottentreffen (url: http://wiki.piratenpartei.de/BE:Crews/Pankow/Flottentreffen) because address not found
+[INFO] 18:11:58 mapimap.UpdateMapData:85 found 8 crews, try to add them to database...
+[INFO] 18:11:59 service.CouchDBImpl:59 updating crew  1984
+[INFO] 18:12:00 service.CouchDBImpl:59 updating crew  CWNN
+[INFO] 18:12:01 service.CouchDBImpl:59 updating crew  Gropiuspiraten
+[INFO] 18:12:01 service.CouchDBImpl:59 updating crew  Herz aus Gold
+[INFO] 18:12:02 service.CouchDBImpl:59 updating crew  Jabal Jamil
+[INFO] 18:12:03 service.CouchDBImpl:59 updating crew  Jolly Roger
+[INFO] 18:12:03 service.CouchDBImpl:59 updating crew  Josephine Baker
+[INFO] 18:12:04 service.CouchDBImpl:59 updating crew  Wochenendpiraten
+[INFO] 18:12:11 mapimap.UpdateMapData:78 perform task update...
+[INFO] 18:12:15 service.GeocoderImpl:51 found loation data for address Mierendorffstr. 25, 10589 Berlin
+[WARN] 18:12:15 service.BerlinCrewsImpl:73 skip crew Bjarne Stroustrup (url: http://wiki.piratenpartei.de/BE:Crews/Bjarne Stroustrup) because address not found
+[WARN] 18:12:15 service.BerlinCrewsImpl:73 skip crew Bunte Kuh (url: http://wiki.piratenpartei.de/BE:Crews/Bunte Kuh) because address not found
+[INFO] 18:12:16 service.GeocoderImpl:51 found loation data for address Nürnberger Str. 17, 10789 Berlin
+[WARN] 18:12:16 service.BerlinCrewsImpl:73 skip crew Defiant (url: http://wiki.piratenpartei.de/BE:Crews/Defiant) because address not found
+[WARN] 18:12:16 service.BerlinCrewsImpl:73 skip crew Eiserner Gustav (url: http://wiki.piratenpartei.de/BE:Crews/Eiserner Gustav) because address not found
+[WARN] 18:12:16 service.BerlinCrewsImpl:73 skip crew Enterprise (url: http://wiki.piratenpartei.de/BE:Crews/Enterprise) because address not found
+[WARN] 18:12:16 service.BerlinCrewsImpl:73 skip crew Fliegende Luftbrücke (url: http://wiki.piratenpartei.de/BE:Crews/Fliegende Luftbrücke) because address not found
+[WARN] 18:12:16 service.BerlinCrewsImpl:73 skip crew Fnordy-Fnord Roughnecks (url: http://wiki.piratenpartei.de/BE:Crews/Fnordy-Fnord Roughnecks) because address not found
+[WARN] 18:12:16 service.BerlinCrewsImpl:73 skip crew Free.booter (url: http://wiki.piratenpartei.de/BE:Crews/Free.booter) because address not found
+[WARN] 18:12:16 service.BerlinCrewsImpl:69 skip crew Grace O'Malley (url: http://wiki.piratenpartei.de/BE:Crews/Grace O'Malley) because location not found
+[WARN] 18:12:16 service.BerlinCrewsImpl:73 skip crew Graf Luckner (url: http://wiki.piratenpartei.de/BE:Crews/Graf Luckner) because address not found
+[INFO] 18:12:16 service.GeocoderImpl:51 found loation data for address Fritz-Erler-Allee 57, 12351 Berlin
+[WARN] 18:12:16 service.BerlinCrewsImpl:69 skip crew Guybrush Threepwood (url: http://wiki.piratenpartei.de/BE:Crews/Guybrush Threepwood) because location not found
+[WARN] 18:12:16 service.BerlinCrewsImpl:73 skip crew Hauptmann von Köpenick (url: http://wiki.piratenpartei.de/BE:Crews/Hauptmann von Köpenick) because address not found
+[WARN] 18:12:16 service.BerlinCrewsImpl:73 skip crew Havelpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Havelpiraten) because address not found
+[WARN] 18:12:16 service.BerlinCrewsImpl:73 skip crew HedyLamarr (url: http://wiki.piratenpartei.de/BE:Crews/HedyLamarr) because address not found
+[INFO] 18:12:17 service.GeocoderImpl:51 found loation data for address Samariterstr. 17, 10247 Berlin
+[WARN] 18:12:17 service.BerlinCrewsImpl:73 skip crew Inselpiraten (url: http://wiki.piratenpartei.de/BE:Crews/Inselpiraten) because address not found
+[INFO] 18:12:17 service.GeocoderImpl:51 found loation data for address Frankenstr. 13, 10781 Berlin
+[INFO] 18:12:18 service.GeocoderImpl:51 found loation data for address Eichborndamm 236, 13437 Berlin
+[INFO] 18:12:18 service.GeocoderImpl:51 found loation data for address Glienicker Str. 5, 13467 Berlin
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew JotWeeDee (url: http://wiki.piratenpartei.de/BE:Crews/JotWeeDee) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Konrad Zuse (url: http://wiki.piratenpartei.de/BE:Crews/Konrad Zuse) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Leuchtfeuer (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtfeuer) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Leuchtturmspitze (url: http://wiki.piratenpartei.de/BE:Crews/Leuchtturmspitze) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Molecule Crew (url: http://wiki.piratenpartei.de/BE:Crews/Molecule Crew) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Negroponte (url: http://wiki.piratenpartei.de/BE:Crews/Negroponte) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Nimbus (url: http://wiki.piratenpartei.de/BE:Crews/Nimbus) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Nordnordost (url: http://wiki.piratenpartei.de/BE:Crews/Nordnordost) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Papillon (url: http://wiki.piratenpartei.de/BE:Crews/Papillon) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Pippi Langstrumpf (url: http://wiki.piratenpartei.de/BE:Crews/Pippi Langstrumpf) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Prometheus (url: http://wiki.piratenpartei.de/BE:Crews/Prometheus) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Q-damm-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Q-damm-Piraten) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:73 skip crew Schrödingers Katze (url: http://wiki.piratenpartei.de/BE:Crews/Schrödingers Katze) because address not found
+[WARN] 18:12:18 service.BerlinCrewsImpl:69 skip crew Seeteufel (url: http://wiki.piratenpartei.de/BE:Crews/Seeteufel) because location not found
+[WARN] 18:12:19 service.BerlinCrewsImpl:69 skip crew Serenity (url: http://wiki.piratenpartei.de/BE:Crews/Serenity) because location not found
+[WARN] 18:12:19 service.BerlinCrewsImpl:69 skip crew Spätrömische Dekadenz (url: http://wiki.piratenpartei.de/BE:Crews/Spätrömische Dekadenz) because location not found
+[WARN] 18:12:19 service.BerlinCrewsImpl:73 skip crew Süd-Seh-Piraten (url: http://wiki.piratenpartei.de/BE:Crews/Süd-Seh-Piraten) because address not found
+[WARN] 18:12:19 service.BerlinCrewsImpl:73 skip crew Taka-Tuka-Land (url: http://wiki.piratenpartei.de/BE:Crews/Taka-Tuka-Land) because address not found
+[WARN] 18:12:19 service.BerlinCrewsImpl:73 skip crew Urbanauten (url: http://wiki.piratenpartei.de/BE:Crews/Urbanauten) because address not found
+[WARN] 18:12:19 service.BerlinCrewsImpl:73 skip crew Weissensee (url: http://wiki.piratenpartei.de/BE:Crews/Weissensee) because address not found
+[WARN] 18:12:19 service.BerlinCrewsImpl:73 skip crew Witwe Ching (url: http://wiki.piratenpartei.de/BE:Crews/Witwe Ching) because address not found
+[INFO] 18:12:19 service.GeocoderImpl:51 found loation data for address Schmargendorfer Str. 35, 12159 Berlin
+[WARN] 18:12:19 service.BerlinCrewsImpl:73 skip crew Zitadelle (url: http://wiki.piratenpartei.de/BE:Crews/Zitadelle) because address not found
+[WARN] 18:12:20 service.BerlinCrewsImpl:69 skip crew mitte-mitte (url: http://wiki.piratenpartei.de/BE:Crews/mitte-mitte) because location not found
+[WARN] 18:12:20 service.BerlinCrewsImpl:73 skip crew mostly.harmless (url: http://wiki.piratenpartei.de/BE:Crews/mostly.harmless) because address not found
+[WARN] 18:12:20 service.BerlinCrewsImpl:73 skip crew Pankow/Flottentreffen (url: http://wiki.piratenpartei.de/BE:Crews/Pankow/Flottentreffen) because address not found
+[INFO] 18:12:20 mapimap.UpdateMapData:85 found 8 crews, try to add them to database...
+[INFO] 18:12:21 service.CouchDBImpl:59 updating crew  1984
+[INFO] 18:12:22 service.CouchDBImpl:59 updating crew  CWNN
+[INFO] 18:12:23 service.CouchDBImpl:59 updating crew  Gropiuspiraten
+[INFO] 18:12:24 service.CouchDBImpl:59 updating crew  Herz aus Gold
+[INFO] 18:12:25 service.CouchDBImpl:59 updating crew  Jabal Jamil
+[INFO] 18:12:25 service.CouchDBImpl:59 updating crew  Jolly Roger
+[INFO] 18:12:26 service.CouchDBImpl:59 updating crew  Josephine Baker
+[INFO] 18:12:27 service.CouchDBImpl:59 updating crew  Wochenendpiraten
