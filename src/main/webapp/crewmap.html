@@ -12,11 +12,14 @@
 
 <script type="text/javascript">
 var baseSourceURL = "http://wiki.piratenpartei.de";
+var currentZoom=11;
 var map;
 var markers;
 var icon;
 $(document).ready(function() {
-    var options = {theme:"OpenLayers/theme/default/style.css"};
+    
+	//map zeug
+	var options = {theme:"OpenLayers/theme/default/style.css"};
 	map = new OpenLayers.Map("map_canvas", options);
 	var osm = new OpenLayers.Layer.OSM();
 	map.addLayer(osm);
@@ -41,7 +44,22 @@ $(document).ready(function() {
 		}
     });
     
-
+    
+    $("#editbox").fadeOut();
+    
+    //edit box zeug
+    $("#editLayer").hover(function () {
+	    $("#editbox").fadeIn();
+	}, function() {
+	    $("#editbox").fadeOut();
+	});
+    
+    $("#submitAddressButton").click(function() {
+    	var address = {address:$("#address").val()};
+    	console.log(address);
+    	currentZoom = 15;
+    	geolocate(address,centerMap);
+    });
 });
 
 var crewLoaded = function(crew) {
@@ -72,7 +90,7 @@ function showPopup(crew,anchor) {
 
 var centerMap = function(locationData){
 	var position = getPosition(locationData);	
-	map.setCenter(position,11);
+	map.setCenter(position,currentZoom);
 }
 
 function getCoordinates(lon,lat) {
@@ -91,7 +109,7 @@ function getPosition(data) {
 
 function geolocate(obj, callback) {
 	$.ajax({
-	  url: 'http://nominatim.openstreetmap.org/search?q='+obj.address+'&format=json&polygon=1&addressdetails=1',
+	  url: 'http://nominatim.openstreetmap.org/search?q='+encodeURIComponent(obj.address)+'&format=json&polygon=1&addressdetails=1',
 	  dataType:'json',
 	  processData:false,
 	}).success(function(data) {
@@ -101,10 +119,13 @@ function geolocate(obj, callback) {
  
     </script>
   </head>
-  <body>
-  <div>
-   <h1>Gibt es schon eine Crew in deiner N&auml;he?</h1>
-  </div>
-    <div id="map_canvas"></div>
-  </body>
+<body>
+	<div id="map_canvas"></div>
+	<div id="editLayer">
+		<h1 id="headline">Gibt es schon eine Crew in deiner N&auml;he?</h1>
+		<div id="editbox">
+			<label for="address">Adresse: </label><input name="address" id="address" typpe="text"></input><button id="submitAddressButton">Karte zentrieren</button>
+		</div>
+	</div>
+</body>
 </html>
