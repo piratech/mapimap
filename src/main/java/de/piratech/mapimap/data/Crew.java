@@ -9,10 +9,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
  *
  */
 public class Crew {
-  //@todo: deveth0@geirkairam:  see Address.java
-  //@todo: deveth0@geirkairam: There should be a timestamp, when the crew has been updated for the last time
-  //@todo: deveth0@geirkairam: propably a map-url would be useful for external apps
 
+	//@todo: deveth0@geirkairam: propably a map-url would be useful for external apps
   @JsonProperty("_id")
   private String id;
   @JsonProperty("_rev")
@@ -20,7 +18,7 @@ public class Crew {
   private String name;
   private String wikiUrl;
   private LocationData locationData;
-  private DataType type = DataType.crew;
+  private DataType type = DataType.CREW;
   private String checkSum;
 
   public String getId() {
