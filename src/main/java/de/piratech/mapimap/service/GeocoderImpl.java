@@ -32,18 +32,17 @@ public class GeocoderImpl implements Geocoder {
     client = new DefaultHttpClient();
   }
 
-  @Override
   public LocationData getLocationData(String address) {
     LOG.trace("enter with address {}", address);
     try {
       //@todo: deveth0@geirkairam: should be configured in settings
       String url = "http://nominatim.openstreetmap.org/search?q="
-              + URLEncoder.encode(address, "UTF-8")
+              + URLEncoder.encode(address.replaceAll(",",	""), "UTF-8")
               + "&format=json&polygon=1&addressdetails=1";
       HttpGet get = new HttpGet(url);
       HttpResponse response = client.execute(get);
       InputStream stream = response.getEntity().getContent();
-      JsonParser jsonParser = factory.createJsonParser(stream);
+      JsonParser jsonParser = factory.createJsonParser(stream);	
       List<LocationData> locationData = jsonParser.readValueAs(new TypeReference<List<LocationData>>() {
       });
       //@todo: deveth0@geirkairam: use isEmpty()
