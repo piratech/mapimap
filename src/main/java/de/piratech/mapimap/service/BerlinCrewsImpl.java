@@ -4,6 +4,7 @@
 package de.piratech.mapimap.service;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class BerlinCrewsImpl implements BerlinCrews {
 				// @todo: deveth0@geirkairam: should be configurable (eg.
 				// settings.properties)
 				crew.setWikiUrl("http://wiki.piratenpartei.de/BE:Crews/"
-						+ crew.getName());
+						+ URLEncoder.encode(crew.getName().replaceAll(" ", "_"), "UTF-8"));
 				String address = getAddress((TagNode) tagNode);
 				if (!StringUtils.isEmpty(address)) {
 					LocationData locationData = geocoder.getLocationData(address);
