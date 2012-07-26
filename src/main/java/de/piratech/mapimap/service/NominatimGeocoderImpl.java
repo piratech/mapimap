@@ -21,47 +21,39 @@ import de.piratech.mapimap.data.LocationData;
  * @author maria
  *
  */
-public class GeocoderImpl implements Geocoder {
+public class NominatimGeocoderImpl implements Geocoder {
 
-  private static final Logger LOG = LoggerFactory.getLogger(GeocoderImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(NominatimGeocoderImpl.class);
   private MappingJsonFactory factory;
   private HttpClient client;
 
-  public GeocoderImpl() {
+  public NominatimGeocoderImpl() {
     factory = new MappingJsonFactory();
     client = new DefaultHttpClient();
   }
 
-  @Override
-  public LocationData getLocationData(String address) {
-    LOG.trace("enter with address {}", address);
+  public LocationData getLocationData(String _address) {
     try {
       //@todo: deveth0@geirkairam: should be configured in settings
       String url = "http://nominatim.openstreetmap.org/search?q="
-              + URLEncoder.encode(address, "UTF-8")
+              + URLEncoder.encode(_address.replaceAll(",",	""), "UTF-8")
               + "&format=json&polygon=1&addressdetails=1";
       HttpGet get = new HttpGet(url);
       HttpResponse response = client.execute(get);
       InputStream stream = response.getEntity().getContent();
-      JsonParser jsonParser = factory.createJsonParser(stream);
+      JsonParser jsonParser = factory.createJsonParser(stream);	
       List<LocationData> locationData = jsonParser.readValueAs(new TypeReference<List<LocationData>>() {
       });
-      //@todo: deveth0@geirkairam: use isEmpty()
-      if (locationData.size() > 0) {
-        LOG.info("found loation data for address {}", address);
+      if (!locationData.isEmpty()) {
+        LOG.info("found loation data for address {}", _address);
         stream.close();
         return locationData.get(0);
       }
     } catch (IOException e) {
       LOG.error("message: {}", e.getMessage());
-      //@todo: deveth0@geirkairam: useless
-      e.printStackTrace();
     } catch (IllegalStateException e) {
       LOG.error("message: {}", e.getMessage());
-      //@todo: deveth0@geirkairam: useless
-      e.printStackTrace();
     }
-    LOG.trace("leave returning null");
     return null;
   }
 }

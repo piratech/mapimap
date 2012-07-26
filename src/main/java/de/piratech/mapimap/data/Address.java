@@ -1,87 +1,88 @@
 package de.piratech.mapimap.data;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
  * @author maria
- *
+ * 
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Address {
 
-  //@todo: deveth0@geirkairam: variables should be private
-  //@todo: deveth0@geirkairam:  Camel-case for variables (e.g. houseNumber)
-  String house_number;
-  String road;
-  String suburb;
-  String city_district;
-  String state;
-  String postcode;
-  String country;
-  String country_code;
+	@JsonProperty("house_number")
+	private String houseNumber;
+	private String road;
+	private String suburb;
+	@JsonProperty("city_district")
+	private String cityDistrict;
+	private String state;
+	private String postcode;
+	private String country;
+	@JsonProperty("country_code")
+	private String countryCode;
 
-  public String getHouse_number() {
-    return house_number;
-  }
+	public String getHouseNumber() {
+		return houseNumber;
+	}
 
-  
-  public void setHouse_number(String house_number) {
-    this.house_number = house_number;
-  }
+	public void setHouseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
+	}
 
-  public String getRoad() {
-    return road;
-  }
+	public String getRoad() {
+		return road;
+	}
 
-  public void setRoad(String road) {
-    this.road = road;
-  }
+	public void setRoad(String road) {
+		this.road = road;
+	}
 
-  public String getSuburb() {
-    return suburb;
-  }
+	public String getSuburb() {
+		return suburb;
+	}
 
-  public void setSuburb(String suburb) {
-    this.suburb = suburb;
-  }
+	public void setSuburb(String suburb) {
+		this.suburb = suburb;
+	}
 
-  public String getCity_district() {
-    return city_district;
-  }
+	public String getCityDistrict() {
+		return cityDistrict;
+	}
 
-  public void setCity_district(String city_district) {
-    this.city_district = city_district;
-  }
+	public void setCityDistrict(String cityDistrict) {
+		this.cityDistrict = cityDistrict;
+	}
 
-  public String getState() {
-    return state;
-  }
+	public String getState() {
+		return state;
+	}
 
-  public void setState(String state) {
-    this.state = state;
-  }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-  public String getPostcode() {
-    return postcode;
-  }
+	public String getPostcode() {
+		return postcode;
+	}
 
-  public void setPostcode(String postcode) {
-    this.postcode = postcode;
-  }
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
 
-  public String getCountry() {
-    return country;
-  }
+	public String getCountry() {
+		return country;
+	}
 
-  public void setCountry(String country) {
-    this.country = country;
-  }
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
-  public String getCountry_code() {
-    return country_code;
-  }
+	public String getCountryCode() {
+		return countryCode;
+	}
 
-  public void setCountry_code(String country_code) {
-    this.country_code = country_code;
-  }
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
 }

@@ -5,9 +5,7 @@ package de.piratech.mapimap.data;
  *
  */
 public enum DataType {
-//@todo: deveth0@geirkairam:  enums uppercase (e.g. CREW)
-
-  crew, squad
+  CREW, SQUAD
 }
 
 

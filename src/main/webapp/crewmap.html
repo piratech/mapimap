@@ -12,19 +12,41 @@
 
 <script type="text/javascript">
 var baseSourceURL = "http://wiki.piratenpartei.de";
+var currentZoom=11;
 var map;
-var markers;
+var crewLayer = new OpenLayers.Layer.Markers("Crews");
+crewLayer.markerWithLonLatExists = function(lonlat) {
+	for (var i=0;i<this.markers.length;i++) {
+		if (this.markers[i].lonlat.equals(lonlat)) {
+			return true;
+		}
+	}
+	return false;
+};
+var crews = new Array();
+crews.getCrewsWithPosition = function(position) {
+	var returnArray = new Array();
+	for(var i=0;i<this.length;i++) {
+		var crew = this[i];
+		if (crew.position.equals(position)) {
+			returnArray.push(crew);
+		}
+	}
+	return returnArray;
+};
 var icon;
 $(document).ready(function() {
-    var options = {theme:"OpenLayers/theme/default/style.css"};
+    
+	//map zeug
+	var options = {theme:"OpenLayers/theme/default/style.css"};
 	map = new OpenLayers.Map("map_canvas", options);
 	var osm = new OpenLayers.Layer.OSM();
 	map.addLayer(osm);
 
 	geolocate({address:"Berlin"},centerMap);
 
-	markers = new OpenLayers.Layer.Markers( "Markers" );
-	map.addLayer(markers);
+	
+	map.addLayer(crewLayer);
 
 	var size = new OpenLayers.Size(21,25);
 	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
@@ -41,70 +63,89 @@ $(document).ready(function() {
 		}
     });
     
-
+    
+    $("#editbox").fadeOut();
+    
+    //edit box zeug
+    $("#editLayer").hover(function () {
+	    $("#editbox").fadeIn();
+	}, function() {
+	    $("#editbox").fadeOut();
+	});
+    
+    $("#submitAddressButton").click(function() {
+    	var address = {address:$("#address").val()};
+    	currentZoom = 15;
+    	geolocate(address,centerMap);
+    });
 });
 
 var crewLoaded = function(crew) {
-	var marker = new OpenLayers.Marker(crew.position,icon.clone());
-	marker.events.on({"click":function() {showPopup(crew)}});
-	markers.addMarker(marker);
+	if (!crewLayer.markerWithLonLatExists(crew.position)) {
+		var marker = new OpenLayers.Marker(crew.position,icon.clone());
+		marker.events.on({"click":function() {showPopup(crew.position)}});
+		crewLayer.addMarker(marker);
+	}
+	crews.push(crew);
 }
 
-var markAddress = function(obj, locationData) {
-	var position = getPosition(locationData);
-	var marker = new OpenLayers.Marker(position,icon.clone());
-	marker.events.on({"click":function() {showPopup(obj, marker.icon)}});
-	markers.addMarker(marker);
-}
+function showPopup(position,anchor) {
+	var crewsWithPosition = crews.getCrewsWithPosition(position);
+	var popupHTML = "";
+	for(var i=0;i<crewsWithPosition.length;i++) {
+		popupHTML = popupHTML+"<div><h1>"
+					+ crewsWithPosition[i].name
+					+ "</h1><h2>Crew</h2><div style='clear:both;'></div><ul><li>"
+					+ crewsWithPosition[i].locationData.address.road
+					+ "</li><li><a href='"+crewsWithPosition[i].wikiUrl+"' target='blank'>im Wiki</a></li></ul></div>"
+	}
+		var popup = new OpenLayers.Popup.FramedCloud(null, position,
+				new OpenLayers.Size(200, 200), popupHTML, anchor, true);
+		map.addPopup(popup);
+	}
 
-function showPopup(crew,anchor) {
-	//TODO handle more than one crew per position
-	console.log(crew.name);
-	var popup = new OpenLayers.Popup.FramedCloud(null,
-                       crew.position,
-                       new OpenLayers.Size(200,200), 
-                       "<div><h1>"+crew.name+"</h1><h2>Crew</h2><div style='clear:both;'></div><ul><li>"+crew.locationData.address.road
+	var centerMap = function(locationData) {
+		var position = getPosition(locationData);
+		map.setCenter(position, currentZoom);
+	}
 
-+ "</li><li><a href='"+crew.wikiUrl+"' target='blank'>im Wiki</a></li></ul></div>",anchor,
-                       true);
-    	map.addPopup(popup);
-}
+	function getCoordinates(lon, lat) {
+		var fromProjection = new OpenLayers.Projection("EPSG:4326"); // Transform from WGS 1984
+		var toProjection = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+		var position = new OpenLayers.LonLat(lon, lat).transform(fromProjection,
+				toProjection);
+		return position;
+	}
 
-var centerMap = function(locationData){
-	var position = getPosition(locationData);	
-	map.setCenter(position,11);
-}
+	function getPosition(data) {
+		var fromProjection = new OpenLayers.Projection("EPSG:4326"); // Transform from WGS 1984
+		var toProjection = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
+		var position = new OpenLayers.LonLat(data[0].lon, data[0].lat).transform(
+				fromProjection, toProjection);
+		return getCoordinates(data[0].lon, data[0].lat);
+	}
 
-function getCoordinates(lon,lat) {
-    var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
-    var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
-	var position       = new OpenLayers.LonLat(lon,lat).transform(fromProjection,toProjection);
-    return position;
-}
-
-function getPosition(data) {
-	var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
-	var toProjection   = new OpenLayers.Projection("EPSG:900913"); // to Spherical Mercator Projection
-	var position       = new OpenLayers.LonLat(data[0].lon, data[0].lat).transform(fromProjection,toProjection);
-	return getCoordinates(data[0].lon, data[0].lat);
-}
-
-function geolocate(obj, callback) {
-	$.ajax({
-	  url: 'http://nominatim.openstreetmap.org/search?q='+obj.address+'&format=json&polygon=1&addressdetails=1',
-	  dataType:'json',
-	  processData:false,
-	}).success(function(data) {
-		callback(data);	
-	});
-}
- 
-    </script>
+	function geolocate(obj, callback) {
+		$.ajax(
+				{
+					url : 'http://nominatim.openstreetmap.org/search?q='
+							+ encodeURIComponent(obj.address)
+							+ '&format=json&polygon=1&addressdetails=1',
+					dataType : 'json',
+					processData : false,
+				}).success(function(data) {
+			callback(data);
+		});
+	}
+</script>
   </head>
-  <body>
-  <div>
-   <h1>Gibt es schon eine Crew in deiner N&auml;he?</h1>
-  </div>
-    <div id="map_canvas"></div>
-  </body>
+<body>
+	<div id="map_canvas"></div>
+	<div id="editLayer">
+		<h1 id="headline">Gibt es schon eine Crew in deiner N&auml;he?</h1>
+		<div id="editbox">
+			<label for="address">Adresse: </label><input name="address" id="address" typpe="text"></input><button id="submitAddressButton">Karte zentrieren</button>
+		</div>
+	</div>
+</body>
 </html>
