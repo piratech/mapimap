@@ -17,27 +17,26 @@ import de.piratech.mapimap.data.Crew;
  */
 public class CrewsRepository extends CouchDbRepositorySupport<Crew> {
 
-  protected CrewsRepository(Class<Crew> type, CouchDbConnector db) {
-    super(type, db);
+  protected CrewsRepository(Class<Crew> _type, CouchDbConnector _db) {
+    super(_type, _db);
   }
 
   public List<Crew> getCrews() {
     return queryView("crews/all");
   }
 
-  public boolean crewExists(Crew newCrew) {
-    List<Crew> existingCrews = findByWikiUrl(newCrew.getWikiUrl());
-    //@todo: deveth0@geirkairam: us isEmpty()
-    if (existingCrews.size() > 0) {
-      newCrew.setId(existingCrews.get(0).getId());
-      newCrew.setRevision(existingCrews.get(0).getRevision());
+  public boolean crewExists(final Crew _newCrew) {
+    List<Crew> existingCrews = findByWikiUrl(_newCrew.getWikiUrl());
+    if (!existingCrews.isEmpty()) {
+      _newCrew.setId(existingCrews.get(0).getId());
+      _newCrew.setRevision(existingCrews.get(0).getRevision());
       return true;
     }
     return false;
   }
 
   @GenerateView
-  public List<Crew> findByWikiUrl(String url) {
-    return queryView("all", url);
+  public List<Crew> findByWikiUrl(final String _url) {
+    return queryView("all", _url);
   }
 }

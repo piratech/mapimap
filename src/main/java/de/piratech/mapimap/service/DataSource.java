@@ -22,7 +22,7 @@ public interface DataSource {
 
   public List<Squad> getSquads();
 
-  public void addSquad(Crew newSquad);
+  public void addSquad(Squad _newSquad);
 
   public void delete(Squad squad);
 }
