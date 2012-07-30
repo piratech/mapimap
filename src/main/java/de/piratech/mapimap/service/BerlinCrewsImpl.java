@@ -48,7 +48,7 @@ public class BerlinCrewsImpl implements BerlinCrews {
 			// very old look for something never (cannot use org.w3c.dom.Document
 			// because wiki sends invalid HTML)
 			HtmlCleaner cleaner = new HtmlCleaner();
-			TagNode node = cleaner.clean(response.getEntity().getContent());
+			TagNode node = cleaner.clean(response.getEntity().getContent(),"UTF-8");
 			List<?> elementListByAttValue = node.getElementListByAttValue("class",
 					"crewBerlin", true, true);
 			List<Crew> crews = new ArrayList<Crew>();
