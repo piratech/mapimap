@@ -62,7 +62,7 @@ public class CouchDBImpl implements DataSource {
 	public void updateCrew(final Crew _crew) {
 		// Update crew only if something has changed
 		Crew crewInDB = crewRepo.findByWikiUrl(_crew.getWikiUrl()).get(0);
-		if (StringUtils.equals(crewInDB.getCheckSum(), _crew.getCheckSum())) {
+		if (!StringUtils.equals(crewInDB.getCheckSum(), _crew.getCheckSum())) {
 			LOG.info("updating crew  {}", _crew.getName());
 			crewRepo.update(_crew);
 		}
