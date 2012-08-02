@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -47,7 +48,7 @@ public class NominatimGeocoderImpl implements Geocoder {
 			List<LocationData> locationData = getLocationDataFromURL(url);
 			if (!locationData.isEmpty()) {
 				LOG.info("found loation data for address {}", _address);
-				return locationData.get(0);
+				return getCorrectLocationData(locationData, _address);
 			} else {
 				// location service sometimes works only with comma and sometimes only
 				// without, don't know why
@@ -57,7 +58,7 @@ public class NominatimGeocoderImpl implements Geocoder {
 				locationData = getLocationDataFromURL(url);
 				if (!locationData.isEmpty()) {
 					LOG.info("found loation data for address {}", _address);
-					return locationData.get(0);
+					return getCorrectLocationData(locationData, _address);
 				} else {
 					LOG.warn("cannot get location from URL >{}<", url);
 				}
@@ -68,6 +69,24 @@ public class NominatimGeocoderImpl implements Geocoder {
 			LOG.error("message: {}", e.getMessage());
 		}
 		return null;
+	}
+
+	// for some reason nominatim does not return the correct address at first
+	// position --> search for data with matching postal code
+	private LocationData getCorrectLocationData(
+			List<LocationData> _locationDataList, String _address) {
+		if (_locationDataList.size() == 1) {
+			return _locationDataList.get(0);
+		} else {
+			for (LocationData locationData : _locationDataList) {
+				if (StringUtils.contains(_address, locationData.getAddress()
+						.getPostcode())) {
+					return locationData;
+				}
+			}
+		}
+
+		return _locationDataList.get(0);
 	}
 
 	private List<LocationData> getLocationDataFromURL(String url)

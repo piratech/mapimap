@@ -85,4 +85,11 @@ public class Address {
 	public void setCountryCode(String countryCode) {
 		this.countryCode = countryCode;
 	}
+
+	public String toString() {
+		return "Address{house_number:" + houseNumber + ",road:" + road + ",suburb:"
+				+ suburb + ",cityDistrict:" + cityDistrict + ",state:" + state
+				+ ",postcode:" + postcode + ",country:" + country + ",countryCode:"
+				+ countryCode;
+	}
 }
