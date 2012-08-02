@@ -18,6 +18,7 @@ import org.htmlcleaner.TagNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.piratech.mapimap.data.BLA;
 import de.piratech.mapimap.data.Crew;
 import de.piratech.mapimap.data.LocationData;
 
@@ -39,7 +40,7 @@ public class BerlinCrewsImpl implements BerlinCrews {
 	}
 
 	@Override
-	public List<Crew> getCrews() {
+	public List<BLA> getCrews() {
 		HttpGet get = new HttpGet(wikiURL);
 		try {
 
@@ -51,7 +52,7 @@ public class BerlinCrewsImpl implements BerlinCrews {
 			TagNode node = cleaner.clean(response.getEntity().getContent(),"UTF-8");
 			List<?> elementListByAttValue = node.getElementListByAttValue("class",
 					"crewBerlin", true, true);
-			List<Crew> crews = new ArrayList<Crew>();
+			List<BLA> crews = new ArrayList<BLA>();
 			for (Object tagNode : elementListByAttValue) {
 				Crew crew = new Crew();
 				crew.setName(((TagNode) tagNode)

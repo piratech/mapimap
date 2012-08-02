@@ -25,6 +25,7 @@ public class CouchDBImpl implements DataSource {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CouchDBImpl.class);
 	private CrewsRepository crewRepo;
+	private SquadRepository squadRepo;
 
 	public CouchDBImpl(final String _url, final String _userName,
 			final String _password, final String _database) {
@@ -38,6 +39,7 @@ public class CouchDBImpl implements DataSource {
 			CouchDbConnector couchDbConnector = couchDbInstance.createConnector(
 					_database, false);
 			crewRepo = new CrewsRepository(Crew.class, couchDbConnector);
+			squadRepo = new SquadRepository(Squad.class, couchDbConnector);
 		} catch (MalformedURLException e) {
 			LOG.debug("DataSourceImpl(url >{}<, userName >{}<, password >{}<)");
 			LOG.error("{}", e);
@@ -75,16 +77,30 @@ public class CouchDBImpl implements DataSource {
 
 	@Override
 	public List<Squad> getSquads() {
-		throw new UnsupportedOperationException("not implemented yet");
+		return squadRepo.getAll();
 	}
 
 	@Override
 	public void addSquad(Squad _newSquad) {
-		throw new UnsupportedOperationException("not implemented yet");
+		if (!squadRepo.squadExists(_newSquad)) {
+			LOG.info("adding crew {} to database", _newSquad.getName());
+			squadRepo.add(_newSquad);
+		} else {
+			updateSquad(_newSquad);
+		}
 	}
 
 	@Override
 	public void delete(Squad _squad) {
 		throw new UnsupportedOperationException("not implemented yet");
+	}
+
+	public void updateSquad(final Squad _crew) {
+		// Update crew only if something has changed
+		Crew crewInDB = crewRepo.findByWikiUrl(_crew.getWikiUrl()).get(0);
+		if (StringUtils.equals(crewInDB.getCheckSum(), _crew.getCheckSum())) {
+			LOG.info("updating crew  {}", _crew.getName());
+			squadRepo.update(_crew);
+		}
 	}
 }

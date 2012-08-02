@@ -6,17 +6,20 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.piratech.mapimap.data.BLA;
 import de.piratech.mapimap.data.Crew;
+import de.piratech.mapimap.data.Squad;
 import de.piratech.mapimap.service.BerlinCrews;
 import de.piratech.mapimap.service.BerlinCrewsImpl;
+import de.piratech.mapimap.service.BerlinSquadsImpl;
 import de.piratech.mapimap.service.CouchDBImpl;
 import de.piratech.mapimap.service.DataSource;
-import de.piratech.mapimap.service.NominatimGeocoderImpl;
 import de.piratech.mapimap.service.Geocoder;
-import org.apache.commons.lang3.StringUtils;
+import de.piratech.mapimap.service.NominatimGeocoderImpl;
 
 /**
  * @author maria
@@ -73,14 +76,23 @@ public class UpdateMapData {
 		Properties properties = loadProperties(_propertiesURI);
 
 		Geocoder geocoder = new NominatimGeocoderImpl();
-		BerlinCrews berlinCrewsSource = new BerlinCrewsImpl(geocoder);
-		List<Crew> crews = berlinCrewsSource.getCrews();
+		// BerlinCrews berlinCrewsSource = new BerlinCrewsImpl(geocoder);
+		// List<BLA> crews = berlinCrewsSource.getCrews();
+		// LOG.info("found {} crews, try to add them to database...", crews.size());
+		// if (!crews.isEmpty()) {
+		// DataSource dataSource = createDataSource(properties);
+		// for (BLA crew : crews) {
+		// dataSource.addCrew((Crew)crew);
+		// }
+		// }
 
-		LOG.info("found {} crews, try to add them to database...", crews.size());
-		if (!crews.isEmpty()) {
+		BerlinCrews berlinSquadsSource = new BerlinSquadsImpl(geocoder);
+		List<BLA> crews2 = berlinSquadsSource.getCrews();
+		LOG.info("found {} squads, try to add them to database...", crews2.size());
+		if (!crews2.isEmpty()) {
 			DataSource dataSource = createDataSource(properties);
-			for (Crew crew : crews) {
-				dataSource.addCrew(crew);
+			for (BLA crew : crews2) {
+				dataSource.addSquad((Squad) crew);
 			}
 		}
 
