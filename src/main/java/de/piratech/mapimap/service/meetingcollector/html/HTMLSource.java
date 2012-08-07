@@ -5,7 +5,7 @@ public class HTMLSource {
 	public AttributeMatcher meetingIdentifier;
 	public AttributeMatcher nameIdentifier;
 	public AttributeMatcher addressIdentifier;
-	public String _urlString;
+	public String urlString;
 
 	public HTMLSource(AttributeMatcher meetingIdentifier,
 			AttributeMatcher nameIdentifier, AttributeMatcher addressIdentifier,
@@ -13,7 +13,7 @@ public class HTMLSource {
 		this.meetingIdentifier = meetingIdentifier;
 		this.nameIdentifier = nameIdentifier;
 		this.addressIdentifier = addressIdentifier;
-		this._urlString = _urlString;
+		this.urlString = _urlString;
 	}
 
 	public AttributeMatcher getMeetingIdentifier() {
@@ -40,12 +40,12 @@ public class HTMLSource {
 		this.addressIdentifier = addressIdentifier;
 	}
 
-	public String get_urlString() {
-		return _urlString;
+	public String getUrlString() {
+		return urlString;
 	}
 
-	public void set_urlString(String _urlString) {
-		this._urlString = _urlString;
+	public void setUrlString(String _urlString) {
+		this.urlString = _urlString;
 	}
 
 }

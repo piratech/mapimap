@@ -28,19 +28,18 @@ import de.piratech.mapimap.service.meetingcollector.MeetingCollector;
  * @author maria
  * 
  */
-public abstract class AbstractHTMLMeetingCollector<K extends Meeting> implements
-		MeetingCollector {
+public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 
 	private static final Logger LOG = LoggerFactory
 			.getLogger(AbstractHTMLMeetingCollector.class);
 
 	private Geocoder geocoder;
 	private HttpClient client;
-	private MeetingFactory<K> meetingFactory;
+	private MeetingFactory<?> meetingFactory;
 	private HTMLSource htmlSource;
 
-	public AbstractHTMLMeetingCollector(HTMLSource htmlsource, Geocoder _geocoder,
-			MeetingFactory<K> meetingFactory) {
+	public AbstractHTMLMeetingCollector(HTMLSource htmlsource,
+			Geocoder _geocoder, MeetingFactory<?> meetingFactory) {
 		this.htmlSource = htmlsource;
 		this.geocoder = _geocoder;
 		this.meetingFactory = meetingFactory;
@@ -54,7 +53,7 @@ public abstract class AbstractHTMLMeetingCollector<K extends Meeting> implements
 	}
 
 	private TagNode getTagNode() {
-		return getTagNode(this.htmlSource.get_urlString());
+		return getTagNode(this.htmlSource.getUrlString());
 	}
 
 	protected TagNode getTagNode(String href) {
@@ -111,24 +110,24 @@ public abstract class AbstractHTMLMeetingCollector<K extends Meeting> implements
 		return address;
 	}
 
-	protected K getMeeting(TagNode squadSite) {
-		K crew = meetingFactory.getInstance();
-		crew.setName(getMeetingName(squadSite));
-		LOG.info("name: " + crew.getName());
+	protected Meeting getMeeting(TagNode squadSite) {
+		Meeting meeting = meetingFactory.getInstance();
+		meeting.setName(getMeetingName(squadSite));
+		LOG.info("name: " + meeting.getName());
 
 		String address = getMeetingAddress((TagNode) squadSite);
 		if (!StringUtils.isEmpty(address)) {
 			LocationData locationData = geocoder.getLocationData(address);
 			if (locationData != null) {
-				crew.setLocationData(locationData);
-				return crew;
+				meeting.setLocationData(locationData);
+				return meeting;
 			} else {
-				LOG.warn("skip crew {} because location not found", crew.getName(),
-						crew.getWikiUrl());
+				LOG.warn("skip meeting {} because location not found",
+						meeting.getName(), meeting.getWikiUrl());
 			}
 		} else {
-			LOG.warn("skip crew {} because address not found", crew.getName(),
-					crew.getWikiUrl());
+			LOG.warn("skip meeting {} because address not found", meeting.getName(),
+					meeting.getWikiUrl());
 		}
 		return null;
 	}

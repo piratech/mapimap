@@ -90,7 +90,7 @@ public class UpdateMapData {
 				"http://wiki.piratenpartei.de/BE:Crews/Crewmap");
 
 		Geocoder geocoder = new NominatimGeocoderImpl();
-		MeetingCollector berlinCrewsSource = new HTMLMeetingCollectorOneSite<Crew>(
+		MeetingCollector berlinCrewsSource = new HTMLMeetingCollectorOneSite(
 				crewSource, geocoder, new MeetingFactory<Crew>(Crew.class));
 		List<Meeting> crews = berlinCrewsSource.getMeetings();
 		LOG.info("found {} crews, try to add them to database...", crews.size());
@@ -103,15 +103,15 @@ public class UpdateMapData {
 			}
 		}
 
-		MeetingCollector berlinSquadsSource = new HTMLMeetingCollectorLinkList<Squad>(
+		MeetingCollector berlinSquadsSource = new HTMLMeetingCollectorLinkList(
 				squadSource, geocoder, "http://wiki.piratenpartei.de",
 				new MeetingFactory<Squad>(Squad.class));
-		List<Meeting> crews2 = berlinSquadsSource.getMeetings();
-		LOG.info("found {} squads, try to add them to database...", crews2.size());
-		if (!crews2.isEmpty()) {
+		List<Meeting> squads = berlinSquadsSource.getMeetings();
+		LOG.info("found {} squads, try to add them to database...", squads.size());
+		if (!squads.isEmpty()) {
 			DataSource dataSource = createDataSource(properties);
-			for (Meeting crew : crews2) {
-				dataSource.addSquad((Squad) crew);
+			for (Meeting squad : squads) {
+				dataSource.addSquad((Squad) squad);
 			}
 		}
 

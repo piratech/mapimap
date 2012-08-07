@@ -16,26 +16,25 @@ import de.piratech.mapimap.service.Geocoder;
  * @author maria
  * 
  */
-public class HTMLMeetingCollectorOneSite<K extends Meeting> extends
-		AbstractHTMLMeetingCollector<K> {
+public class HTMLMeetingCollectorOneSite extends AbstractHTMLMeetingCollector {
 
 	public HTMLMeetingCollectorOneSite(HTMLSource htmlSource, Geocoder _geocoder,
-			MeetingFactory<K> meetingFactory) {
+			MeetingFactory<?> meetingFactory) {
 		super(htmlSource, _geocoder, meetingFactory);
 	}
 
 	@Override
 	public List<Meeting> getMeetings() {
 
-		List<TagNode> nodesWithAttribute = getMeetingTagNodes();
-		List<Meeting> crews = new ArrayList<Meeting>();
-		for (TagNode tagNode : nodesWithAttribute) {
-			K crew = getMeeting(tagNode);
-			if (crew != null) {
-				crews.add(crew);
+		List<TagNode> meetingNodes = getMeetingTagNodes();
+		List<Meeting> meetings = new ArrayList<Meeting>();
+		for (TagNode meetingNode : meetingNodes) {
+			Meeting meeting = getMeeting(meetingNode);
+			if (meeting != null) {
+				meetings.add(meeting);
 			}
 		}
-		return crews;
+		return meetings;
 
 	}
 }
