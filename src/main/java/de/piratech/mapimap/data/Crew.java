@@ -5,9 +5,9 @@ package de.piratech.mapimap.data;
  * @author maria
  *
  */
-public class Crew extends BLA{
+public class Crew extends Meeting{
 
-	//@todo: deveth0@geirkairam: propably a map-url would be useful for external apps
+	// TODO think about using generics
   private DataType type = DataType.CREW;
 
 

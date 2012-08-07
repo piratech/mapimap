@@ -4,7 +4,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public abstract class BLA {
+public abstract class Meeting {
 
 	// @todo: deveth0@geirkairam: propably a map-url would be useful for external
 	// apps

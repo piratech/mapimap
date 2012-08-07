@@ -4,7 +4,6 @@
 package de.piratech.mapimap.service;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,30 +17,39 @@ import org.htmlcleaner.TagNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.piratech.mapimap.data.BLA;
 import de.piratech.mapimap.data.Crew;
 import de.piratech.mapimap.data.LocationData;
+import de.piratech.mapimap.data.Meeting;
 
 /**
  * @author maria
  * 
  */
-public class BerlinCrewsImpl implements BerlinCrews {
+public class MeetingCollectorOneSite implements MeetingCollector {
 
-	private static final String wikiURL = "http://wiki.piratenpartei.de/BE:Crews/Crewmap";
 	private static final Logger LOG = LoggerFactory
-			.getLogger(BerlinCrewsImpl.class);
+			.getLogger(MeetingCollectorOneSite.class);
 	private Geocoder geocoder;
 	private HttpClient client;
+	private String urlString;
+	private String[] meetingIdentifier;
+	private String[] nameIdentifier;
+	private String[] addressIdentifier;
 
-	public BerlinCrewsImpl(final Geocoder _geocoder) {
+	public MeetingCollectorOneSite(final Geocoder _geocoder,
+			final String _urlString, final String _meetingIdentifier,
+			final String _nameIdentifier, final String _addressIdentifier) {
 		this.geocoder = _geocoder;
+		this.urlString = _urlString;
+		this.meetingIdentifier = _meetingIdentifier.split(":");
+		this.nameIdentifier = _nameIdentifier.split(":");
+		this.addressIdentifier = _addressIdentifier.split(":");
 		this.client = new DefaultHttpClient();
 	}
 
 	@Override
-	public List<BLA> getCrews() {
-		HttpGet get = new HttpGet(wikiURL);
+	public List<Meeting> getMeetings() {
+		HttpGet get = new HttpGet(this.urlString);
 		try {
 
 			HttpResponse response = client.execute(get);
@@ -49,19 +57,15 @@ public class BerlinCrewsImpl implements BerlinCrews {
 			// very old look for something never (cannot use org.w3c.dom.Document
 			// because wiki sends invalid HTML)
 			HtmlCleaner cleaner = new HtmlCleaner();
-			TagNode node = cleaner.clean(response.getEntity().getContent(),"UTF-8");
-			List<?> elementListByAttValue = node.getElementListByAttValue("class",
-					"crewBerlin", true, true);
-			List<BLA> crews = new ArrayList<BLA>();
+			TagNode node = cleaner.clean(response.getEntity().getContent(), "UTF-8");
+			List<?> elementListByAttValue = node.getElementListByAttValue(
+					this.meetingIdentifier[0], this.meetingIdentifier[1], true, true);
+			List<Meeting> crews = new ArrayList<Meeting>();
 			for (Object tagNode : elementListByAttValue) {
 				Crew crew = new Crew();
 				crew.setName(((TagNode) tagNode)
-						.findElementByAttValue("class", "name", false, true).getText()
-						.toString());
-				// @todo: deveth0@geirkairam: should be configurable (eg.
-				// settings.properties)
-				crew.setWikiUrl("http://wiki.piratenpartei.de/BE:Crews/"
-						+ URLEncoder.encode(crew.getName().replaceAll(" ", "_"), "UTF-8"));
+						.findElementByAttValue(nameIdentifier[0], nameIdentifier[1], false,
+								true).getText().toString());
 				String address = getAddress((TagNode) tagNode);
 				if (!StringUtils.isEmpty(address)) {
 					LocationData locationData = geocoder.getLocationData(address);
@@ -88,8 +92,8 @@ public class BerlinCrewsImpl implements BerlinCrews {
 
 	private String getAddress(final TagNode _tagNode) {
 		String address = null;
-		TagNode addressTag = _tagNode.findElementByAttValue("class", "address",
-				true, true);
+		TagNode addressTag = _tagNode.findElementByAttValue(addressIdentifier[0],
+				addressIdentifier[1], true, true);
 		if (addressTag != null) {
 			address = addressTag.getText().toString();
 		}

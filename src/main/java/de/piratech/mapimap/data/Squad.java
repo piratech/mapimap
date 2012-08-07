@@ -7,8 +7,9 @@ package de.piratech.mapimap.data;
  * @author maria
  * 
  */
-public class Squad extends BLA {
+public class Squad extends Meeting {
 
+	// TODO think about using generics
 	private DataType type = DataType.SQUAD;
 
 	public DataType getType() {

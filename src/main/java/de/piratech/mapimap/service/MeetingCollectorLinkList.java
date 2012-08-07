@@ -17,34 +17,43 @@ import org.htmlcleaner.TagNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.piratech.mapimap.data.BLA;
 import de.piratech.mapimap.data.LocationData;
+import de.piratech.mapimap.data.Meeting;
 import de.piratech.mapimap.data.Squad;
 
 /**
  * @author maria
  * 
  */
-public class BerlinSquadsImpl implements BerlinCrews {
+public class MeetingCollectorLinkList implements MeetingCollector {
 
-	private static final int EXACT_MATCH = 0;
-	private static final int STARTS_WITH = 1;
+	public static final int EXACT_MATCH = 0;
+	public static final int STARTS_WITH = 1;
 	private static final int CONTAINT = 2;
 
-	private static final String wikiURL = "http://wiki.piratenpartei.de/Vorlage:Berlin_Navigationsleiste_Squads";
 	private static final Logger LOG = LoggerFactory
-			.getLogger(BerlinSquadsImpl.class);
+			.getLogger(MeetingCollectorLinkList.class);
 	private Geocoder geocoder;
 	private HttpClient client;
+	private String linkListUrl;
+	private String[] meetingIdentifier;
+	private String[] nameIdentifier;
+	private String[] addressIdentifier;
 
-	public BerlinSquadsImpl(final Geocoder _geocoder) {
+	public MeetingCollectorLinkList(final Geocoder _geocoder,
+			String _linkListUrl, final String _meetingIdentifier,
+			final String _nameIdentifier, final String _addressIdentifier) {
 		this.geocoder = _geocoder;
+		this.linkListUrl = _linkListUrl;
+		this.meetingIdentifier = _meetingIdentifier.split(";");
+		this.nameIdentifier = _nameIdentifier.split(":");
+		this.addressIdentifier = _addressIdentifier.split(":");
 		this.client = new DefaultHttpClient();
 	}
 
 	@Override
-	public List<BLA> getCrews() {
-		HttpGet get = new HttpGet(wikiURL);
+	public List<Meeting> getMeetings() {
+		HttpGet get = new HttpGet(this.linkListUrl);
 		try {
 
 			HttpResponse response = client.execute(get);
@@ -55,18 +64,20 @@ public class BerlinSquadsImpl implements BerlinCrews {
 			TagNode squadsSite = cleaner.clean(response.getEntity().getContent(),
 					"UTF-8");
 
-			List<TagNode> nodesWithAttribute = getNodesWithAttribute("title",
-					"BE:Squads/", STARTS_WITH, squadsSite);
+			List<TagNode> nodesWithAttribute = getNodesWithAttribute(
 
-			List<BLA> crews = new ArrayList<BLA>();
+			meetingIdentifier[0], meetingIdentifier[1],
+					Integer.parseInt(meetingIdentifier[2]), squadsSite);
+
+			List<Meeting> crews = new ArrayList<Meeting>();
 			for (TagNode tagNode : nodesWithAttribute) {
 				String href = "http://wiki.piratenpartei.de"
 						+ tagNode.getAttributeByName("href");
 				response = client.execute(new HttpGet(href));
 				TagNode squadSite = cleaner.clean(response.getEntity().getContent(),
 						"UTF-8");
-				TagNode nameNode = getNodeWithAttribute("class", "name", EXACT_MATCH,
-						squadSite);
+				TagNode nameNode = getNodeWithAttribute(nameIdentifier[0],
+						nameIdentifier[1], Integer.parseInt(nameIdentifier[2]), squadSite);
 				Squad crew = new Squad();
 				crew.setWikiUrl(href);
 				if (nameNode != null) {
@@ -143,8 +154,8 @@ public class BerlinSquadsImpl implements BerlinCrews {
 
 	private String getAddress(final TagNode _tagNode) {
 		String address = null;
-		TagNode addressTag = _tagNode.findElementByAttValue("class", "address",
-				true, true);
+		TagNode addressTag = _tagNode.findElementByAttValue(addressIdentifier[0],
+				addressIdentifier[1], true, true);
 		if (addressTag != null) {
 			address = addressTag.getText().toString();
 		}

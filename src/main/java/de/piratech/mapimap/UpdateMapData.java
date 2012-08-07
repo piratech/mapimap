@@ -3,6 +3,7 @@ package de.piratech.mapimap;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Properties;
 
@@ -10,15 +11,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.piratech.mapimap.data.BLA;
 import de.piratech.mapimap.data.Crew;
+import de.piratech.mapimap.data.Meeting;
 import de.piratech.mapimap.data.Squad;
-import de.piratech.mapimap.service.BerlinCrews;
-import de.piratech.mapimap.service.BerlinCrewsImpl;
-import de.piratech.mapimap.service.BerlinSquadsImpl;
 import de.piratech.mapimap.service.CouchDBImpl;
 import de.piratech.mapimap.service.DataSource;
 import de.piratech.mapimap.service.Geocoder;
+import de.piratech.mapimap.service.MeetingCollector;
+import de.piratech.mapimap.service.MeetingCollectorLinkList;
+import de.piratech.mapimap.service.MeetingCollectorOneSite;
 import de.piratech.mapimap.service.NominatimGeocoderImpl;
 
 /**
@@ -76,22 +77,30 @@ public class UpdateMapData {
 		Properties properties = loadProperties(_propertiesURI);
 
 		Geocoder geocoder = new NominatimGeocoderImpl();
-		// BerlinCrews berlinCrewsSource = new BerlinCrewsImpl(geocoder);
-		// List<BLA> crews = berlinCrewsSource.getCrews();
-		// LOG.info("found {} crews, try to add them to database...", crews.size());
-		// if (!crews.isEmpty()) {
-		// DataSource dataSource = createDataSource(properties);
-		// for (BLA crew : crews) {
-		// dataSource.addCrew((Crew)crew);
-		// }
-		// }
+		MeetingCollector berlinCrewsSource = new MeetingCollectorOneSite(geocoder,
+				"http://wiki.piratenpartei.de/BE:Crews/Crewmap", "class:crewBerlin",
+				"class:name", "class:address");
+		List<Meeting> crews = berlinCrewsSource.getMeetings();
+		LOG.info("found {} crews, try to add them to database...", crews.size());
+		if (!crews.isEmpty()) {
+			DataSource dataSource = createDataSource(properties);
+			for (Meeting crew : crews) {
+				crew.setWikiUrl("http://wiki.piratenpartei.de/BE:Crews/"
+						+ URLEncoder.encode(crew.getName().replaceAll(" ", "_"), "UTF-8"));
+				dataSource.addCrew((Crew) crew);
+			}
+		}
 
-		BerlinCrews berlinSquadsSource = new BerlinSquadsImpl(geocoder);
-		List<BLA> crews2 = berlinSquadsSource.getCrews();
+		MeetingCollector berlinSquadsSource = new MeetingCollectorLinkList(
+				geocoder,
+				"http://wiki.piratenpartei.de/Vorlage:Berlin_Navigationsleiste_Squads",
+				"title;BE:Squads;" + MeetingCollectorLinkList.STARTS_WITH,
+				"class:name:" + MeetingCollectorLinkList.EXACT_MATCH, "class:address");
+		List<Meeting> crews2 = berlinSquadsSource.getMeetings();
 		LOG.info("found {} squads, try to add them to database...", crews2.size());
 		if (!crews2.isEmpty()) {
 			DataSource dataSource = createDataSource(properties);
-			for (BLA crew : crews2) {
+			for (Meeting crew : crews2) {
 				dataSource.addSquad((Squad) crew);
 			}
 		}
