@@ -1,4 +1,4 @@
-package de.piratech.mapimap.service;
+package de.piratech.mapimap.service.meetingcollector;
 
 import java.util.List;
 
