@@ -39,7 +39,7 @@ public class LocationData {
 
   @Override
   public String toString() {
-    return "LocationData{" + "lat=" + lat + ", lon=" + lon + ", address=" + address + '}';
+    return "LocationData{" + "lat=" + lat + ", lon=" + lon + ", address=" + address.toString() + '}';
   }
   
   
