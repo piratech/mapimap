@@ -6,6 +6,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public abstract class Meeting {
 
+
 	// @todo: deveth0@geirkairam: propably a map-url would be useful for external
 	// apps
 	@JsonProperty("_id")

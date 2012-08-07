@@ -13,14 +13,17 @@ import org.slf4j.LoggerFactory;
 
 import de.piratech.mapimap.data.Crew;
 import de.piratech.mapimap.data.Meeting;
+import de.piratech.mapimap.data.MeetingFactory;
 import de.piratech.mapimap.data.Squad;
 import de.piratech.mapimap.service.CouchDBImpl;
 import de.piratech.mapimap.service.DataSource;
 import de.piratech.mapimap.service.Geocoder;
-import de.piratech.mapimap.service.MeetingCollector;
-import de.piratech.mapimap.service.MeetingCollectorLinkList;
-import de.piratech.mapimap.service.MeetingCollectorOneSite;
 import de.piratech.mapimap.service.NominatimGeocoderImpl;
+import de.piratech.mapimap.service.meetingcollector.MeetingCollector;
+import de.piratech.mapimap.service.meetingcollector.html.AttributeMatcher;
+import de.piratech.mapimap.service.meetingcollector.html.HTMLMeetingCollectorLinkList;
+import de.piratech.mapimap.service.meetingcollector.html.HTMLMeetingCollectorOneSite;
+import de.piratech.mapimap.service.meetingcollector.html.HTMLSource;
 
 /**
  * @author maria
@@ -76,10 +79,19 @@ public class UpdateMapData {
 		LOG.info("perform task update...");
 		Properties properties = loadProperties(_propertiesURI);
 
+		HTMLSource squadSource = new HTMLSource(new AttributeMatcher("title",
+				"BE:Squads", AttributeMatcher.STARTS_WITH), new AttributeMatcher(
+				"class", "name"), new AttributeMatcher("class", "address"),
+				"http://wiki.piratenpartei.de/Vorlage:Berlin_Navigationsleiste_Squads");
+
+		HTMLSource crewSource = new HTMLSource(new AttributeMatcher("class",
+				"crewBerlin"), new AttributeMatcher("class", "name"),
+				new AttributeMatcher("class", "address"),
+				"http://wiki.piratenpartei.de/BE:Crews/Crewmap");
+
 		Geocoder geocoder = new NominatimGeocoderImpl();
-		MeetingCollector berlinCrewsSource = new MeetingCollectorOneSite(geocoder,
-				"http://wiki.piratenpartei.de/BE:Crews/Crewmap", "class:crewBerlin",
-				"class:name", "class:address");
+		MeetingCollector berlinCrewsSource = new HTMLMeetingCollectorOneSite<Crew>(
+				crewSource, geocoder, new MeetingFactory<Crew>(Crew.class));
 		List<Meeting> crews = berlinCrewsSource.getMeetings();
 		LOG.info("found {} crews, try to add them to database...", crews.size());
 		if (!crews.isEmpty()) {
@@ -91,11 +103,9 @@ public class UpdateMapData {
 			}
 		}
 
-		MeetingCollector berlinSquadsSource = new MeetingCollectorLinkList(
-				geocoder,
-				"http://wiki.piratenpartei.de/Vorlage:Berlin_Navigationsleiste_Squads",
-				"title;BE:Squads;" + MeetingCollectorLinkList.STARTS_WITH,
-				"class:name:" + MeetingCollectorLinkList.EXACT_MATCH, "class:address");
+		MeetingCollector berlinSquadsSource = new HTMLMeetingCollectorLinkList<Squad>(
+				squadSource, geocoder, "http://wiki.piratenpartei.de",
+				new MeetingFactory<Squad>(Squad.class));
 		List<Meeting> crews2 = berlinSquadsSource.getMeetings();
 		LOG.info("found {} squads, try to add them to database...", crews2.size());
 		if (!crews2.isEmpty()) {
