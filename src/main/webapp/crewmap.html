@@ -34,7 +34,9 @@ crews.getCrewsWithPosition = function(position) {
 	}
 	return returnArray;
 };
-var icon;
+
+var crewIcon;
+var squadIcon;
 $(document).ready(function() {
     
 	//map zeug
@@ -50,8 +52,9 @@ $(document).ready(function() {
 
 	var size = new OpenLayers.Size(21,25);
 	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-	icon = new OpenLayers.Icon('img/marker.png', size, offset);
-
+	crewIcon = new OpenLayers.Icon('img/marker.png', size, offset);
+	squadIcon = new OpenLayers.Icon('img/marker-gold.png', size, offset);
+	
 	//var source = new PiratePointsCollection(baseSourceURL+'/Vorlage:Berlin_Navigationsleiste_Crews','a title^="BE:Crews/"]',crewLoaded);
 	//var source = new BerlinCrewsCollection(baseSourceURL+'/BE:Crews/Crewmap','.crewBerlin',crewLoaded);
 	$.ajaxSetup({ scriptCharset: "utf-8" , contentType: "application/json; charset=utf-8"});
@@ -62,6 +65,14 @@ $(document).ready(function() {
             crewLoaded(crew);
 		}
     });
+    
+    $.getJSON('http://piratech.iriscouch.com/mapimap/_design/Squad/_view/all?callback=?', function(data) {
+  		for(var i =0;i<data.total_rows;i++) {
+              var squad = data.rows[i].value;
+              squad.position = getCoordinates(squad.locationData.lon, squad.locationData.lat);
+              squadLoaded(squad);
+  		}
+      });
     
     
     $("#editbox").fadeOut();
@@ -82,7 +93,16 @@ $(document).ready(function() {
 
 var crewLoaded = function(crew) {
 	if (!crewLayer.markerWithLonLatExists(crew.position)) {
-		var marker = new OpenLayers.Marker(crew.position,icon.clone());
+		var marker = new OpenLayers.Marker(crew.position,crewIcon.clone());
+		marker.events.on({"click":function() {showPopup(crew.position)}});
+		crewLayer.addMarker(marker);
+	}
+	crews.push(crew);
+}
+
+var squadLoaded = function(crew) {
+	if (!crewLayer.markerWithLonLatExists(crew.position)) {
+		var marker = new OpenLayers.Marker(crew.position,squadIcon.clone());
 		marker.events.on({"click":function() {showPopup(crew.position)}});
 		crewLayer.addMarker(marker);
 	}
@@ -95,7 +115,7 @@ function showPopup(position,anchor) {
 	for(var i=0;i<crewsWithPosition.length;i++) {
 		popupHTML = popupHTML+"<div><h1>"
 					+ crewsWithPosition[i].name
-					+ "</h1><h2>Crew</h2><div style='clear:both;'></div><ul><li>"
+					+ "</h1><h2>"+crewsWithPosition[i].type+"</h2><div style='clear:both;'></div><ul><li>"
 					+ crewsWithPosition[i].locationData.address.road
 					+ "</li><li><a href='"+crewsWithPosition[i].wikiUrl+"' target='blank'>im Wiki</a></li></ul></div>"
 	}

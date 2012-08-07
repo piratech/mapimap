@@ -3,20 +3,24 @@ package de.piratech.mapimap;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.piratech.mapimap.data.Crew;
-import de.piratech.mapimap.service.BerlinCrews;
-import de.piratech.mapimap.service.BerlinCrewsImpl;
+import de.piratech.mapimap.data.Meeting;
+import de.piratech.mapimap.data.Squad;
 import de.piratech.mapimap.service.CouchDBImpl;
 import de.piratech.mapimap.service.DataSource;
-import de.piratech.mapimap.service.NominatimGeocoderImpl;
 import de.piratech.mapimap.service.Geocoder;
-import org.apache.commons.lang3.StringUtils;
+import de.piratech.mapimap.service.MeetingCollector;
+import de.piratech.mapimap.service.MeetingCollectorLinkList;
+import de.piratech.mapimap.service.MeetingCollectorOneSite;
+import de.piratech.mapimap.service.NominatimGeocoderImpl;
 
 /**
  * @author maria
@@ -73,14 +77,31 @@ public class UpdateMapData {
 		Properties properties = loadProperties(_propertiesURI);
 
 		Geocoder geocoder = new NominatimGeocoderImpl();
-		BerlinCrews berlinCrewsSource = new BerlinCrewsImpl(geocoder);
-		List<Crew> crews = berlinCrewsSource.getCrews();
-
+		MeetingCollector berlinCrewsSource = new MeetingCollectorOneSite(geocoder,
+				"http://wiki.piratenpartei.de/BE:Crews/Crewmap", "class:crewBerlin",
+				"class:name", "class:address");
+		List<Meeting> crews = berlinCrewsSource.getMeetings();
 		LOG.info("found {} crews, try to add them to database...", crews.size());
 		if (!crews.isEmpty()) {
 			DataSource dataSource = createDataSource(properties);
-			for (Crew crew : crews) {
-				dataSource.addCrew(crew);
+			for (Meeting crew : crews) {
+				crew.setWikiUrl("http://wiki.piratenpartei.de/BE:Crews/"
+						+ URLEncoder.encode(crew.getName().replaceAll(" ", "_"), "UTF-8"));
+				dataSource.addCrew((Crew) crew);
+			}
+		}
+
+		MeetingCollector berlinSquadsSource = new MeetingCollectorLinkList(
+				geocoder,
+				"http://wiki.piratenpartei.de/Vorlage:Berlin_Navigationsleiste_Squads",
+				"title;BE:Squads;" + MeetingCollectorLinkList.STARTS_WITH,
+				"class:name:" + MeetingCollectorLinkList.EXACT_MATCH, "class:address");
+		List<Meeting> crews2 = berlinSquadsSource.getMeetings();
+		LOG.info("found {} squads, try to add them to database...", crews2.size());
+		if (!crews2.isEmpty()) {
+			DataSource dataSource = createDataSource(properties);
+			for (Meeting crew : crews2) {
+				dataSource.addSquad((Squad) crew);
 			}
 		}
 
