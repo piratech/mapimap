@@ -1,51 +1,54 @@
 package de.piratech.mapimap.service.meetingcollector.html;
 
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class HTMLSource {
-	public AttributeMatcher meetingIdentifier;
-	public AttributeMatcher nameIdentifier;
-	public AttributeMatcher addressIdentifier;
-	public String _urlString;
+	public static final String ADDRESS_TAG = "address";
+	public static final String LAT_TAG = "lat";
+	public static final String LON_TAG = "lon";
+	public static final String NAME_TAG = "name";
+	public static final String MEETING_TAG = "meeting";
+	public static final String STREET_TAG = "street";
+	public static final String ZIP_TAG = "zip";
+	public static final String TOWN_TAG = "town";
+	private String urlString;
+	private boolean table;
+	private Map<String, Object> informationIdentifier;
 
-	public HTMLSource(AttributeMatcher meetingIdentifier,
-			AttributeMatcher nameIdentifier, AttributeMatcher addressIdentifier,
-			String _urlString) {
-		this.meetingIdentifier = meetingIdentifier;
-		this.nameIdentifier = nameIdentifier;
-		this.addressIdentifier = addressIdentifier;
-		this._urlString = _urlString;
+	public HTMLSource(Map<String, Object> informationIdentifier, String _urlString) {
+		this.informationIdentifier = informationIdentifier;
+		this.urlString = _urlString;
 	}
 
-	public AttributeMatcher getMeetingIdentifier() {
-		return meetingIdentifier;
+	public boolean isTable() {
+		return table;
 	}
 
-	public void setMeetingIdentifier(AttributeMatcher meetingIdentifier) {
-		this.meetingIdentifier = meetingIdentifier;
+	public void setTable(boolean table) {
+		this.table = table;
 	}
 
-	public AttributeMatcher getNameIdentifier() {
-		return nameIdentifier;
+	public String getUrlString() {
+		return urlString;
 	}
 
-	public void setNameIdentifier(AttributeMatcher nameIdentifier) {
-		this.nameIdentifier = nameIdentifier;
+	public void setUrlString(String _urlString) {
+		this.urlString = _urlString;
 	}
 
-	public AttributeMatcher getAddressIdentifier() {
-		return addressIdentifier;
+	public AttributeMatcher getAttributeIdentifier(String key) {
+		return (AttributeMatcher) informationIdentifier.get(key);
 	}
 
-	public void setAddressIdentifier(AttributeMatcher addressIdentifier) {
-		this.addressIdentifier = addressIdentifier;
-	}
-
-	public String get_urlString() {
-		return _urlString;
-	}
-
-	public void set_urlString(String _urlString) {
-		this._urlString = _urlString;
+	public int getTableColumn(String key) {
+		if (StringUtils.isNotEmpty(key)) {
+			if (this.informationIdentifier.get(key) != null) {
+				return (Integer) this.informationIdentifier.get(key);
+			}
+		}
+		return -1;
 	}
 
 }

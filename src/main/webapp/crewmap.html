@@ -12,7 +12,7 @@
 
 <script type="text/javascript">
 var baseSourceURL = "http://wiki.piratenpartei.de";
-var currentZoom=11;
+var currentZoom=7;
 var map;
 var crewLayer = new OpenLayers.Layer.Markers("Crews");
 crewLayer.markerWithLonLatExists = function(lonlat) {
@@ -45,7 +45,7 @@ $(document).ready(function() {
 	var osm = new OpenLayers.Layer.OSM();
 	map.addLayer(osm);
 
-	geolocate({address:"Berlin"},centerMap);
+	geolocate({address:"Germany"},centerMap);
 
 	
 	map.addLayer(crewLayer);
@@ -71,6 +71,14 @@ $(document).ready(function() {
               var squad = data.rows[i].value;
               squad.position = getCoordinates(squad.locationData.lon, squad.locationData.lat);
               squadLoaded(squad);
+  		}
+      });
+    
+    $.getJSON('http://piratech.iriscouch.com/mapimap/_design/Stammtisch/_view/all?callback=?', function(data) {
+  		for(var i =0;i<data.total_rows;i++) {
+              var squad = data.rows[i].value;
+              squad.position = getCoordinates(squad.locationData.lon, squad.locationData.lat);
+              crewLoaded(squad);
   		}
       });
     

@@ -5,7 +5,7 @@ package de.piratech.mapimap.data;
  *
  */
 public enum DataType {
-  CREW, SQUAD
+	CREW, SQUAD, STAMMTISCH
 }
 
 

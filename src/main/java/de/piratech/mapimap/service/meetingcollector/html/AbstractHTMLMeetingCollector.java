@@ -18,6 +18,7 @@ import org.htmlcleaner.TagNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.piratech.mapimap.data.Address;
 import de.piratech.mapimap.data.LocationData;
 import de.piratech.mapimap.data.Meeting;
 import de.piratech.mapimap.data.MeetingFactory;
@@ -28,33 +29,85 @@ import de.piratech.mapimap.service.meetingcollector.MeetingCollector;
  * @author maria
  * 
  */
-public abstract class AbstractHTMLMeetingCollector<K extends Meeting> implements
-		MeetingCollector {
+public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 
 	private static final Logger LOG = LoggerFactory
 			.getLogger(AbstractHTMLMeetingCollector.class);
 
-	private Geocoder geocoder;
+	protected Geocoder geocoder;
 	private HttpClient client;
-	private MeetingFactory<K> meetingFactory;
-	private HTMLSource htmlSource;
+	protected MeetingFactory<?> meetingFactory;
+	protected HTMLSource htmlSource;
 
-	public AbstractHTMLMeetingCollector(HTMLSource htmlsource, Geocoder _geocoder,
-			MeetingFactory<K> meetingFactory) {
+	public AbstractHTMLMeetingCollector(HTMLSource htmlsource,
+			Geocoder _geocoder, MeetingFactory<?> meetingFactory) {
 		this.htmlSource = htmlsource;
 		this.geocoder = _geocoder;
 		this.meetingFactory = meetingFactory;
 		this.client = new DefaultHttpClient();
 	}
 
-	protected List<TagNode> getMeetingTagNodes() {
-		List<TagNode> nodesWithAttribute = getNodesWithAttribute(getTagNode(),
-				this.htmlSource.getMeetingIdentifier());
-		return nodesWithAttribute;
+	@Override
+	public List<Meeting> getMeetings() {
+		List<TagNode> meetingNodes = getMeetingTagNodes();
+		List<Meeting> meetings = new ArrayList<Meeting>();
+		for (TagNode meetingNode : meetingNodes) {
+			Meeting meeting = getMeeting(meetingNode);
+			if (meeting != null) {
+				meetings.add(meeting);
+			}
+		}
+		return meetings;
 	}
 
-	private TagNode getTagNode() {
-		return getTagNode(this.htmlSource.get_urlString());
+	protected abstract List<TagNode> getMeetingTagNodes();
+
+	protected abstract String getName(TagNode meetingNode);
+
+	protected abstract String getLon(TagNode meeting);
+
+	protected abstract String getLat(TagNode meeting);
+
+	protected abstract String getRoad(TagNode meeting);
+
+	protected abstract String getZip(TagNode meeting);
+
+	protected abstract String getCity(TagNode meeting);
+
+	protected abstract String getAddress(TagNode meeting);
+
+	private LocationData getLocationData(TagNode meeting) {
+		String lonColumn = getLon(meeting);
+		String latColumn = getLat(meeting);
+		Address address = new Address();
+		address.setRoad(getRoad(meeting));
+		address.setPostcode(getZip(meeting));
+		address.setCity(getCity(meeting));
+	
+		if (StringUtils.isEmpty(lonColumn) || StringUtils.isEmpty(latColumn)) {
+			if (!address.isValid()) {
+				String addressString = getAddress(meeting);
+				if (StringUtils.isEmpty(addressString)) {
+					LOG.warn("Skip meeting {} because address not found");
+					return null;
+				} else {
+					return geocoder.getLocationData(addressString);
+				}
+			} else {
+				return geocoder.getLocationData(address.getAddressString());
+			}
+		} else {
+			LocationData locationData = new LocationData();
+			locationData.setLat(Float.parseFloat(latColumn));
+			locationData.setLon(Float.parseFloat(lonColumn));
+			locationData.setAddress(address);
+			return locationData;
+		}
+	
+	}
+
+	protected TagNode getTagNode() {
+		return getTagNode(this.htmlSource.getUrlString());
 	}
 
 	protected TagNode getTagNode(String href) {
@@ -77,7 +130,7 @@ public abstract class AbstractHTMLMeetingCollector<K extends Meeting> implements
 		return null;
 	}
 
-	private TagNode getNodeWithAttribute(TagNode node,
+	protected TagNode getNodeWithAttribute(TagNode node,
 			AttributeMatcher attributeMatcher) {
 		List<TagNode> nodesWithAttribute = getNodesWithAttribute(node,
 				attributeMatcher);
@@ -87,7 +140,7 @@ public abstract class AbstractHTMLMeetingCollector<K extends Meeting> implements
 		return null;
 	}
 
-	private List<TagNode> getNodesWithAttribute(TagNode node,
+	protected List<TagNode> getNodesWithAttribute(TagNode node,
 			AttributeMatcher attributeMatcher) {
 		List<TagNode> resultsList = new ArrayList<TagNode>();
 		TagNode[] children = node.getAllElements(true);
@@ -100,45 +153,26 @@ public abstract class AbstractHTMLMeetingCollector<K extends Meeting> implements
 		return resultsList;
 	}
 
-	private String getMeetingAddress(final TagNode _tagNode) {
-		String address = null;
-		TagNode addressTag = _tagNode.findElementByAttValue(this.htmlSource
-				.getAddressIdentifier().getAttributeName(), this.htmlSource
-				.getAddressIdentifier().getAttributeValue(), true, true);
-		if (addressTag != null) {
-			address = addressTag.getText().toString();
-		}
-		return address;
-	}
-
-	protected K getMeeting(TagNode squadSite) {
-		K crew = meetingFactory.getInstance();
-		crew.setName(getMeetingName(squadSite));
-		LOG.info("name: " + crew.getName());
-
-		String address = getMeetingAddress((TagNode) squadSite);
-		if (!StringUtils.isEmpty(address)) {
-			LocationData locationData = geocoder.getLocationData(address);
-			if (locationData != null) {
-				crew.setLocationData(locationData);
-				return crew;
-			} else {
-				LOG.warn("skip crew {} because location not found", crew.getName(),
-						crew.getWikiUrl());
-			}
+	protected Meeting getMeeting(TagNode meetingNode) {
+		Meeting meeting = meetingFactory.getInstance();
+		meeting.setName(getName(meetingNode));
+		LOG.info("name: " + meeting.getName());
+		LocationData locationData = getLocationData(meetingNode);
+		if (locationData != null) {
+			meeting.setLocationData(locationData);
+			return meeting;
 		} else {
-			LOG.warn("skip crew {} because address not found", crew.getName(),
-					crew.getWikiUrl());
+			LOG.warn("skip meeting {} because location not found", meeting.getName(),
+					meeting.getWikiUrl());
+			return null;
 		}
-		return null;
 	}
 
-	private String getMeetingName(TagNode squadSite) {
-		TagNode nameNode = getNodeWithAttribute(squadSite,
-				this.htmlSource.getNameIdentifier());
-		if (nameNode != null) {
-			return nameNode.getText().toString();
+	protected String getNodeValue(TagNode node) {
+		if (node != null) {
+			return node.getText().toString();
 		}
 		return "";
 	}
+
 }
