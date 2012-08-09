@@ -108,13 +108,13 @@ public class UpdateMapData {
 				"http://wiki.piratenpartei.de/BE:Crews/Crewmap");
 
 		Map<String, Object> informationIdentifier = new HashMap<String, Object>();
-		informationIdentifier.put(HTMLSource.NAME_TAG, 0);
-		informationIdentifier.put(HTMLSource.STREET_TAG, 2);
-		informationIdentifier.put(HTMLSource.ZIP_TAG, 3);
-		informationIdentifier.put(HTMLSource.TOWN_TAG, 4);
-
-		informationIdentifier.put(HTMLSource.LON_TAG, 6);
-		informationIdentifier.put(HTMLSource.LAT_TAG, 7);
+		informationIdentifier.put(HTMLSource.NAME_TAG, 1);
+		informationIdentifier.put(HTMLSource.STREET_TAG, 3);
+		informationIdentifier.put(HTMLSource.ZIP_TAG, 4);
+		informationIdentifier.put(HTMLSource.TOWN_TAG, 5);
+		informationIdentifier.put(HTMLSource.URL_TAG, 0);
+		informationIdentifier.put(HTMLSource.LON_TAG, 7);
+		informationIdentifier.put(HTMLSource.LAT_TAG, 8);
 		informationIdentifier.put(HTMLSource.MEETING_TAG, new AttributeMatcher(
 				"class", "smwtable"));
 
@@ -136,18 +136,6 @@ public class UpdateMapData {
 			}
 		}
 
-		MeetingCollector berlinSquadsSource = new HTMLMeetingCollectorLinkList(
-				squadSource, geocoder, "http://wiki.piratenpartei.de",
-				new MeetingFactory<Squad>(Squad.class));
-		List<Meeting> squads = berlinSquadsSource.getMeetings();
-		LOG.info("found {} squads, try to add them to database...", squads.size());
-		if (!squads.isEmpty()) {
-			DataSource dataSource = createDataSource(properties);
-			for (Meeting squad : squads) {
-				dataSource.addSquad((Squad) squad);
-			}
-		}
-
 		MeetingCollector collector = new HTMLTableMeetingCollector(htmlsource,
 				geocoder, new MeetingFactory<Stammtisch>(Stammtisch.class));
 		List<Meeting> hessenStammtische = collector.getMeetings();
@@ -156,9 +144,8 @@ public class UpdateMapData {
 		if (!hessenStammtische.isEmpty()) {
 			DataSource dataSource = createDataSource(properties);
 			for (Meeting stammtisch : hessenStammtische) {
-				stammtisch.setWikiUrl("http://wiki.piratenpartei.de/HE:Stammtische/"
-						+ wikiURLEncode(StringUtils.replace(stammtisch.getName(),
-								"Stammtisch ", "")));
+				stammtisch.setWikiUrl("http://wiki.piratenpartei.de"
+						+ stammtisch.getWikiUrl());
 				dataSource.addStammtisch((Stammtisch) stammtisch);
 			}
 		}

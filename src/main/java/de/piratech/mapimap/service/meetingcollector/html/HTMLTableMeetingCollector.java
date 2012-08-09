@@ -62,6 +62,16 @@ public class HTMLTableMeetingCollector extends AbstractHTMLMeetingCollector {
 		return getColumnValue(meeting, HTMLSource.ADDRESS_TAG);
 	}
 
+	@Override
+	protected String getURL(TagNode meeting) {
+		TagNode column = getColumn(getColumns(meeting), HTMLSource.URL_TAG);
+		if (column != null) {
+			TagNode link = (TagNode) column.getChildren().get(0);
+			return link.getAttributeByName("href");
+		}
+		return null;
+	}
+
 	private List<TagNode> getRows(TagNode tableNode) {
 		List<TagNode> rowNodes = tableNode.getChildren();
 		if (!rowNodes.isEmpty()) {

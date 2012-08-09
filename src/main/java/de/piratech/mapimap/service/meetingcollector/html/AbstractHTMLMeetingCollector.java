@@ -76,6 +76,8 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 
 	protected abstract String getAddress(TagNode meeting);
 
+	protected abstract String getURL(TagNode meeting);
+
 	private LocationData getLocationData(TagNode meeting) {
 		String lonColumn = getLon(meeting);
 		String latColumn = getLat(meeting);
@@ -83,7 +85,7 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 		address.setRoad(getRoad(meeting));
 		address.setPostcode(getZip(meeting));
 		address.setCity(getCity(meeting));
-	
+
 		if (StringUtils.isEmpty(lonColumn) || StringUtils.isEmpty(latColumn)) {
 			if (!address.isValid()) {
 				String addressString = getAddress(meeting);
@@ -103,7 +105,7 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 			locationData.setAddress(address);
 			return locationData;
 		}
-	
+
 	}
 
 	protected TagNode getTagNode() {
@@ -156,6 +158,7 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 	protected Meeting getMeeting(TagNode meetingNode) {
 		Meeting meeting = meetingFactory.getInstance();
 		meeting.setName(getName(meetingNode));
+		meeting.setWikiUrl(getURL(meetingNode));
 		LOG.info("name: " + meeting.getName());
 		LocationData locationData = getLocationData(meetingNode);
 		if (locationData != null) {
