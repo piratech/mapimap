@@ -1,5 +1,7 @@
 package de.piratech.mapimap.data;
 
+import org.apache.commons.lang3.StringUtils;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -14,6 +16,7 @@ public class Address {
 	private String houseNumber;
 	private String road;
 	private String suburb;
+	private String city;
 	@JsonProperty("city_district")
 	private String cityDistrict;
 	private String state;
@@ -44,6 +47,14 @@ public class Address {
 
 	public void setSuburb(String suburb) {
 		this.suburb = suburb;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public String getCityDistrict() {
@@ -91,5 +102,18 @@ public class Address {
 				+ suburb + ",cityDistrict:" + cityDistrict + ",state:" + state
 				+ ",postcode:" + postcode + ",country:" + country + ",countryCode:"
 				+ countryCode;
+	}
+
+	@JsonIgnore
+	public boolean isValid() {
+		return StringUtils.isNotEmpty(road) && StringUtils.isNotEmpty(postcode)
+				&& StringUtils.isNotEmpty(city);
+	}
+
+	@JsonIgnore
+	public String getAddressString() {
+		return this.road + " "
+				+ (StringUtils.isNotEmpty(this.houseNumber) ? this.houseNumber : "")
+				+ ", " + this.postcode + " " + this.city;
 	}
 }

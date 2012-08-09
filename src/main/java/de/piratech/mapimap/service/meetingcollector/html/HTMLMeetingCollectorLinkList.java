@@ -16,7 +16,7 @@ import de.piratech.mapimap.service.Geocoder;
  * @author maria
  * 
  */
-public class HTMLMeetingCollectorLinkList extends AbstractHTMLMeetingCollector {
+public class HTMLMeetingCollectorLinkList extends HTMLAttributeMeetingCollector {
 
 	private String base;
 
@@ -28,7 +28,6 @@ public class HTMLMeetingCollectorLinkList extends AbstractHTMLMeetingCollector {
 
 	@Override
 	public List<Meeting> getMeetings() {
-
 		List<TagNode> linkList = getMeetingTagNodes();
 		List<Meeting> meetings = new ArrayList<Meeting>();
 		for (TagNode link : linkList) {

@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import de.piratech.mapimap.data.Crew;
 import de.piratech.mapimap.data.Squad;
+import de.piratech.mapimap.data.Stammtisch;
+
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -26,6 +28,7 @@ public class CouchDBImpl implements DataSource {
 	private static final Logger LOG = LoggerFactory.getLogger(CouchDBImpl.class);
 	private CrewsRepository crewRepo;
 	private SquadRepository squadRepo;
+	private StammtischRepository stammtischRepo;
 
 	public CouchDBImpl(final String _url, final String _userName,
 			final String _password, final String _database) {
@@ -40,6 +43,8 @@ public class CouchDBImpl implements DataSource {
 					_database, false);
 			crewRepo = new CrewsRepository(Crew.class, couchDbConnector);
 			squadRepo = new SquadRepository(Squad.class, couchDbConnector);
+			stammtischRepo = new StammtischRepository(Stammtisch.class,
+					couchDbConnector);
 		} catch (MalformedURLException e) {
 			LOG.debug("DataSourceImpl(url >{}<, userName >{}<, password >{}<)");
 			LOG.error("{}", e);
@@ -92,7 +97,7 @@ public class CouchDBImpl implements DataSource {
 
 	@Override
 	public void delete(Squad _squad) {
-		throw new UnsupportedOperationException("not implemented yet");
+		squadRepo.remove(_squad);
 	}
 
 	public void updateSquad(final Squad _crew) {
@@ -101,6 +106,36 @@ public class CouchDBImpl implements DataSource {
 		if (!StringUtils.equals(crewInDB.getCheckSum(), _crew.getCheckSum())) {
 			LOG.info("updating crew  {}", _crew.getName());
 			squadRepo.update(_crew);
+		}
+	}
+
+	@Override
+	public List<Stammtisch> getStammtische() {
+		return stammtischRepo.getAll();
+	}
+
+	@Override
+	public void delete(Stammtisch stammtich) {
+		stammtischRepo.remove(stammtich);
+	}
+
+	@Override
+	public void addStammtisch(Stammtisch _newSquad) {
+		if (!stammtischRepo.stammtischExists(_newSquad)) {
+			LOG.info("adding stammtisch {} to database", _newSquad.getName());
+			stammtischRepo.add(_newSquad);
+		} else {
+			updateStammtich(_newSquad);
+		}
+	}
+
+	public void updateStammtich(final Stammtisch _crew) {
+		// Update crew only if something has changed
+		Stammtisch crewInDB = stammtischRepo.findByWikiUrl(_crew.getWikiUrl()).get(
+				0);
+		if (!StringUtils.equals(crewInDB.getCheckSum(), _crew.getCheckSum())) {
+			LOG.info("updating stammtisch  {}", _crew.getName());
+			stammtischRepo.update(_crew);
 		}
 	}
 }
