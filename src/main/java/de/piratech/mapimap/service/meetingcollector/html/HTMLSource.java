@@ -13,6 +13,7 @@ public class HTMLSource {
 	public static final String STREET_TAG = "street";
 	public static final String ZIP_TAG = "zip";
 	public static final String TOWN_TAG = "town";
+	public static final String URL_TAG = "url";
 	private String urlString;
 	private boolean table;
 	private Map<String, Object> informationIdentifier;
