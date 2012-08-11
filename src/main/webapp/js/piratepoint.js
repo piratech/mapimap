@@ -37,7 +37,7 @@ PiratePoint.prototype._getAddressPosition= function() {
 		var result = $.ajax({
 		  url: 'http://nominatim.openstreetmap.org/search?q='+this.address+'&format=json&polygon=1&addressdetails=1',
 		  dataType:'json',
-		  processData:false,
+		  processData:false
 		}).success(function(data) {
 			if(data.length > 0) {
 				me.position = getPosition(data); //getPosition is in crewmap :(
