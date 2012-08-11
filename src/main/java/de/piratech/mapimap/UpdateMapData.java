@@ -25,10 +25,10 @@ import de.piratech.mapimap.service.Geocoder;
 import de.piratech.mapimap.service.NominatimGeocoderImpl;
 import de.piratech.mapimap.service.meetingcollector.MeetingCollector;
 import de.piratech.mapimap.service.meetingcollector.html.AttributeMatcher;
+import de.piratech.mapimap.service.meetingcollector.html.HTMLAttributeMeetingCollector;
 import de.piratech.mapimap.service.meetingcollector.html.HTMLMeetingCollectorLinkList;
 import de.piratech.mapimap.service.meetingcollector.html.HTMLSource;
 import de.piratech.mapimap.service.meetingcollector.html.HTMLTableMeetingCollector;
-import de.piratech.mapimap.service.meetingcollector.html.HTMLAttributeMeetingCollector;
 
 /**
  * @author maria
@@ -103,6 +103,10 @@ public class UpdateMapData {
 				"crewBerlin"));
 		informationKeks2.put(HTMLSource.ADDRESS_TAG, new AttributeMatcher("class",
 				"address"));
+		informationKeks2.put(HTMLSource.LON_TAG, new AttributeMatcher("class",
+				"lon"));
+		informationKeks2.put(HTMLSource.LAT_TAG, new AttributeMatcher("class",
+				"lat"));
 
 		HTMLSource crewSource = new HTMLSource(informationKeks2,
 				"http://wiki.piratenpartei.de/BE:Crews/Crewmap");
@@ -133,6 +137,18 @@ public class UpdateMapData {
 				crew.setWikiUrl("http://wiki.piratenpartei.de/BE:Crews/"
 						+ wikiURLEncode(crew.getName()));
 				dataSource.addCrew((Crew) crew);
+			}
+		}
+
+		MeetingCollector berlinSquadsSource = new HTMLMeetingCollectorLinkList(
+				squadSource, geocoder, "http://wiki.piratenpartei.de",
+				new MeetingFactory<Squad>(Squad.class));
+		List<Meeting> squads = berlinSquadsSource.getMeetings();
+		LOG.info("found {} squads, try to add them to database...", squads.size());
+		if (!squads.isEmpty()) {
+			DataSource dataSource = createDataSource(properties);
+			for (Meeting squad : squads) {
+				dataSource.addSquad((Squad) squad);
 			}
 		}
 

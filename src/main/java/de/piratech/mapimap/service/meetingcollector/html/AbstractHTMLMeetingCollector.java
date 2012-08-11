@@ -99,10 +99,20 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 				return geocoder.getLocationData(address.getAddressString());
 			}
 		} else {
-			LocationData locationData = new LocationData();
-			locationData.setLat(Float.parseFloat(latColumn));
-			locationData.setLon(Float.parseFloat(lonColumn));
-			locationData.setAddress(address);
+			LocationData locationData = geocoder.getLocationData(
+					Float.parseFloat(latColumn), Float.parseFloat(lonColumn));
+			if (StringUtils.isEmpty(locationData.getAddress().getRoad())) {
+				// sometimes streets are not returned
+				String streetString = getRoad(meeting);
+				if (StringUtils.isEmpty(streetString)) {
+					String addressString = getAddress(meeting);
+					if (!StringUtils.isEmpty(addressString)) {
+						locationData.getAddress().setRoad(addressString);
+					}
+				} else {
+					locationData.getAddress().setRoad(streetString);
+				}
+			}
 			return locationData;
 		}
 

@@ -112,8 +112,8 @@ public class Address {
 
 	@JsonIgnore
 	public String getAddressString() {
-		return this.road + " "
-				+ (StringUtils.isNotEmpty(this.houseNumber) ? this.houseNumber : "")
-				+ ", " + this.postcode + " " + this.city;
+		return this.road
+				+ (StringUtils.isNotEmpty(this.houseNumber) ? " " + this.houseNumber
+						: "") + ", " + this.postcode + " " + this.city;
 	}
 }
