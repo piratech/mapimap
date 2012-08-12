@@ -45,7 +45,7 @@ public class NominatimGeocoderImpl implements Geocoder {
 					+ URLEncoder.encode(_address, "UTF-8")
 					+ "&format=json&polygon=1&addressdetails=1";
 
-			List<LocationData> locationData = getLocationDataFromURL(url);
+			List<LocationData> locationData = getLocationDataListFromURL(url);
 			if (!locationData.isEmpty()) {
 				LOG.info("found loation data for address {}", _address);
 				return getCorrectLocationData(locationData, _address);
@@ -55,7 +55,7 @@ public class NominatimGeocoderImpl implements Geocoder {
 				url = "http://nominatim.openstreetmap.org/search?q="
 						+ URLEncoder.encode(_address.replaceAll(",", ""), "UTF-8")
 						+ "&format=json&polygon=1&addressdetails=1";
-				locationData = getLocationDataFromURL(url);
+				locationData = getLocationDataListFromURL(url);
 				if (!locationData.isEmpty()) {
 					LOG.info("found loation data for address {}", _address);
 					return getCorrectLocationData(locationData, _address);
@@ -89,7 +89,7 @@ public class NominatimGeocoderImpl implements Geocoder {
 		return _locationDataList.get(0);
 	}
 
-	private List<LocationData> getLocationDataFromURL(String url)
+	private List<LocationData> getLocationDataListFromURL(String url)
 			throws IOException, ClientProtocolException, JsonParseException,
 			JsonProcessingException {
 		HttpGet get = new HttpGet(url);
@@ -101,5 +101,38 @@ public class NominatimGeocoderImpl implements Geocoder {
 				});
 		stream.close();
 		return locationData;
+	}
+
+	private LocationData getLocationDataFromURL(String url) throws IOException,
+			ClientProtocolException, JsonParseException, JsonProcessingException {
+		HttpGet get = new HttpGet(url);
+		HttpResponse response = client.execute(get);
+		InputStream stream = response.getEntity().getContent();
+		JsonParser jsonParser = factory.createJsonParser(stream);
+		LocationData locationData = jsonParser.readValueAs(LocationData.class);
+		stream.close();
+		return locationData;
+	}
+
+	@Override
+	public LocationData getLocationData(float lat, float lon) {
+		String url = "http://nominatim.openstreetmap.org/reverse?format=json&lat="
+				+ lat + "&lon=" + lon + "+&zoom=18&addressdetails=1";
+		try {
+			LocationData locationData = getLocationDataFromURL(url);
+			LOG.info("found address {} details for lon {} and  lat {} ",
+					new Object[] { locationData.getAddress().getAddressString(), lon, lat });
+			return locationData;
+		} catch (JsonParseException e) {
+			LOG.error(e.getMessage(), e);
+		} catch (ClientProtocolException e) {
+			LOG.error(e.getMessage(), e);
+		} catch (JsonProcessingException e) {
+			LOG.error(e.getMessage(), e);
+		} catch (IOException e) {
+			LOG.error(e.getMessage(), e);
+		}
+
+		return null;
 	}
 }
