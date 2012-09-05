@@ -4,7 +4,9 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class HTMLSource {
+import de.piratech.mapimap.data.source.Source;
+
+public class HTMLSource extends Source {
 	public static final String ADDRESS_TAG = "address";
 	public static final String LAT_TAG = "lat";
 	public static final String LON_TAG = "lon";

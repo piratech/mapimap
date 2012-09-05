@@ -22,6 +22,8 @@ import de.piratech.mapimap.data.Address;
 import de.piratech.mapimap.data.LocationData;
 import de.piratech.mapimap.data.Meeting;
 import de.piratech.mapimap.data.MeetingFactory;
+import de.piratech.mapimap.data.MeetingList;
+import de.piratech.mapimap.data.source.Source;
 import de.piratech.mapimap.service.Geocoder;
 import de.piratech.mapimap.service.meetingcollector.MeetingCollector;
 
@@ -37,24 +39,40 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 	protected Geocoder geocoder;
 	private HttpClient client;
 	protected MeetingFactory<?> meetingFactory;
-	protected HTMLSource htmlSource;
+	protected Source htmlSource;
 
-	public AbstractHTMLMeetingCollector(HTMLSource htmlsource,
-			Geocoder _geocoder, MeetingFactory<?> meetingFactory) {
-		this.htmlSource = htmlsource;
-		this.geocoder = _geocoder;
-		this.meetingFactory = meetingFactory;
+	public AbstractHTMLMeetingCollector() {
 		this.client = new DefaultHttpClient();
+	}
+
+	@Override
+	public void setGeocoder(Geocoder geocoder) {
+		this.geocoder = geocoder;
+	}
+
+	@Override
+	public void setMeetingFactory(MeetingFactory<Meeting> meetingFactory) {
+		this.meetingFactory = meetingFactory;
+	}
+
+	@Override
+	public void setSource(Source htmlSource) {
+		this.htmlSource = htmlSource;
 	}
 
 	@Override
 	public List<Meeting> getMeetings() {
 		List<TagNode> meetingNodes = getMeetingTagNodes();
-		List<Meeting> meetings = new ArrayList<Meeting>();
+		MeetingList meetings = new MeetingList();
 		for (TagNode meetingNode : meetingNodes) {
 			Meeting meeting = getMeeting(meetingNode);
 			if (meeting != null) {
-				meetings.add(meeting);
+				if (!meetings.add(meeting)) {
+					LOG.warn("meeting >{}< not added to meeting list", meeting.getName());
+				} else {
+					LOG.info("found meeting {} with address {}", meeting.getName(),
+							meeting.getLocationData().getAddress().getAddressString());
+				}
 			}
 		}
 		return meetings;
@@ -87,16 +105,15 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 		address.setCity(getCity(meeting));
 
 		if (StringUtils.isEmpty(lonColumn) || StringUtils.isEmpty(latColumn)) {
-			if (!address.isValid()) {
-				String addressString = getAddress(meeting);
-				if (StringUtils.isEmpty(addressString)) {
-					LOG.warn("Skip meeting {} because address not found");
-					return null;
-				} else {
-					return geocoder.getLocationData(addressString);
-				}
-			} else {
+			if (address.isValid()) {
 				return geocoder.getLocationData(address.getAddressString());
+			} else {
+				String addressString = getAddress(meeting);
+				if (StringUtils.isNotEmpty(addressString)) {
+					return geocoder.getLocationData(addressString);
+				} else {
+					return null;
+				}
 			}
 		} else {
 			try {
@@ -124,7 +141,7 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 	}
 
 	protected TagNode getTagNode() {
-		return getTagNode(this.htmlSource.getUrlString());
+		return getTagNode(this.htmlSource.getBase() + this.htmlSource.getUrl());
 	}
 
 	protected TagNode getTagNode(String href) {
@@ -133,7 +150,7 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 		HttpResponse response;
 		try {
 			response = client.execute(get);
-			// very old look for something never (cannot use org.w3c.dom.Document
+			// very old look for something newer (cannot use org.w3c.dom.Document
 			// because wiki sends invalid HTML and DomSerializer returns null)
 			HtmlCleaner cleaner = new HtmlCleaner();
 			TagNode tagNode = cleaner.clean(response.getEntity().getContent(),
@@ -173,15 +190,14 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 	protected Meeting getMeeting(TagNode meetingNode) {
 		Meeting meeting = meetingFactory.getInstance();
 		meeting.setName(getName(meetingNode));
-		meeting.setWikiUrl(getURL(meetingNode));
-		LOG.info("name: " + meeting.getName());
+		meeting.setWikiUrl(this.htmlSource.getBase() + getURL(meetingNode));
 		LocationData locationData = getLocationData(meetingNode);
 		if (locationData != null) {
 			meeting.setLocationData(locationData);
 			return meeting;
 		} else {
-			LOG.warn("skip meeting {} because location not found", meeting.getName(),
-					meeting.getWikiUrl());
+			LOG.warn("skip meeting >{}< because location not found",
+					meeting.getName());
 			return null;
 		}
 	}

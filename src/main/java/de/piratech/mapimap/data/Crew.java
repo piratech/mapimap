@@ -8,14 +8,14 @@ package de.piratech.mapimap.data;
 public class Crew extends Meeting{
 
 	// TODO think about using generics
-  private DataType type = DataType.CREW;
+  private MeetingType type = MeetingType.CREW;
 
 
-  public DataType getType() {
+  public MeetingType getType() {
     return type;
   }
 
-  public void setType(DataType type) {
+  public void setType(MeetingType type) {
     this.type = type;
   }
 

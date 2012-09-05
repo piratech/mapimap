@@ -14,21 +14,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.piratech.mapimap.data.Crew;
 import de.piratech.mapimap.data.Meeting;
-import de.piratech.mapimap.data.MeetingFactory;
-import de.piratech.mapimap.data.Squad;
 import de.piratech.mapimap.data.Stammtisch;
+import de.piratech.mapimap.data.source.Source;
 import de.piratech.mapimap.service.CouchDBImpl;
 import de.piratech.mapimap.service.DataSource;
 import de.piratech.mapimap.service.Geocoder;
 import de.piratech.mapimap.service.NominatimGeocoderImpl;
 import de.piratech.mapimap.service.meetingcollector.MeetingCollector;
+import de.piratech.mapimap.service.meetingcollector.MeetingCollectorFactory;
 import de.piratech.mapimap.service.meetingcollector.html.AttributeMatcher;
-import de.piratech.mapimap.service.meetingcollector.html.HTMLAttributeMeetingCollector;
-import de.piratech.mapimap.service.meetingcollector.html.HTMLMeetingCollectorLinkList;
 import de.piratech.mapimap.service.meetingcollector.html.HTMLSource;
-import de.piratech.mapimap.service.meetingcollector.html.HTMLTableMeetingCollector;
 
 /**
  * @author maria
@@ -84,88 +80,60 @@ public class UpdateMapData {
 		LOG.info("perform task update...");
 		Properties properties = loadProperties(_propertiesURI);
 
-		// TODO put all that meeting specific stuff in property filee, maybe json
-		// format or xml... vielleicht HTMLSource object irgendwie parsen...
-		Map<String, Object> informationKeks = new HashMap<String, Object>();
-		informationKeks.put(HTMLSource.NAME_TAG, new AttributeMatcher("class",
-				"name"));
-		informationKeks.put(HTMLSource.MEETING_TAG, new AttributeMatcher("title",
-				"BE:Squads", AttributeMatcher.STARTS_WITH));
-		informationKeks.put(HTMLSource.ADDRESS_TAG, new AttributeMatcher("class",
-				"address"));
-		HTMLSource squadSource = new HTMLSource(informationKeks,
-				"http://wiki.piratenpartei.de/Vorlage:Berlin_Navigationsleiste_Squads");
-
-		Map<String, Object> informationKeks2 = new HashMap<String, Object>();
-		informationKeks2.put(HTMLSource.NAME_TAG, new AttributeMatcher("class",
-				"name"));
-		informationKeks2.put(HTMLSource.MEETING_TAG, new AttributeMatcher("class",
-				"crewBerlin"));
-		informationKeks2.put(HTMLSource.ADDRESS_TAG, new AttributeMatcher("class",
-				"address"));
-		informationKeks2.put(HTMLSource.LON_TAG, new AttributeMatcher("class",
-				"lon"));
-		informationKeks2.put(HTMLSource.LAT_TAG, new AttributeMatcher("class",
-				"lat"));
-
-		HTMLSource crewSource = new HTMLSource(informationKeks2,
-				"http://wiki.piratenpartei.de/BE:Crews/Crewmap");
-
-		Map<String, Object> informationIdentifier = new HashMap<String, Object>();
-		informationIdentifier.put(HTMLSource.NAME_TAG, 1);
-		informationIdentifier.put(HTMLSource.STREET_TAG, 3);
-		informationIdentifier.put(HTMLSource.ZIP_TAG, 4);
-		informationIdentifier.put(HTMLSource.TOWN_TAG, 5);
-		informationIdentifier.put(HTMLSource.URL_TAG, 0);
-		informationIdentifier.put(HTMLSource.LON_TAG, 7);
-		informationIdentifier.put(HTMLSource.LAT_TAG, 8);
-		informationIdentifier.put(HTMLSource.MEETING_TAG, new AttributeMatcher(
-				"class", "smwtable"));
-
-		HTMLSource htmlsource = new HTMLSource(informationIdentifier,
-				"http://wiki.piratenpartei.de/Vorlage:HE:Piratentreff/TabelleLandDaten");
-		htmlsource.setTable(true);
+		// BW
+		Map<String, Object> informationIdentifier2 = new HashMap<String, Object>();
+		informationIdentifier2.put(HTMLSource.NAME_TAG, 4);
+		informationIdentifier2.put(HTMLSource.STREET_TAG, 2);
+		informationIdentifier2.put(HTMLSource.ZIP_TAG, 3);
+		informationIdentifier2.put(HTMLSource.TOWN_TAG, 4);
+		informationIdentifier2.put(HTMLSource.URL_TAG, 0);
+		informationIdentifier2.put(HTMLSource.LON_TAG, 6);
+		informationIdentifier2.put(HTMLSource.LAT_TAG, 5);
+		informationIdentifier2.put(HTMLSource.MEETING_TAG, new AttributeMatcher(
+				"class", "sortable"));
 
 		Geocoder geocoder = new NominatimGeocoderImpl();
-		MeetingCollector berlinCrewsSource = new HTMLAttributeMeetingCollector(
-				crewSource, geocoder, new MeetingFactory<Crew>(Crew.class));
-		List<Meeting> crews = berlinCrewsSource.getMeetings();
-		LOG.info("found {} crews, try to add them to database...", crews.size());
-		if (!crews.isEmpty()) {
-			DataSource dataSource = createDataSource(properties);
-			for (Meeting crew : crews) {
-				crew.setWikiUrl("http://wiki.piratenpartei.de/BE:Crews/"
-						+ wikiURLEncode(crew.getName()));
-				dataSource.addCrew((Crew) crew);
+		DataSource db = createDataSource(properties);
+		List<Source> sources = db.getSources();
+
+		for (Source source : sources) {
+			MeetingCollector collector = MeetingCollectorFactory.getInstance(source,
+					geocoder);
+			List<Meeting> meetings = collector.getMeetings();
+			LOG.info("found {} {}, try to add them to database...", meetings.size(),
+					source.getName());
+			if (!meetings.isEmpty()) {
+				DataSource dataSource = createDataSource(properties);
+				for (Meeting stammtisch : meetings) {
+					dataSource.addMeeting(stammtisch);
+				}
 			}
 		}
 
-		MeetingCollector berlinSquadsSource = new HTMLMeetingCollectorLinkList(
-				squadSource, geocoder, "http://wiki.piratenpartei.de",
-				new MeetingFactory<Squad>(Squad.class));
-		List<Meeting> squads = berlinSquadsSource.getMeetings();
-		LOG.info("found {} squads, try to add them to database...", squads.size());
-		if (!squads.isEmpty()) {
-			DataSource dataSource = createDataSource(properties);
-			for (Meeting squad : squads) {
-				dataSource.addSquad((Squad) squad);
-			}
-		}
+		// MeetingCollector collector2 = new HTMLTableMeetingCollector(htmlsource2,
+		// geocoder, new MeetingFactory<Stammtisch>(Stammtisch.class));
+		// List<Meeting> bwStammtische = collector2.getMeetings();
+		// LOG.info("found {} bw Stammmtische, try to add them to database...",
+		// bwStammtische.size());
+		// if (!bwStammtische.isEmpty()) {
+		// DataSource dataSource = createDataSource(properties);
+		// for (Meeting stammtisch : bwStammtische) {
+		// stammtisch.setWikiUrl("http://wiki.piratenpartei.de"
+		// + stammtisch.getWikiUrl());
+		// dataSource.addStammtisch((Stammtisch) stammtisch);
+		// }
+		// }
 
-		MeetingCollector collector = new HTMLTableMeetingCollector(htmlsource,
-				geocoder, new MeetingFactory<Stammtisch>(Stammtisch.class));
-		List<Meeting> hessenStammtische = collector.getMeetings();
-		LOG.info("found {} hessische Stammmtische, try to add them to database...",
-				hessenStammtische.size());
-		if (!hessenStammtische.isEmpty()) {
-			DataSource dataSource = createDataSource(properties);
-			for (Meeting stammtisch : hessenStammtische) {
-				stammtisch.setWikiUrl("http://wiki.piratenpartei.de"
-						+ stammtisch.getWikiUrl());
-				dataSource.addStammtisch((Stammtisch) stammtisch);
-			}
-		}
+	}
 
+	private static Class<Meeting> getMeetingClass(Source source) {
+		try {
+			return (Class<Meeting>) (Class.forName(source.getMeetingType()
+					.getClassName()));
+		} catch (ClassNotFoundException e) {
+			LOG.error(e.getMessage(), e);
+		}
+		return null;
 	}
 
 	private static String wikiURLEncode(String urlPeace)

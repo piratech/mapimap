@@ -10,13 +10,13 @@ package de.piratech.mapimap.data;
 public class Squad extends Meeting {
 
 	// TODO think about using generics
-	private DataType type = DataType.SQUAD;
+	private MeetingType type = MeetingType.SQUAD;
 
-	public DataType getType() {
+	public MeetingType getType() {
 		return type;
 	}
 
-	public void setType(DataType type) {
+	public void setType(MeetingType type) {
 		this.type = type;
 	}
 }

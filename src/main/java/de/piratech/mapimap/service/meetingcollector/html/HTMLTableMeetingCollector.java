@@ -5,10 +5,10 @@ package de.piratech.mapimap.service.meetingcollector.html;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.htmlcleaner.TagNode;
 
-import de.piratech.mapimap.data.MeetingFactory;
-import de.piratech.mapimap.service.Geocoder;
+import de.piratech.mapimap.data.source.SourceInformationIdentifierType;
 
 /**
  * @author maria
@@ -16,55 +16,52 @@ import de.piratech.mapimap.service.Geocoder;
  */
 public class HTMLTableMeetingCollector extends AbstractHTMLMeetingCollector {
 
-	public HTMLTableMeetingCollector(HTMLSource htmlsource, Geocoder _geocoder,
-			MeetingFactory<?> meetingFactory) {
-		super(htmlsource, _geocoder, meetingFactory);
-	}
-
 	@Override
 	protected List<TagNode> getMeetingTagNodes() {
 		TagNode table = getNodeWithAttribute(getTagNode(),
-				this.htmlSource.getAttributeIdentifier(HTMLSource.MEETING_TAG));
+				this.htmlSource.getSourceInformationIdentifier(
+						SourceInformationIdentifierType.MEETING, AttributeMatcher.class));
 		return getRows(table);
 	}
 
 	protected String getName(TagNode meetingNode) {
-		return getColumnValue(meetingNode, HTMLSource.NAME_TAG);
+		return getColumnValue(meetingNode, SourceInformationIdentifierType.NAME);
 	}
 
 	@Override
 	protected String getLon(TagNode meeting) {
-		return getColumnValue(meeting, HTMLSource.LON_TAG);
+		return getColumnValue(meeting, SourceInformationIdentifierType.LON);
 	}
 
 	@Override
 	protected String getLat(TagNode meeting) {
-		return getColumnValue(meeting, HTMLSource.LAT_TAG);
+		return getColumnValue(meeting, SourceInformationIdentifierType.LAT);
 	}
 
 	@Override
 	protected String getRoad(TagNode meeting) {
-		return getColumnValue(meeting, HTMLSource.STREET_TAG);
+		return getColumnValue(meeting, SourceInformationIdentifierType.STREET);
 	}
 
 	@Override
 	protected String getZip(TagNode meeting) {
-		return getColumnValue(meeting, HTMLSource.ZIP_TAG);
+		return getColumnValue(meeting, SourceInformationIdentifierType.ZIP);
 	}
 
 	@Override
 	protected String getCity(TagNode meeting) {
-		return getColumnValue(meeting, HTMLSource.TOWN_TAG);
+		return getColumnValue(meeting, SourceInformationIdentifierType.TOWN);
 	}
 
 	@Override
 	protected String getAddress(TagNode meeting) {
-		return getColumnValue(meeting, HTMLSource.ADDRESS_TAG);
+		return getColumnValue(meeting, SourceInformationIdentifierType.ADDRESS);
 	}
 
 	@Override
 	protected String getURL(TagNode meeting) {
-		TagNode column = getColumn(getColumns(meeting), HTMLSource.URL_TAG);
+		TagNode column = getColumn(getColumns(meeting),
+				SourceInformationIdentifierType.URL);
 		if (column != null) {
 			TagNode link = (TagNode) column.getChildren().get(0);
 			return link.getAttributeByName("href");
@@ -99,10 +96,12 @@ public class HTMLTableMeetingCollector extends AbstractHTMLMeetingCollector {
 		return null;
 	}
 
-	private TagNode getColumn(List<?> row, String columnName) {
+	private TagNode getColumn(List<?> row,
+			SourceInformationIdentifierType columnName) {
 		if (row != null && !row.isEmpty()) {
-			int columnNumber = this.htmlSource.getTableColumn(columnName);
-			if (columnNumber != -1) {
+			Integer columnNumber = this.htmlSource.getSourceInformationIdentifier(
+					columnName, Integer.class);
+			if (columnNumber != null && !columnNumber.equals(-1)) {
 				return (TagNode) row.get(columnNumber);
 			} else {
 				// not column defined
@@ -111,7 +110,12 @@ public class HTMLTableMeetingCollector extends AbstractHTMLMeetingCollector {
 		return null;
 	}
 
-	private String getColumnValue(TagNode meeting, String columnName) {
-		return getNodeValue(getColumn(getColumns(meeting), columnName));
+	private String getColumnValue(TagNode meeting,
+			SourceInformationIdentifierType columnName) {
+		String nodeValue = getNodeValue(getColumn(getColumns(meeting), columnName));
+		if (nodeValue != null) {
+			return StringUtils.chomp(nodeValue);
+		}
+		return null;
 	}
 }

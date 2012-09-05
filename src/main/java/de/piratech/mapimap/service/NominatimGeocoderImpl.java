@@ -47,7 +47,7 @@ public class NominatimGeocoderImpl implements Geocoder {
 
 			List<LocationData> locationData = getLocationDataListFromURL(url);
 			if (!locationData.isEmpty()) {
-				LOG.info("found loation data for address {}", _address);
+				LOG.debug("found loation data for address {}", _address);
 				return getCorrectLocationData(locationData, _address);
 			} else {
 				// location service sometimes works only with comma and sometimes only
@@ -57,7 +57,7 @@ public class NominatimGeocoderImpl implements Geocoder {
 						+ "&format=json&polygon=1&addressdetails=1";
 				locationData = getLocationDataListFromURL(url);
 				if (!locationData.isEmpty()) {
-					LOG.info("found loation data for address {}", _address);
+					LOG.debug("found loation data for address {}", _address);
 					return getCorrectLocationData(locationData, _address);
 				} else {
 					LOG.warn("cannot get location from URL >{}<", url);
@@ -120,7 +120,7 @@ public class NominatimGeocoderImpl implements Geocoder {
 				+ lat + "&lon=" + lon + "+&zoom=18&addressdetails=1";
 		try {
 			LocationData locationData = getLocationDataFromURL(url);
-			LOG.info("found address {} details for lon {} and  lat {} ",
+			LOG.debug("found address {} details for lon {} and  lat {} ",
 					new Object[] { locationData.getAddress().getAddressString(), lon, lat });
 			return locationData;
 		} catch (JsonParseException e) {

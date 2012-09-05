@@ -14,8 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.piratech.mapimap.data.Crew;
+import de.piratech.mapimap.data.Meeting;
 import de.piratech.mapimap.data.Squad;
 import de.piratech.mapimap.data.Stammtisch;
+import de.piratech.mapimap.data.source.Source;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -29,6 +31,7 @@ public class CouchDBImpl implements DataSource {
 	private CrewsRepository crewRepo;
 	private SquadRepository squadRepo;
 	private StammtischRepository stammtischRepo;
+	private SourceRepository sourceRepo;
 
 	public CouchDBImpl(final String _url, final String _userName,
 			final String _password, final String _database) {
@@ -45,6 +48,7 @@ public class CouchDBImpl implements DataSource {
 			squadRepo = new SquadRepository(Squad.class, couchDbConnector);
 			stammtischRepo = new StammtischRepository(Stammtisch.class,
 					couchDbConnector);
+			sourceRepo = new SourceRepository(Source.class, couchDbConnector);
 		} catch (MalformedURLException e) {
 			LOG.debug("DataSourceImpl(url >{}<, userName >{}<, password >{}<)");
 			LOG.error("{}", e);
@@ -138,4 +142,44 @@ public class CouchDBImpl implements DataSource {
 			stammtischRepo.update(_crew);
 		}
 	}
+
+	@Override
+	public void addSource(Source source) {
+		if (!sourceRepo.sourceExists(source)) {
+			sourceRepo.add(source);
+		}
+	}
+
+	@Override
+	public List<Source> getSources() {
+		return sourceRepo.getAll();
+	}
+
+	public void updateSource(final Source _crew) {
+		// Update crew only if something has changed
+		Source crewInDB = sourceRepo.findByUrl(_crew.getUrl()).get(0);
+		if (!StringUtils.equals(crewInDB.getCheckSum(), _crew.getCheckSum())) {
+			LOG.info("updating crew  {}", _crew.getName());
+			sourceRepo.update(_crew);
+		}
+	}
+
+	@Override
+	public void delete(Source stammtich) {
+		sourceRepo.remove(stammtich);
+	}
+
+	@Override
+	public void addMeeting(Meeting meeting) {
+		if (meeting instanceof Stammtisch) {
+			addStammtisch((Stammtisch) meeting);
+		} else if (meeting instanceof Crew) {
+			addCrew((Crew) meeting);
+		} else if (meeting instanceof Squad) {
+			addSquad((Squad) meeting);
+		} else {
+			LOG.error("meeting type {} not handled", meeting.getClass());
+		}
+	}
+
 }
