@@ -143,20 +143,20 @@ public class CreateSources {
 				.setInformationTypes(Arrays
 						.asList(new SourceInformationIdentifier<?>[] {
 								new SourceInformationIdentifier<Integer>(
-										SourceInformationIdentifierType.NAME, "cloumn", nameColumn),
+										SourceInformationIdentifierType.NAME, "column", nameColumn),
 								new SourceInformationIdentifier<Integer>(
-										SourceInformationIdentifierType.STREET, "cloumn",
+										SourceInformationIdentifierType.STREET, "column",
 										streetColumn),
 								new SourceInformationIdentifier<Integer>(
-										SourceInformationIdentifierType.ZIP, "cloumn", zipColumn),
+										SourceInformationIdentifierType.ZIP, "column", zipColumn),
 								new SourceInformationIdentifier<Integer>(
-										SourceInformationIdentifierType.TOWN, "cloumn", townColumn),
+										SourceInformationIdentifierType.TOWN, "column", townColumn),
 								new SourceInformationIdentifier<Integer>(
-										SourceInformationIdentifierType.URL, "cloumn", urlColumn),
+										SourceInformationIdentifierType.URL, "column", urlColumn),
 								new SourceInformationIdentifier<Integer>(
-										SourceInformationIdentifierType.LON, "cloumn", lonColumn),
+										SourceInformationIdentifierType.LON, "column", lonColumn),
 								new SourceInformationIdentifier<Integer>(
-										SourceInformationIdentifierType.LAT, "cloumn", latColumn),
+										SourceInformationIdentifierType.LAT, "column", latColumn),
 								new SourceInformationIdentifier<AttributeMatcher>(
 										SourceInformationIdentifierType.MEETING, "attribute",
 										new AttributeMatcher("class", tableClass,
