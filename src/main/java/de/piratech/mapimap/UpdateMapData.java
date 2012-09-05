@@ -3,18 +3,16 @@ package de.piratech.mapimap;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.piratech.mapimap.data.Crew;
 import de.piratech.mapimap.data.Meeting;
+import de.piratech.mapimap.data.Squad;
 import de.piratech.mapimap.data.Stammtisch;
 import de.piratech.mapimap.data.source.Source;
 import de.piratech.mapimap.service.CouchDBImpl;
@@ -23,8 +21,6 @@ import de.piratech.mapimap.service.Geocoder;
 import de.piratech.mapimap.service.NominatimGeocoderImpl;
 import de.piratech.mapimap.service.meetingcollector.MeetingCollector;
 import de.piratech.mapimap.service.meetingcollector.MeetingCollectorFactory;
-import de.piratech.mapimap.service.meetingcollector.html.AttributeMatcher;
-import de.piratech.mapimap.service.meetingcollector.html.HTMLSource;
 
 /**
  * @author maria
@@ -73,6 +69,14 @@ public class UpdateMapData {
 			LOG.info("delete crew {}", crew.getName());
 			dataSource.delete(crew);
 		}
+		for (Crew crew : dataSource.getCrews()) {
+			LOG.info("delete crew {}", crew.getName());
+			dataSource.delete(crew);
+		}
+		for (Squad crew : dataSource.getSquads()) {
+			LOG.info("delete crew {}", crew.getName());
+			dataSource.delete(crew);
+		}
 	}
 
 	private static void updateDB(final String _propertiesURI)
@@ -80,23 +84,13 @@ public class UpdateMapData {
 		LOG.info("perform task update...");
 		Properties properties = loadProperties(_propertiesURI);
 
-		// BW
-		Map<String, Object> informationIdentifier2 = new HashMap<String, Object>();
-		informationIdentifier2.put(HTMLSource.NAME_TAG, 4);
-		informationIdentifier2.put(HTMLSource.STREET_TAG, 2);
-		informationIdentifier2.put(HTMLSource.ZIP_TAG, 3);
-		informationIdentifier2.put(HTMLSource.TOWN_TAG, 4);
-		informationIdentifier2.put(HTMLSource.URL_TAG, 0);
-		informationIdentifier2.put(HTMLSource.LON_TAG, 6);
-		informationIdentifier2.put(HTMLSource.LAT_TAG, 5);
-		informationIdentifier2.put(HTMLSource.MEETING_TAG, new AttributeMatcher(
-				"class", "sortable"));
-
 		Geocoder geocoder = new NominatimGeocoderImpl();
 		DataSource db = createDataSource(properties);
 		List<Source> sources = db.getSources();
-
+		LOG.info("found {} sources", sources.size());
 		for (Source source : sources) {
+			LOG.info("start scraping for {} from {}", source.getName(),
+					source.getBase() + source.getUrl());
 			MeetingCollector collector = MeetingCollectorFactory.getInstance(source,
 					geocoder);
 			List<Meeting> meetings = collector.getMeetings();
@@ -109,36 +103,7 @@ public class UpdateMapData {
 				}
 			}
 		}
-
-		// MeetingCollector collector2 = new HTMLTableMeetingCollector(htmlsource2,
-		// geocoder, new MeetingFactory<Stammtisch>(Stammtisch.class));
-		// List<Meeting> bwStammtische = collector2.getMeetings();
-		// LOG.info("found {} bw Stammmtische, try to add them to database...",
-		// bwStammtische.size());
-		// if (!bwStammtische.isEmpty()) {
-		// DataSource dataSource = createDataSource(properties);
-		// for (Meeting stammtisch : bwStammtische) {
-		// stammtisch.setWikiUrl("http://wiki.piratenpartei.de"
-		// + stammtisch.getWikiUrl());
-		// dataSource.addStammtisch((Stammtisch) stammtisch);
-		// }
-		// }
-
-	}
-
-	private static Class<Meeting> getMeetingClass(Source source) {
-		try {
-			return (Class<Meeting>) (Class.forName(source.getMeetingType()
-					.getClassName()));
-		} catch (ClassNotFoundException e) {
-			LOG.error(e.getMessage(), e);
-		}
-		return null;
-	}
-
-	private static String wikiURLEncode(String urlPeace)
-			throws UnsupportedEncodingException {
-		return URLEncoder.encode(urlPeace.replaceAll(" ", "_"), "UTF-8");
+		LOG.info("... update finished");
 	}
 
 	private static DataSource createDataSource(final Properties _properties) {
@@ -156,7 +121,6 @@ public class UpdateMapData {
 			LOG.error("no properties defined");
 			return null;
 		}
-		// return new Properties().load(new FileInputStream(propertiesURI));
 		Properties properties = new Properties();
 		properties.load(new FileInputStream(_propertiesURI));
 		return properties;
