@@ -13,30 +13,30 @@ import de.piratech.mapimap.data.Crew;
 
 /**
  * @author maria
- *
+ * 
  */
 public class CrewsRepository extends CouchDbRepositorySupport<Crew> {
 
-  protected CrewsRepository(Class<Crew> _type, CouchDbConnector _db) {
-    super(_type, _db);
-  }
+	protected CrewsRepository(Class<Crew> _type, CouchDbConnector _db) {
+		super(_type, _db);
+	}
 
-  public List<Crew> getCrews() {
-    return queryView("crews/all");
-  }
+	public List<Crew> getCrews() {
+		return queryView("crews/all");
+	}
 
-  public boolean crewExists(final Crew _newCrew) {
-    List<Crew> existingCrews = findByWikiUrl(_newCrew.getWikiUrl());
-    if (!existingCrews.isEmpty()) {
-      _newCrew.setId(existingCrews.get(0).getId());
-      _newCrew.setRevision(existingCrews.get(0).getRevision());
-      return true;
-    }
-    return false;
-  }
+	public boolean crewExists(final Crew _newCrew) {
+		List<Crew> existingCrews = findForeignKey(_newCrew.getForeignKey());
+		if (!existingCrews.isEmpty()) {
+			_newCrew.setId(existingCrews.get(0).getId());
+			_newCrew.setRevision(existingCrews.get(0).getRevision());
+			return true;
+		}
+		return false;
+	}
 
-  @GenerateView
-  public List<Crew> findByWikiUrl(final String _url) {
-    return queryView("all", _url);
-  }
+	@GenerateView
+	public List<Crew> findForeignKey(final String foreignKey) {
+		return queryView("all", foreignKey);
+	}
 }

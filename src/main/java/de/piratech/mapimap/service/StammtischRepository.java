@@ -14,19 +14,19 @@ public class StammtischRepository extends CouchDbRepositorySupport<Stammtisch> {
 		super(_type, _db);
 	}
 
-	public boolean stammtischExists(final Stammtisch _newCrew) {
-		List<Stammtisch> existingCrews = findByWikiUrl(_newCrew.getWikiUrl());
+	public boolean stammtischExists(final Stammtisch stammtisch) {
+		List<Stammtisch> existingCrews = findByForeignKey(stammtisch.getForeignKey());
 		if (!existingCrews.isEmpty()) {
-			_newCrew.setId(existingCrews.get(0).getId());
-			_newCrew.setRevision(existingCrews.get(0).getRevision());
+			stammtisch.setId(existingCrews.get(0).getId());
+			stammtisch.setRevision(existingCrews.get(0).getRevision());
 			return true;
 		}
 		return false;
 	}
 
 	@GenerateView
-	public List<Stammtisch> findByWikiUrl(final String _url) {
-		return queryView("all", _url);
+	public List<Stammtisch> findByForeignKey(final String foreignKey) {
+		return queryView("all", foreignKey);
 	}
 
 }

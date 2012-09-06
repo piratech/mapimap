@@ -66,15 +66,15 @@ public class UpdateMapData {
 		Properties properties = loadProperties(_propertiesURI);
 		DataSource dataSource = createDataSource(properties);
 		for (Stammtisch crew : dataSource.getStammtische()) {
-			LOG.info("delete crew {}", crew.getName());
+			LOG.info("delete {}", crew.getName());
 			dataSource.delete(crew);
 		}
 		for (Crew crew : dataSource.getCrews()) {
-			LOG.info("delete crew {}", crew.getName());
+			LOG.info("delete {}", crew.getName());
 			dataSource.delete(crew);
 		}
 		for (Squad crew : dataSource.getSquads()) {
-			LOG.info("delete crew {}", crew.getName());
+			LOG.info("delete {}", crew.getName());
 			dataSource.delete(crew);
 		}
 	}

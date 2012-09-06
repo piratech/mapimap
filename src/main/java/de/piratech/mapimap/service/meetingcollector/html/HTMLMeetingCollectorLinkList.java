@@ -30,6 +30,7 @@ public class HTMLMeetingCollectorLinkList extends HTMLAttributeMeetingCollector 
 			Meeting meeting = getMeeting(getTagNode(href));
 			if (meeting != null) {
 				meeting.setWikiUrl(href);
+				meeting.setForeignKey(href);
 				if (!meetings.add(meeting)) {
 					LOG.warn("meeting {} was not added to meeting list",
 							meeting.getName());

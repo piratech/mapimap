@@ -35,31 +35,13 @@ public class CreateSources {
 	public static void main(String[] args) throws FileNotFoundException,
 			IOException {
 
-		Source berlinCrews = createHTMLAttributePageSource(
-				"http://wiki.piratenpartei.de", "/BE:Crews/Crewmap", "name", "", "",
-				"", "address", "url", "lon", "lat", "crewBerlin",
-				AttributeMatcher.EXACT_MATCH);
-		berlinCrews.setName("berliner Crews");
-		berlinCrews.setMeetingType(MeetingType.CREW);
-		berlinCrews.setSourceType(SourceType.HTMLATTRIBUTEPAGE);
+		Source berlinCrews = createBerlinCrewsSource();
 		Source berlinSquads = createBerlinSquadSource();
-		Source hessen = createHTMLTableSource("http://wiki.piratenpartei.de",
-				"/Vorlage:HE:Piratentreff/TabelleLandDaten", 1, 3, 4, 5, 0, 7, 8,
-				"smwtable");
-		hessen.setName("hessiche Stammtische");
-		hessen.setMeetingType(MeetingType.STAMMTISCH);
-		hessen.setSourceType(SourceType.HTMLTABLE);
-		Source bayern = createHTMLTableSource("http://wiki.piratenpartei.de",
-				"/BY:Stammtische/MapData", 4, 2, 3, 4, 0, 6, 5, "sortable");
-		bayern.setName("bayrische Stammtische");
-		bayern.setMeetingType(MeetingType.STAMMTISCH);
-		bayern.setSourceType(SourceType.HTMLTABLE);
-		Source niedersachsen = createHTMLTableSource(
-				"http://wiki.piratenpartei.de", "/NSD:Stammtische/MapData", 4, 2, 3, 4,
-				0, 6, 5, "sortable");
-		niedersachsen.setName("niedersächsische Stammtische");
-		niedersachsen.setMeetingType(MeetingType.STAMMTISCH);
-		niedersachsen.setSourceType(SourceType.HTMLTABLE);
+		Source hessen = createHessenStammtischSource();
+		Source bayern = createBayernStammtischSource();
+		Source niedersachsen = createNiedersachenStammtischSource();
+		Source badenwuertemberg = createBadenWuertembergStammtischSource();
+
 		Properties properties = loadProperties(args[0]);
 		DataSource dataSource = createDataSource(properties);
 		List<Source> sources = dataSource.getSources();
@@ -72,6 +54,57 @@ public class CreateSources {
 		dataSource.addSource(niedersachsen);
 		dataSource.addSource(berlinCrews);
 		dataSource.addSource(berlinSquads);
+		dataSource.addSource(badenwuertemberg);
+	}
+
+	private static Source createBadenWuertembergStammtischSource() {
+		Source source = new Source();
+		source.setMeetingType(MeetingType.STAMMTISCH);
+		source.setUrl("http://api.piraten-bw.de/stammtisch/webcal/");
+		source.setName("baden-würtembergische Stammtische");
+		source.setMeetingType(MeetingType.STAMMTISCH);
+		source.setSourceType(SourceType.ICAL);
+		return source;
+	}
+
+	private static Source createNiedersachenStammtischSource() {
+		Source niedersachsen = createHTMLTableSource(
+				"http://wiki.piratenpartei.de", "/NSD:Stammtische/MapData", 4, 2, 3, 4,
+				0, 6, 5, "sortable");
+		niedersachsen.setName("niedersächsische Stammtische");
+		niedersachsen.setMeetingType(MeetingType.STAMMTISCH);
+		niedersachsen.setSourceType(SourceType.HTMLTABLE);
+		return niedersachsen;
+	}
+
+	private static Source createBayernStammtischSource() {
+		Source bayern = createHTMLTableSource("http://wiki.piratenpartei.de",
+				"/BY:Stammtische/MapData", 4, 2, 3, 4, 0, 6, 5, "sortable");
+		bayern.setName("bayrische Stammtische");
+		bayern.setMeetingType(MeetingType.STAMMTISCH);
+		bayern.setSourceType(SourceType.HTMLTABLE);
+		return bayern;
+	}
+
+	private static Source createHessenStammtischSource() {
+		Source hessen = createHTMLTableSource("http://wiki.piratenpartei.de",
+				"/Vorlage:HE:Piratentreff/TabelleLandDaten", 1, 3, 4, 5, 0, 7, 8,
+				"smwtable");
+		hessen.setName("hessiche Stammtische");
+		hessen.setMeetingType(MeetingType.STAMMTISCH);
+		hessen.setSourceType(SourceType.HTMLTABLE);
+		return hessen;
+	}
+
+	private static Source createBerlinCrewsSource() {
+		Source berlinCrews = createHTMLAttributePageSource(
+				"http://wiki.piratenpartei.de", "/BE:Crews/Crewmap", "name", "", "",
+				"", "address", "url", "lon", "lat", "crewBerlin",
+				AttributeMatcher.EXACT_MATCH);
+		berlinCrews.setName("berliner Crews");
+		berlinCrews.setMeetingType(MeetingType.CREW);
+		berlinCrews.setSourceType(SourceType.HTMLATTRIBUTEPAGE);
+		return berlinCrews;
 	}
 
 	private static Source createBerlinSquadSource() {

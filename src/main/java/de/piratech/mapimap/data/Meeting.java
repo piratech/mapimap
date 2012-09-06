@@ -17,6 +17,7 @@ public abstract class Meeting {
 	private String wikiUrl;
 	private LocationData locationData;
 	private String checkSum;
+	private String foreignKey;
 
 	public String getId() {
 		return id;
@@ -73,5 +74,13 @@ public abstract class Meeting {
 
 	public void setCheckSum(String checkSum) {
 		this.checkSum = checkSum;
+	}
+
+	public String getForeignKey() {
+		return foreignKey;
+	}
+
+	public void setForeignKey(String foreignKey) {
+		this.foreignKey = foreignKey;
 	}
 }
