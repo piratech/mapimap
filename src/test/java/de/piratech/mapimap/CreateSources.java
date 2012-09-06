@@ -42,13 +42,7 @@ public class CreateSources {
 		berlinCrews.setName("berliner Crews");
 		berlinCrews.setMeetingType(MeetingType.CREW);
 		berlinCrews.setSourceType(SourceType.HTMLATTRIBUTEPAGE);
-		Source berlinSquads = createHTMLAttributePageSource(
-				"http://wiki.piratenpartei.de",
-				"/Vorlage:Berlin_Navigationsleiste_Squads", "name", "", "", "",
-				"address", "", "", "", "BE:Squads", AttributeMatcher.STARTS_WITH);
-		berlinSquads.setName("berliner Squads");
-		berlinSquads.setMeetingType(MeetingType.SQUAD);
-		berlinSquads.setSourceType(SourceType.HTMLLINKLIST);
+		Source berlinSquads = createBerlinSquadSource();
 		Source hessen = createHTMLTableSource("http://wiki.piratenpartei.de",
 				"/Vorlage:HE:Piratentreff/TabelleLandDaten", 1, 3, 4, 5, 0, 7, 8,
 				"smwtable");
@@ -78,6 +72,56 @@ public class CreateSources {
 		dataSource.addSource(niedersachsen);
 		dataSource.addSource(berlinCrews);
 		dataSource.addSource(berlinSquads);
+	}
+
+	private static Source createBerlinSquadSource() {
+		Source berlinSquads = new Source();
+		berlinSquads.setSourceType(SourceType.HTMLATTRIBUTEPAGE);
+		berlinSquads.setUrl("/Vorlage:Berlin_Navigationsleiste_Squads");
+		berlinSquads.setBase("http://wiki.piratenpartei.de");
+		berlinSquads
+				.setInformationTypes(Arrays
+						.asList(new SourceInformationIdentifier<?>[] {
+								new SourceInformationIdentifier<AttributeMatcher>(
+										SourceInformationIdentifierType.NAME, "attribute",
+										new AttributeMatcher("class", "name",
+												AttributeMatcher.EXACT_MATCH)),
+								new SourceInformationIdentifier<AttributeMatcher>(
+										SourceInformationIdentifierType.STREET, "",
+										new AttributeMatcher("class", "",
+												AttributeMatcher.EXACT_MATCH)),
+								new SourceInformationIdentifier<AttributeMatcher>(
+										SourceInformationIdentifierType.ZIP, "attribute",
+										new AttributeMatcher("class", "",
+												AttributeMatcher.EXACT_MATCH)),
+								new SourceInformationIdentifier<AttributeMatcher>(
+										SourceInformationIdentifierType.TOWN, "attribute",
+										new AttributeMatcher("class", "",
+												AttributeMatcher.EXACT_MATCH)),
+								new SourceInformationIdentifier<AttributeMatcher>(
+										SourceInformationIdentifierType.URL, "attribute",
+										new AttributeMatcher("class", "",
+												AttributeMatcher.EXACT_MATCH)),
+								new SourceInformationIdentifier<AttributeMatcher>(
+										SourceInformationIdentifierType.LON, "attribute",
+										new AttributeMatcher("class", "",
+												AttributeMatcher.EXACT_MATCH)),
+								new SourceInformationIdentifier<AttributeMatcher>(
+										SourceInformationIdentifierType.ADDRESS, "attribute",
+										new AttributeMatcher("class", "address",
+												AttributeMatcher.EXACT_MATCH)),
+								new SourceInformationIdentifier<AttributeMatcher>(
+										SourceInformationIdentifierType.LAT, "attribute",
+										new AttributeMatcher("class", "",
+												AttributeMatcher.EXACT_MATCH)),
+								new SourceInformationIdentifier<AttributeMatcher>(
+										SourceInformationIdentifierType.MEETING, "attribute",
+										new AttributeMatcher("title", "BE:Squads",
+												AttributeMatcher.STARTS_WITH)) }));
+		berlinSquads.setName("berliner Squads");
+		berlinSquads.setMeetingType(MeetingType.SQUAD);
+		berlinSquads.setSourceType(SourceType.HTMLLINKLIST);
+		return berlinSquads;
 	}
 
 	private static Source createHTMLAttributePageSource(String base, String url,

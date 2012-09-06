@@ -98,8 +98,10 @@ public class HTMLAttributeMeetingCollector extends AbstractHTMLMeetingCollector 
 		AttributeMatcher attributeMatcher = getAttributeMatcher(SourceInformationIdentifierType.URL);
 		if (attributeMatcher != null) {
 			TagNode node = getNodeWithAttribute(meeting, attributeMatcher);
-			TagNode link = (TagNode) node.getChildren().get(0);
-			return link.getAttributeByName("href");
+			if (node != null) {
+				TagNode link = (TagNode) node.getChildren().get(0);
+				return link.getAttributeByName("href");
+			}
 		}
 		return null;
 	}
