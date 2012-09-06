@@ -6,28 +6,23 @@ import org.htmlcleaner.TagNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import de.piratech.mapimap.data.MeetingFactory;
-import de.piratech.mapimap.service.Geocoder;
+import de.piratech.mapimap.data.source.SourceInformationIdentifierType;
 
 public class HTMLAttributeMeetingCollector extends AbstractHTMLMeetingCollector {
 
 	private static final Logger LOG = LoggerFactory
 			.getLogger(HTMLAttributeMeetingCollector.class);
 
-	public HTMLAttributeMeetingCollector(HTMLSource htmlsource,
-			Geocoder _geocoder, MeetingFactory<?> meetingFactory) {
-		super(htmlsource, _geocoder, meetingFactory);
-	}
-
 	@Override
 	protected List<TagNode> getMeetingTagNodes() {
 		return getNodesWithAttribute(getTagNode(),
-				this.htmlSource.getAttributeIdentifier(HTMLSource.MEETING_TAG));
+				this.htmlSource.getSourceInformationIdentifier(
+						SourceInformationIdentifierType.MEETING, AttributeMatcher.class));
 	}
 
 	@Override
 	protected String getLon(TagNode meeting) {
-		AttributeMatcher attributeMatcher = getAttributeMatcher(HTMLSource.LON_TAG);
+		AttributeMatcher attributeMatcher = getAttributeMatcher(SourceInformationIdentifierType.LON);
 		if (attributeMatcher != null) {
 			return getNodeValue(getNodeWithAttribute(meeting, attributeMatcher));
 		} else {
@@ -37,7 +32,7 @@ public class HTMLAttributeMeetingCollector extends AbstractHTMLMeetingCollector 
 
 	@Override
 	protected String getLat(TagNode meeting) {
-		AttributeMatcher attributeMatcher = getAttributeMatcher(HTMLSource.LAT_TAG);
+		AttributeMatcher attributeMatcher = getAttributeMatcher(SourceInformationIdentifierType.LAT);
 		if (attributeMatcher != null) {
 			return getNodeValue(getNodeWithAttribute(meeting, attributeMatcher));
 		} else {
@@ -47,7 +42,7 @@ public class HTMLAttributeMeetingCollector extends AbstractHTMLMeetingCollector 
 
 	@Override
 	protected String getRoad(TagNode meeting) {
-		AttributeMatcher attributeMatcher = getAttributeMatcher(HTMLSource.STREET_TAG);
+		AttributeMatcher attributeMatcher = getAttributeMatcher(SourceInformationIdentifierType.STREET);
 		if (attributeMatcher != null) {
 			return getNodeValue(getNodeWithAttribute(meeting, attributeMatcher));
 		} else {
@@ -57,7 +52,7 @@ public class HTMLAttributeMeetingCollector extends AbstractHTMLMeetingCollector 
 
 	@Override
 	protected String getZip(TagNode meeting) {
-		AttributeMatcher attributeMatcher = getAttributeMatcher(HTMLSource.ZIP_TAG);
+		AttributeMatcher attributeMatcher = getAttributeMatcher(SourceInformationIdentifierType.ZIP);
 		if (attributeMatcher != null) {
 			return getNodeValue(getNodeWithAttribute(meeting, attributeMatcher));
 		} else {
@@ -67,7 +62,7 @@ public class HTMLAttributeMeetingCollector extends AbstractHTMLMeetingCollector 
 
 	@Override
 	protected String getCity(TagNode meeting) {
-		AttributeMatcher attributeMatcher = getAttributeMatcher(HTMLSource.TOWN_TAG);
+		AttributeMatcher attributeMatcher = getAttributeMatcher(SourceInformationIdentifierType.TOWN);
 		if (attributeMatcher != null) {
 			return getNodeValue(getNodeWithAttribute(meeting, attributeMatcher));
 		} else {
@@ -77,7 +72,7 @@ public class HTMLAttributeMeetingCollector extends AbstractHTMLMeetingCollector 
 
 	@Override
 	protected String getAddress(TagNode meeting) {
-		AttributeMatcher attributeMatcher = getAttributeMatcher(HTMLSource.ADDRESS_TAG);
+		AttributeMatcher attributeMatcher = getAttributeMatcher(SourceInformationIdentifierType.ADDRESS);
 		if (attributeMatcher != null) {
 			return getNodeValue(getNodeWithAttribute(meeting, attributeMatcher));
 		} else {
@@ -86,22 +81,27 @@ public class HTMLAttributeMeetingCollector extends AbstractHTMLMeetingCollector 
 		}
 	}
 
-	private AttributeMatcher getAttributeMatcher(String attribute) {
-		return this.htmlSource.getAttributeIdentifier(attribute);
+	private AttributeMatcher getAttributeMatcher(
+			SourceInformationIdentifierType type) {
+		return this.htmlSource.getSourceInformationIdentifier(type,
+				AttributeMatcher.class);
 	}
 
 	@Override
 	protected String getName(TagNode meetingNode) {
 		return getNodeValue(getNodeWithAttribute(meetingNode,
-				getAttributeMatcher(HTMLSource.NAME_TAG)));
+				getAttributeMatcher(SourceInformationIdentifierType.NAME)));
 	}
 
 	@Override
 	protected String getURL(TagNode meeting) {
-		AttributeMatcher attributeMatcher = getAttributeMatcher(HTMLSource.URL_TAG);
+		AttributeMatcher attributeMatcher = getAttributeMatcher(SourceInformationIdentifierType.URL);
 		if (attributeMatcher != null) {
-			TagNode link = getNodeWithAttribute(meeting, attributeMatcher);
-			return link.getAttributeByName("href");
+			TagNode node = getNodeWithAttribute(meeting, attributeMatcher);
+			if (node != null) {
+				TagNode link = (TagNode) node.getChildren().get(0);
+				return link.getAttributeByName("href");
+			}
 		}
 		return null;
 	}

@@ -59,9 +59,9 @@ public abstract class Meeting {
 		this.locationData = locationData;
 	}
 
-	abstract public DataType getType();
+	abstract public MeetingType getType();
 
-	abstract public void setType(DataType type);
+	abstract public void setType(MeetingType type);
 
 	public String getCheckSum() {
 		if (StringUtils.isBlank(checkSum)) {

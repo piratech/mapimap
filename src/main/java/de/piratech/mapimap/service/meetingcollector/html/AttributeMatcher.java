@@ -20,6 +20,9 @@ public class AttributeMatcher {
 	private String attributeValue;
 	private int matchMode;
 
+	public AttributeMatcher() {
+	}
+
 	public AttributeMatcher(String attributeName, String attributeValue) {
 		this.attributeName = attributeName;
 		this.attributeValue = attributeValue;

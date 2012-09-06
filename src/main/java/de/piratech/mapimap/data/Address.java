@@ -24,6 +24,7 @@ public class Address {
 	private String country;
 	@JsonProperty("country_code")
 	private String countryCode;
+	private String pedestrian;
 
 	public String getHouseNumber() {
 		return houseNumber;
@@ -97,11 +98,19 @@ public class Address {
 		this.countryCode = countryCode;
 	}
 
+	public String getPedestrian() {
+		return pedestrian;
+	}
+
+	public void setPedestrian(String pedestrian) {
+		this.pedestrian = pedestrian;
+	}
+
 	public String toString() {
-		return "Address{house_number:" + houseNumber + ",road:" + road + ",suburb:"
-				+ suburb + ",cityDistrict:" + cityDistrict + ",state:" + state
-				+ ",postcode:" + postcode + ",country:" + country + ",countryCode:"
-				+ countryCode;
+		return "Address{house_number:" + houseNumber + ",road:" + road
+				+ ",pedestrian:" + pedestrian + ",suburb:" + suburb + ",cityDistrict:"
+				+ cityDistrict + ",state:" + state + ",postcode:" + postcode
+				+ ",country:" + country + ",countryCode:" + countryCode;
 	}
 
 	@JsonIgnore
@@ -112,7 +121,7 @@ public class Address {
 
 	@JsonIgnore
 	public String getAddressString() {
-		return this.road
+		return (StringUtils.isNotEmpty(this.road) ? this.road : this.pedestrian)
 				+ (StringUtils.isNotEmpty(this.houseNumber) ? " " + this.houseNumber
 						: "") + ", " + this.postcode + " " + this.city;
 	}

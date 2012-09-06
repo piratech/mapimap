@@ -3,14 +3,14 @@
  */
 package de.piratech.mapimap.service.meetingcollector.html;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.htmlcleaner.TagNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.piratech.mapimap.data.Meeting;
-import de.piratech.mapimap.data.MeetingFactory;
-import de.piratech.mapimap.service.Geocoder;
+import de.piratech.mapimap.data.MeetingList;
 
 /**
  * @author maria
@@ -18,27 +18,27 @@ import de.piratech.mapimap.service.Geocoder;
  */
 public class HTMLMeetingCollectorLinkList extends HTMLAttributeMeetingCollector {
 
-	private String base;
-
-	public HTMLMeetingCollectorLinkList(HTMLSource parameterObject,
-			Geocoder _geocoder, String _base, MeetingFactory<?> meetingFactory) {
-		super(parameterObject, _geocoder, meetingFactory);
-		this.base = _base;
-	}
+	private static final Logger LOG = LoggerFactory
+			.getLogger(HTMLMeetingCollectorLinkList.class);
 
 	@Override
 	public List<Meeting> getMeetings() {
 		List<TagNode> linkList = getMeetingTagNodes();
-		List<Meeting> meetings = new ArrayList<Meeting>();
+		MeetingList meetings = new MeetingList();
 		for (TagNode link : linkList) {
-			String href = this.base + link.getAttributeByName("href");
+			String href = this.htmlSource.getBase() + link.getAttributeByName("href");
 			Meeting meeting = getMeeting(getTagNode(href));
 			if (meeting != null) {
 				meeting.setWikiUrl(href);
-				meetings.add(meeting);
+				if (!meetings.add(meeting)) {
+					LOG.warn("meeting {} was not added to meeting list",
+							meeting.getName());
+				} else {
+					LOG.info("found meeting {} with address {}", meeting.getName(),
+							meeting.getLocationData().getAddress().getAddressString());
+				}
 			}
 		}
 		return meetings;
 	}
-
 }
