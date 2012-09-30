@@ -98,6 +98,12 @@
   </build>
   <name>Mapimap</name>
   <scm>
-  	<connection>scm:git:git://github.com/geirkairam/mapimap.git</connection>
+  	<connection>scm:git:git://github.com/piratech/mapimap.git</connection>
+  	<developerConnection>scm:git:git://github.com/geirkairam/mapimap.git</developerConnection>
+  	<url>https://github.com/piratech/mapimap</url>
   </scm>
+  <organization>
+  	<url>http://wiki.piratenpartei.de/BE:Squads/Piratech</url>
+  	<name>Piratech</name>
+  </organization>
 </project>
