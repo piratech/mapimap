@@ -98,4 +98,7 @@
     </plugins>
   </build>
   <name>Mapimap</name>
+  <scm>
+  	<connection>scm:git:git://github.com/geirkairam/mapimap.git</connection>
+  </scm>
 </project>
