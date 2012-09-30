@@ -40,10 +40,13 @@ public class UpdateMapData {
 	public static void main(final String[] _args) {
 		if (_args.length == 0 || (StringUtils.equals(_args[0], "help"))) {
 			System.out.println("Usage:");
-			System.out.println("java -jar yourfile.jar COMMAND your.properties");
+			System.out
+					.println("java -jar yourfile.jar COMMAND your.properties");
 			System.out.println("COMMANDS:");
 			System.out.println("updateDB: updates the DB");
 			System.out.println("deleteAll: deletes content");
+			System.out
+					.println("updateFromSource: updates the source defined by id in property file");
 			return;
 		}
 		try {
@@ -52,6 +55,8 @@ public class UpdateMapData {
 				updateDB(_args[1]);
 			} else if (task.equals("deleteAll")) {
 				deleteAll(_args[1]);
+			} else if (task.equals("updateFromSource")) {
+				updateFromSource(_args[1]);
 			} else {
 				LOG.error("task >{}< not supported", _args[0]);
 			}
@@ -60,21 +65,50 @@ public class UpdateMapData {
 		}
 	}
 
+	private static void updateFromSource(String _propertiesURI)
+			throws FileNotFoundException, IOException {
+		LOG.info("perform task update source...");
+		Properties properties = loadProperties(_propertiesURI);
+
+		Geocoder geocoder = new NominatimGeocoderImpl();
+		DataSource db = createDataSource(properties);
+		List<Source> sources = db.getSources();
+		LOG.info("found {} sources", sources.size());
+		for (Source source : sources) {
+			if (source.getId().equals(properties.get("update.this"))) {
+				LOG.info("start scraping for {} from {}", source.getName(),
+						source.getBase() + source.getUrl());
+				MeetingCollector collector = MeetingCollectorFactory
+						.getInstance(source, geocoder);
+				List<Meeting> meetings = collector.getMeetings();
+				LOG.info("found {} {}, try to add them to database...",
+						meetings.size(), source.getName());
+				if (!meetings.isEmpty()) {
+					DataSource dataSource = createDataSource(properties);
+					for (Meeting stammtisch : meetings) {
+						dataSource.addMeeting(stammtisch);
+					}
+				}
+			}
+		}
+		LOG.info("... update finished");
+	}
+
 	private static void deleteAll(String _propertiesURI)
 			throws FileNotFoundException, IOException {
 		LOG.info("perform task delete...");
 		Properties properties = loadProperties(_propertiesURI);
 		DataSource dataSource = createDataSource(properties);
 		for (Stammtisch crew : dataSource.getStammtische()) {
-			LOG.info("delete crew {}", crew.getName());
+			LOG.info("delete {}", crew.getName());
 			dataSource.delete(crew);
 		}
 		for (Crew crew : dataSource.getCrews()) {
-			LOG.info("delete crew {}", crew.getName());
+			LOG.info("delete {}", crew.getName());
 			dataSource.delete(crew);
 		}
 		for (Squad crew : dataSource.getSquads()) {
-			LOG.info("delete crew {}", crew.getName());
+			LOG.info("delete {}", crew.getName());
 			dataSource.delete(crew);
 		}
 	}
@@ -91,11 +125,11 @@ public class UpdateMapData {
 		for (Source source : sources) {
 			LOG.info("start scraping for {} from {}", source.getName(),
 					source.getBase() + source.getUrl());
-			MeetingCollector collector = MeetingCollectorFactory.getInstance(source,
-					geocoder);
+			MeetingCollector collector = MeetingCollectorFactory.getInstance(
+					source, geocoder);
 			List<Meeting> meetings = collector.getMeetings();
-			LOG.info("found {} {}, try to add them to database...", meetings.size(),
-					source.getName());
+			LOG.info("found {} {}, try to add them to database...",
+					meetings.size(), source.getName());
 			if (!meetings.isEmpty()) {
 				DataSource dataSource = createDataSource(properties);
 				for (Meeting stammtisch : meetings) {

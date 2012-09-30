@@ -72,7 +72,7 @@ public class CouchDBImpl implements DataSource {
 
 	public void updateCrew(final Crew _crew) {
 		// Update crew only if something has changed
-		Crew crewInDB = crewRepo.findByWikiUrl(_crew.getWikiUrl()).get(0);
+		Crew crewInDB = crewRepo.findForeignKey(_crew.getWikiUrl()).get(0);
 		if (!StringUtils.equals(crewInDB.getCheckSum(), _crew.getCheckSum())) {
 			LOG.info("updating crew  {}", _crew.getName());
 			crewRepo.update(_crew);
@@ -106,7 +106,7 @@ public class CouchDBImpl implements DataSource {
 
 	public void updateSquad(final Squad _crew) {
 		// Update crew only if something has changed
-		Squad crewInDB = squadRepo.findByWikiUrl(_crew.getWikiUrl()).get(0);
+		Squad crewInDB = squadRepo.findForeignKey(_crew.getWikiUrl()).get(0);
 		if (!StringUtils.equals(crewInDB.getCheckSum(), _crew.getCheckSum())) {
 			LOG.info("updating crew  {}", _crew.getName());
 			squadRepo.update(_crew);
@@ -135,7 +135,7 @@ public class CouchDBImpl implements DataSource {
 
 	public void updateStammtich(final Stammtisch _crew) {
 		// Update crew only if something has changed
-		Stammtisch crewInDB = stammtischRepo.findByWikiUrl(_crew.getWikiUrl()).get(
+		Stammtisch crewInDB = stammtischRepo.findByForeignKey(_crew.getWikiUrl()).get(
 				0);
 		if (!StringUtils.equals(crewInDB.getCheckSum(), _crew.getCheckSum())) {
 			LOG.info("updating stammtisch  {}", _crew.getName());

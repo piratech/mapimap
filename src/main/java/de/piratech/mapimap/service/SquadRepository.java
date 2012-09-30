@@ -26,7 +26,7 @@ public class SquadRepository extends CouchDbRepositorySupport<Squad> {
 	}
 
 	public boolean squadExists(final Squad _newCrew) {
-		List<Squad> existingCrews = findByWikiUrl(_newCrew.getWikiUrl());
+		List<Squad> existingCrews = findForeignKey(_newCrew.getForeignKey());
 		if (!existingCrews.isEmpty()) {
 			_newCrew.setId(existingCrews.get(0).getId());
 			_newCrew.setRevision(existingCrews.get(0).getRevision());
@@ -36,7 +36,7 @@ public class SquadRepository extends CouchDbRepositorySupport<Squad> {
 	}
 
 	@GenerateView
-	public List<Squad> findByWikiUrl(final String _url) {
-		return queryView("all", _url);
+	public List<Squad> findForeignKey(final String foreignKey) {
+		return queryView("all", foreignKey);
 	}
 }

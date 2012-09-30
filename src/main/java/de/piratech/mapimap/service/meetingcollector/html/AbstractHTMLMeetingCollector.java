@@ -191,6 +191,7 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 		Meeting meeting = meetingFactory.getInstance();
 		meeting.setName(getName(meetingNode));
 		meeting.setWikiUrl(this.htmlSource.getBase() + getURL(meetingNode));
+		meeting.setForeignKey(meeting.getWikiUrl());
 		LocationData locationData = getLocationData(meetingNode);
 		if (locationData != null) {
 			meeting.setLocationData(locationData);
