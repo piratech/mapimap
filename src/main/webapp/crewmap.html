@@ -20,12 +20,26 @@
 			.ready(
 					function() {
 						var parameters = getUrlVars();
-						var lonLat = createOSMLonLat(10.451526, 51.165691); //germany
+						var zoom = 7;
+						if (typeof parameters["zoom"] != "undefined") {
+							zoom = parameters["zoom"];
+						}
+
+						var lonLat = [{lon:10.451526, lat:51.165691}]; //germany
+						var address = parameters["address"];
+						if (typeof parameters["lon"] != "undefined"
+								&& typeof parameters["lat"] != "undefined") {
+							lonLat = createOSMLonLat(parameters["lon"],
+									parameters["lat"]);
+						} else {
+
+						}
+
 						new Mapimap({
 							tag : "map_canvas",
-							urlParameter : parameters,
-							defaultZoom : 7,
-							defaultLonLat : lonLat
+							defaultZoom : zoom,
+							defaultLonLat : lonLat,
+							defaultAddress : address
 						}).init();
 						var meetingFactory = new MeetingFactory(
 								mapimap.meetingLoaded);
@@ -69,15 +83,14 @@
 			<h1>i</h1>
 			<p class="thatFades">
 				maps.piratenpartei.de wird betrieben von<br> <br>Piratenpartei
-				Deutschland (PIRATEN)<br>
-				<a href="http://berlin.piratenpartei.de/" target="blank">Landesverband
+				Deutschland (PIRATEN)<br> <a
+					href="http://berlin.piratenpartei.de/" target="blank">Landesverband
 					Berlin</a><br> Pflugstra&szlig;e 9a<br> 10115 Berlin (Mitte)<br>
-				<br>
-				<a
+				<br> <a
 					href="http://wiki.piratenpartei.de/BE:Squads/Piratech/Projekte/Mapimap"
 					target="blank">Mapimap</a> basiert auf Daten und Kartenmaterial von
-				OpenStreetMap.<br>
-				<a href="http://wiki.openstreetmap.org/wiki/Donate" target="blank">Unterst&uuml;tzte
+				OpenStreetMap.<br> <a
+					href="http://wiki.openstreetmap.org/wiki/Donate" target="blank">Unterst&uuml;tzte
 					OpenStreetMap!</a>
 		</div>
 	</div>
