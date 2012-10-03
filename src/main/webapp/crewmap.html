@@ -6,17 +6,79 @@
 <link href="css/map.css" media="screen" type="text/css" rel="stylesheet">
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script type="text/javascript" src="OpenLayers/OpenLayers.js"></script>
+<script type="text/javascript"
+	src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script type="text/javascript"
+	src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
+<script type="text/javascript" src="js/meetingFactory.js"></script>
+<script type="text/javascript" src="js/osmUtils.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/map.js"></script>
+<script type="text/javascript" src="js/boxes.js"></script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						var parameters = getUrlVars();
+						var lonLat = createOSMLonLat(10.451526, 51.165691); //germany
+						new Mapimap({
+							tag : "map_canvas",
+							urlParameter : parameters,
+							defaultZoom : 7,
+							defaultLonLat : lonLat
+						}).init();
+						var meetingFactory = new MeetingFactory(
+								mapimap.meetingLoaded);
+
+						$.ajaxSetup({
+							scriptCharset : "utf-8",
+							contentType : "application/json; charset=utf-8"
+						});
+						$
+								.getJSON(
+										'http://piratech.iriscouch.com/mapimap/_design/Crew/_view/all?callback=?',
+										meetingFactory.createMeeting);
+
+						$
+								.getJSON(
+										'http://piratech.iriscouch.com/mapimap/_design/Squad/_view/all?callback=?',
+										meetingFactory.createMeeting);
+
+						$
+								.getJSON(
+										'http://piratech.iriscouch.com/mapimap/_design/Stammtisch/_view/all?callback=?',
+										meetingFactory.createMeeting);
+
+					});
+</script>
 </head>
 <body>
 	<div id="map_canvas"></div>
-	<div id="editLayer">
-		<h1 id="headline">Gibt es schon eine Crew in deiner N&auml;he?</h1>
-		<div id="editbox">
-			<label for="address">Adresse: </label><input name="address"
-				id="address" typpe="text"></input>
-			<button id="submitAddressButton">Karte zentrieren</button>
+	<div id="filtersContainer" class="layerContainer">
+		<div class="layer">
+			<h1>Gibt es schon eine Crew in deiner N&auml;he?</h1>
+			<div class="thatFades">
+				<label for="address">Adresse: </label><input name="address"
+					id="address" typpe="text"></input>
+				<button id="submitAddressButton">Karte zentrieren</button>
+			</div>
+		</div>
+	</div>
+	<div id="infoContainer" class="layerContainer">
+		<div class="layer">
+			<h1>i</h1>
+			<p class="thatFades">
+				maps.piratenpartei.de wird betrieben von<br> <br>Piratenpartei
+				Deutschland (PIRATEN)<br>
+				<a href="http://berlin.piratenpartei.de/" target="blank">Landesverband
+					Berlin</a><br> Pflugstra&szlig;e 9a<br> 10115 Berlin (Mitte)<br>
+				<br>
+				<a
+					href="http://wiki.piratenpartei.de/BE:Squads/Piratech/Projekte/Mapimap"
+					target="blank">Mapimap</a> basiert auf Daten und Kartenmaterial von
+				OpenStreetMap.<br>
+				<a href="http://wiki.openstreetmap.org/wiki/Donate" target="blank">Unterst&uuml;tzte
+					OpenStreetMap!</a>
 		</div>
 	</div>
 </body>
