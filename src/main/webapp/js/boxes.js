@@ -9,10 +9,8 @@ $(document).ready(function() {
 	});
 	
 	$("#submitAddressButton").click(function() {
-		var address = {
-			address : $("#address").val()
-		};
-		currentZoom = 15;
-		geolocate(address, centerMap);
+		var address = $("#address").val();
+		mapimap.currentZoom = 15;
+		geolocate(address, mapimap.centerMap);
 	});
 });
