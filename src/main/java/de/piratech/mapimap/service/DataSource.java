@@ -44,4 +44,6 @@ public interface DataSource {
 	public void delete(Source source);
 
 	public void addMeeting(Meeting stammtisch);
+
+	public void deleteBySource(Source source);
 }
