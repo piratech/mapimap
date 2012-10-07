@@ -85,7 +85,11 @@ public class UpdateMapData {
 						meetings.size(), source.getName());
 				if (!meetings.isEmpty()) {
 					DataSource dataSource = createDataSource(properties);
+					if (source.isDeleteBeforeUpdate()) {
+						dataSource.deleteBySource(source);
+					}
 					for (Meeting stammtisch : meetings) {
+						stammtisch.setSourceId(source.getId());
 						dataSource.addMeeting(stammtisch);
 					}
 				}
@@ -132,7 +136,11 @@ public class UpdateMapData {
 					meetings.size(), source.getName());
 			if (!meetings.isEmpty()) {
 				DataSource dataSource = createDataSource(properties);
+				if (source.isDeleteBeforeUpdate()) {
+					dataSource.deleteBySource(source);
+				}
 				for (Meeting stammtisch : meetings) {
+					stammtisch.setSourceId(source.getId());
 					dataSource.addMeeting(stammtisch);
 				}
 			}

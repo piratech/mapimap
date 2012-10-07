@@ -6,8 +6,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public abstract class Meeting {
 
-
-	// @todo: deveth0@geirkairam: propably a map-url would be useful for external
+	// @todo: deveth0@geirkairam: propably a map-url would be useful for
+	// external
 	// apps
 	@JsonProperty("_id")
 	private String id;
@@ -18,6 +18,7 @@ public abstract class Meeting {
 	private LocationData locationData;
 	private String checkSum;
 	private String foreignKey;
+	private String sourceId;
 
 	public String getId() {
 		return id;
@@ -67,7 +68,8 @@ public abstract class Meeting {
 	public String getCheckSum() {
 		if (StringUtils.isBlank(checkSum)) {
 			checkSum = DigestUtils.md5Hex(getName() + getWikiUrl()
-					+ getLocationData().toString() + getType().toString());
+					+ getLocationData().toString() + getType().toString()
+					+ getSourceId());
 		}
 		return checkSum;
 	}
@@ -82,5 +84,13 @@ public abstract class Meeting {
 
 	public void setForeignKey(String foreignKey) {
 		this.foreignKey = foreignKey;
+	}
+
+	public void setSourceId(String sourceId) {
+		this.sourceId = sourceId;
+	}
+
+	public String getSourceId() {
+		return this.sourceId;
 	}
 }

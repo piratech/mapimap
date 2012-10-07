@@ -37,6 +37,7 @@ public class Source {
 	private MeetingType meetingType;
 	private List<SourceInformationIdentifier<?>> sourceInformationIdentifiers;
 	private String type = "SOURCE";
+	private boolean deleteBeforeUpdate;
 
 	private String checkSum;
 
@@ -173,5 +174,13 @@ public class Source {
 			}
 		}
 		return null;
+	}
+
+	public boolean isDeleteBeforeUpdate() {
+		return deleteBeforeUpdate;
+	}
+
+	public void setDeleteBeforeUpdate(boolean deleteBeforeUpdate) {
+		this.deleteBeforeUpdate = deleteBeforeUpdate;
 	}
 }

@@ -12,8 +12,8 @@ Array.prototype.getmeetingsWithPosition = function(position) {
 function Mapimap(data) {
 	this.tag = data.tag;
 	this.defaultLonLat = data.defaultLonLat;
+	this.defaultAddress = data.defaultAddress;
 	this.currentZoom = data.defaultZoom;
-	this.urlParameter = data.urlParameter;
 	this.map;
 	this.meetingLayer;
 	this.meetings;
@@ -26,21 +26,10 @@ function Mapimap(data) {
 		this.meetingLayer = new OpenLayers.Layer.Markers("Meetings");
 		this.map.addLayer(osmLayer);
 		this.map.addLayer(this.meetingLayer);
-		if (typeof this.urlParameter["zoom"] != "undefined") {
-			this.currentZoom = this.urlParameter["zoom"];
-		}
-
-		if (typeof this.urlParameter["lon"] != "undefined"
-				&& typeof urlParameter["lat"] != "undefined") {
-			map.setCenter(createOSMLonLat(this.urlParameter["lon"],
-					urlParameter["lat"]), this.currentZoom);
+		if (typeof this.defaultAddress != "undefined") {
+			return geolocate(this.defaultAddress, this.centerMap);
 		} else {
-			var address = this.urlParameter["address"];
-			if (typeof address != "undefined") {
-				return geolocate(address, this.centerMap);
-			} else {
-				this.map.setCenter(this.defaultLonLat, this.currentZoom);
-			}
+			this.centerMap(this.defaultLonLat);
 		}
 	};
 
@@ -66,6 +55,7 @@ function Mapimap(data) {
 	};
 
 	this.centerMap = function(locationData) {
-		mapimap.map.setCenter(createOSMLonLat( locationData[0].lon, locationData[0].lat), mapimap.currentZoom);
+		mapimap.map.setCenter(createOSMLonLat(locationData[0].lon,
+				locationData[0].lat), mapimap.currentZoom);
 	}
 }

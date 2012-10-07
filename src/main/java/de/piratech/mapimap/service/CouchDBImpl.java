@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import de.piratech.mapimap.data.Crew;
 import de.piratech.mapimap.data.Meeting;
+import de.piratech.mapimap.data.MeetingType;
 import de.piratech.mapimap.data.Squad;
 import de.piratech.mapimap.data.Stammtisch;
 import de.piratech.mapimap.data.source.Source;
@@ -27,7 +28,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class CouchDBImpl implements DataSource {
 
-	private static final Logger LOG = LoggerFactory.getLogger(CouchDBImpl.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(CouchDBImpl.class);
 	private CrewsRepository crewRepo;
 	private SquadRepository squadRepo;
 	private StammtischRepository stammtischRepo;
@@ -42,8 +44,8 @@ public class CouchDBImpl implements DataSource {
 					.url(_url).username(_userName).password(_password).build();
 			StdCouchDbInstance couchDbInstance = new StdCouchDbInstance(
 					authenticatedHttpClient);
-			CouchDbConnector couchDbConnector = couchDbInstance.createConnector(
-					_database, false);
+			CouchDbConnector couchDbConnector = couchDbInstance
+					.createConnector(_database, false);
 			crewRepo = new CrewsRepository(Crew.class, couchDbConnector);
 			squadRepo = new SquadRepository(Squad.class, couchDbConnector);
 			stammtischRepo = new StammtischRepository(Stammtisch.class,
@@ -135,8 +137,8 @@ public class CouchDBImpl implements DataSource {
 
 	public void updateStammtich(final Stammtisch _crew) {
 		// Update crew only if something has changed
-		Stammtisch crewInDB = stammtischRepo.findByForeignKey(_crew.getWikiUrl()).get(
-				0);
+		Stammtisch crewInDB = stammtischRepo.findByForeignKey(
+				_crew.getWikiUrl()).get(0);
 		if (!StringUtils.equals(crewInDB.getCheckSum(), _crew.getCheckSum())) {
 			LOG.info("updating stammtisch  {}", _crew.getName());
 			stammtischRepo.update(_crew);
@@ -179,6 +181,18 @@ public class CouchDBImpl implements DataSource {
 			addSquad((Squad) meeting);
 		} else {
 			LOG.error("meeting type {} not handled", meeting.getClass());
+		}
+	}
+
+	@Override
+	public void deleteBySource(Source source) {
+		MeetingType meetingType = source.getMeetingType();
+		if (meetingType.equals(MeetingType.STAMMTISCH)) {
+			List<Stammtisch> stammtishe = stammtischRepo.getBySourceId(source
+					.getId());
+			for (Stammtisch stammtisch : stammtishe) {
+				stammtischRepo.remove(stammtisch);
+			}
 		}
 	}
 

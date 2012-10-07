@@ -29,4 +29,8 @@ public class StammtischRepository extends CouchDbRepositorySupport<Stammtisch> {
 		return queryView("all", foreignKey);
 	}
 
+	public List<Stammtisch> getBySourceId(String sourceId) {
+		return queryView("bySourceId", sourceId);
+	}
+
 }
