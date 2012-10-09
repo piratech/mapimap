@@ -68,10 +68,12 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 			Meeting meeting = getMeeting(meetingNode);
 			if (meeting != null) {
 				if (!meetings.add(meeting)) {
-					LOG.warn("meeting >{}< not added to meeting list", meeting.getName());
+					LOG.warn("meeting >{}< not added to meeting list",
+							meeting.getName());
 				} else {
-					LOG.info("found meeting {} with address {}", meeting.getName(),
-							meeting.getLocationData().getAddress().getAddressString());
+					LOG.info("found meeting {} with address {}",
+							meeting.getName(), meeting.getLocationData()
+									.getAddress().getAddressString());
 				}
 			}
 		}
@@ -118,7 +120,8 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 		} else {
 			try {
 				LocationData locationData = geocoder.getLocationData(
-						Float.parseFloat(latColumn), Float.parseFloat(lonColumn));
+						Float.parseFloat(latColumn),
+						Float.parseFloat(lonColumn));
 				if (StringUtils.isEmpty(locationData.getAddress().getRoad())) {
 					// sometimes streets are not returned
 					String streetString = getRoad(meeting);
@@ -150,7 +153,8 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 		HttpResponse response;
 		try {
 			response = client.execute(get);
-			// very old look for something newer (cannot use org.w3c.dom.Document
+			// very old look for something newer (cannot use
+			// org.w3c.dom.Document
 			// because wiki sends invalid HTML and DomSerializer returns null)
 			HtmlCleaner cleaner = new HtmlCleaner();
 			TagNode tagNode = cleaner.clean(response.getEntity().getContent(),
@@ -190,8 +194,14 @@ public abstract class AbstractHTMLMeetingCollector implements MeetingCollector {
 	protected Meeting getMeeting(TagNode meetingNode) {
 		Meeting meeting = meetingFactory.getInstance();
 		meeting.setName(getName(meetingNode));
-		meeting.setWikiUrl(this.htmlSource.getBase() + getURL(meetingNode));
+		String url = getURL(meetingNode);
+		if (StringUtils.isNotEmpty(url) && !url.startsWith("http")) {
+			meeting.setWikiUrl(this.htmlSource.getBase() + url);
+		} else {
+			meeting.setWikiUrl(url);
+		}
 		meeting.setForeignKey(meeting.getWikiUrl());
+
 		LocationData locationData = getLocationData(meetingNode);
 		if (locationData != null) {
 			meeting.setLocationData(locationData);

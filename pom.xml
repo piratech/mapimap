@@ -1,9 +1,8 @@
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.piratech</groupId>
   <artifactId>mapimap</artifactId>
-  <version>0.0.10-SNAPSHOT</version>
+  <version>0.0.12-SNAPSHOT</version>
   <url>https://github.com/piratech/mapimap</url>
 
   <dependencies>
@@ -33,15 +32,15 @@
       <version>3.1</version>
     </dependency>
     <dependency>
-    	<groupId>junit</groupId>
-    	<artifactId>junit</artifactId>
-    	<version>4.10</version>
-    	<scope>test</scope>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.10</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-    	<groupId>ical4j</groupId>
-    	<artifactId>ical4j</artifactId>
-    	<version>0.9.20</version>
+      <groupId>ical4j</groupId>
+      <artifactId>ical4j</artifactId>
+      <version>0.9.20</version>
     </dependency>
   </dependencies>
   <properties>
@@ -98,12 +97,12 @@
   </build>
   <name>Mapimap</name>
   <scm>
-  	<connection>scm:git:git://github.com/piratech/mapimap.git</connection>
-  	<developerConnection>scm:git:git://github.com/geirkairam/mapimap.git</developerConnection>
-  	<url>https://github.com/piratech/mapimap</url>
+    <connection>scm:git:git://github.com/piratech/mapimap.git</connection>
+    <developerConnection>scm:git:git://github.com/geirkairam/mapimap.git</developerConnection>
+    <url>https://github.com/piratech/mapimap</url>
   </scm>
   <organization>
-  	<url>http://wiki.piratenpartei.de/BE:Squads/Piratech</url>
-  	<name>Piratech</name>
+    <url>http://wiki.piratenpartei.de/BE:Squads/Piratech</url>
+    <name>Piratech</name>
   </organization>
 </project>
